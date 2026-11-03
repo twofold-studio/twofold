@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useLayoutEffect, useState } from "react";
 import { useOverlay } from "@/lib/overlay-context";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -165,10 +165,10 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
   }, [project]);
 
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const handleEscape = (e: KeyboardEvent) => project && e.key === "Escape" && onClose();
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [onClose]);
+  }, [onClose, project]);
 
   return (
     <AnimatePresence>
@@ -385,16 +385,37 @@ export function Projects() {
   const { setIsOverlayOpen } = useOverlay();
   const coarse = useCoarsePointer();
 
+  const activeProject = useRef<string | null>(null);
+
+  useEffect(() => {
+    const syncHistory = () => {
+      const slug = window.history.state?.twofoldProject;
+      const project = work.find((item) => item.slug === slug) ?? null;
+      activeProject.current = project?.slug ?? null;
+      setSelectedProject(project);
+      setIsOverlayOpen(Boolean(project));
+    };
+    window.addEventListener("popstate", syncHistory);
+    syncHistory();
+    return () => window.removeEventListener("popstate", syncHistory);
+  }, [setIsOverlayOpen]);
+
   const handleProjectClick = (project: Work) => {
+    if (activeProject.current) return;
+    activeProject.current = project.slug;
+    window.history.pushState({ ...window.history.state, twofoldProject: project.slug }, "");
     setIsCursorVisible(false);
     setSelectedProject(project);
     setIsOverlayOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
+    if (!activeProject.current) return;
+    activeProject.current = null;
     setSelectedProject(null);
     setIsOverlayOpen(false);
-  };
+    if (window.history.state?.twofoldProject) window.history.back();
+  }, [setIsOverlayOpen]);
 
   return (
     <section id="projects" className="projects relative bg-background py-24" aria-label="Selected work">
