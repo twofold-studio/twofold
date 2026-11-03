@@ -206,7 +206,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   pointer-events: none;
-  animation: entry-fail-open 0.5s ease 4s forwards;
+  animation: entry-fail-open 0.7s ease 4s forwards;
+  transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.75s;
 }
 .site-entry-brand {
   display: grid;
@@ -215,13 +216,40 @@ body {
   font-size: 0.9rem;
   letter-spacing: 0.14em;
 }
-.site-entry-mark { width: 4.5rem; height: 4.5rem; overflow: visible; }
+.site-entry-emblem {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 8rem;
+  height: 8rem;
+}
+.site-entry-mark { width: 4rem; height: 4rem; overflow: visible; }
+.site-entry-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  fill: none;
+  stroke-width: 0.8;
+}
+.site-entry-ring-track { stroke: var(--foreground); opacity: 0.1; }
+.site-entry-ring-progress {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
 .site-entry-upper { animation: entry-fold-upper 1.6s ease-in-out infinite; }
 .site-entry-lower { animation: entry-fold-lower 1.6s ease-in-out infinite; }
 [data-site-entered="true"] .site-entry {
-  animation: entry-fail-open 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  visibility: hidden;
 }
-[data-site-entered="true"] .site-entry-brand { opacity: 0; transition: opacity 0.25s ease; }
+[data-site-entered="true"] .site-entry-brand {
+  opacity: 0;
+  transform: translateY(-6px) scale(0.96);
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
 @keyframes entry-fail-open { to { opacity: 0; visibility: hidden; } }
 @keyframes entry-fold-upper {
   0%, 100% { transform: translate(0, 0); }
