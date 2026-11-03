@@ -9,7 +9,6 @@ const socialLinks = [
 const navLinks = [
   { label: "Work", href: "#projects" },
   { label: "Services", href: "#services" },
-  { label: "Bench", href: "#lab" },
   { label: "Team", href: "#about" },
   { label: "Questions", href: "#faq" },
 ];

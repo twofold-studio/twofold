@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useOverlay } from "@/lib/overlay-context";
+import { HeaderMark } from "@/components/header-mark";
 import { studio } from "@/lib/content";
 
 const sections = [
   { id: "hero", label: "Home" },
   { id: "projects", label: "Work" },
   { id: "services", label: "Services" },
-  { id: "lab", label: "Bench" },
   { id: "about", label: "Team" },
   { id: "social-proof", label: "Results" },
   { id: "faq", label: "Questions" },
@@ -20,7 +20,6 @@ const menuItems = [
   { label: "Home", href: "#" },
   { label: "Work", href: "#projects" },
   { label: "Services", href: "#services-menu" },
-  { label: "Bench", href: "#lab" },
   { label: "Team", href: "#about" },
   { label: "Results", href: "#social-proof" },
   { label: "Questions", href: "#faq" },
@@ -93,7 +92,7 @@ export function Header() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span aria-hidden="true" className="mr-2 inline-flex h-2.5 w-2.5 rounded-full bg-[#d4a95c]" />
+          <HeaderMark className="mr-2 h-5 w-5 sm:mr-2.5 sm:h-6 sm:w-6" />
           {studio.name}
         </motion.a>
 

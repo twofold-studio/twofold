@@ -12,7 +12,7 @@ npm run build   # production build
 
 ## Editing
 
-All copy lives in `lib/content.ts`: the studio name and email, the case studies, the bench list, services, founders and FAQ. The studio name ("Twofold") is a working name; change `studio.name` and it updates everywhere.
+All copy lives in `lib/content.ts`: the studio name and email, the case studies, services, founders and FAQ. The studio name ("Twofold") is a working name; change `studio.name` and it updates everywhere.
 
 Images are in `public/work/<project>/` and `public/team/`. Case-study screenshots are 16:10.
 

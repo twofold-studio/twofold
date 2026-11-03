@@ -3,7 +3,6 @@ import { Faq } from "@/components/faq";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
-import { Lab } from "@/components/lab";
 import { Projects } from "@/components/projects";
 import { Services } from "@/components/services";
 import { SocialProof } from "@/components/social-proof";
@@ -27,7 +26,6 @@ export default function HomePage(): ReactNode {
         <Hero />
         <Projects />
         <Services />
-        <Lab />
         <About />
         <SocialProof />
         <Faq />

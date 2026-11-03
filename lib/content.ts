@@ -172,60 +172,6 @@ export const work: Work[] = [
   },
 ];
 
-export interface LabItem {
-  name: string;
-  line: string;
-  stack: string;
-  who: "Plamen" | "Vilian" | "Both";
-  href: string;
-}
-
-/** Smaller builds, coursework and experiments. */
-export const lab: LabItem[] = [
-  {
-    name: "Meridian Medical Center",
-    line: "A hospital portal built for a thesis on secure sign-in: email confirmation, password policy, account lockout, two-factor, magic links and role-based access for patients, doctors and admins.",
-    stack: "Next.js · Prisma · PostgreSQL · Resend · Turnstile",
-    who: "Plamen",
-    href: "https://github.com/PlamenErmenkov/thesis-project",
-  },
-  {
-    name: "Desktop monorepo",
-    line: "A cross-platform desktop app in one Turborepo: Tauri and Rust for the shell, Next.js for the interface, and a shared shadcn/ui package.",
-    stack: "Tauri · Rust · Next.js · Nix",
-    who: "Both",
-    href: "https://github.com/PlamenErmenkov/mc-project",
-  },
-  {
-    name: "Invoices dashboard",
-    line: "Revenue, pending and collected payments, invoices and customers behind a database-backed login.",
-    stack: "Next.js · PostgreSQL · Auth",
-    who: "Plamen",
-    href: "https://github.com/PlamenErmenkov/nextjs-dashboard",
-  },
-  {
-    name: "Hospital workflow",
-    line: "Three processes pass patients between registry, chief doctor and “underworld” over System V message queues.",
-    stack: "C · IPC",
-    who: "Plamen",
-    href: "https://github.com/PlamenErmenkov/ipc-hospital-app",
-  },
-  {
-    name: "Hotel reservations",
-    line: "A multithreaded client-server app over sockets that books, checks and cancels rooms without double-booking.",
-    stack: "Java · Sockets · Threads",
-    who: "Plamen",
-    href: "https://github.com/PlamenErmenkov/hotel-reservations",
-  },
-  {
-    name: "Weather app",
-    line: "A Swing desktop client for the Open-Meteo API: temperature, humidity and wind for any place you type.",
-    stack: "Java · Swing",
-    who: "Plamen",
-    href: "https://github.com/PlamenErmenkov/weather-app",
-  },
-];
-
 export interface Service {
   title: string;
   proof: string;
@@ -236,7 +182,7 @@ export const services: Service[] = [
   { title: "Catalogues and online shops", proof: "Bukinistika · Helios" },
   { title: "Sales tools in 3D", proof: "Arkada · Three.js" },
   { title: "Sign-in, accounts and payments", proof: "Meridian · 3-D Secure" },
-  { title: "Hosting and upkeep", proof: "Our own servers" },
+  { title: "Hosting and upkeep", proof: "Best hosting, lowest cost" },
 ];
 
 export interface Founder {
@@ -298,7 +244,7 @@ export const faqs = [
   {
     question: "What happens after launch?",
     answer:
-      "We can host the site on our own servers and keep it updated, or hand it over to you with the code and the deploy setup. Either way you own the code.",
+      "We can host it for you on the best, cheapest hosting that fits the project and keep it updated, or hand it over to you with the code and the deploy setup. Either way you own the code.",
   },
   {
     question: "How do we start?",
