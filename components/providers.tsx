@@ -1,5 +1,6 @@
 "use client";
 
+import { SiteEntry } from "@/components/site-entry";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ReducedMotionProvider } from "@/lib/motion";
 import { OverlayProvider } from "@/lib/overlay-context";
@@ -16,7 +17,7 @@ export function Providers({ children }: { children: ReactNode }): ReactNode {
     >
       <ReducedMotionProvider>
         <OverlayProvider>
-          <SmoothScroll>{children}</SmoothScroll>
+          <SiteEntry><SmoothScroll>{children}</SmoothScroll></SiteEntry>
         </OverlayProvider>
       </ReducedMotionProvider>
     </ThemeProvider>

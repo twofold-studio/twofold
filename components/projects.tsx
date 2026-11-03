@@ -14,7 +14,7 @@ import {
   useAnimationFrame,
   AnimatePresence,
 } from "motion/react";
-import { WaterRipple } from "./water-ripple";
+import { ProjectCover } from "./project-cover";
 import { work, type Work } from "@/lib/content";
 
 if (typeof window !== "undefined") {
@@ -348,7 +348,7 @@ function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Wo
               className="absolute inset-0 h-full w-full"
               style={{ willChange: "transform", transformStyle: "preserve-3d", backfaceVisibility: "hidden", transform: "scale(1.06)" }}
             >
-              <WaterRipple src={project.cover} maskRadius={maskRadius} active={hovered || coarse} />
+              <ProjectCover src={project.cover} maskRadius={maskRadius} active={hovered || coarse} />
             </div>
           </div>
           <div className={`flex flex-col md:w-2/5 ${isEven ? "" : "md:items-end md:text-right"}`}>

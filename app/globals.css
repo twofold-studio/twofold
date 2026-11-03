@@ -194,3 +194,59 @@ body {
   background: var(--accent);
   color: var(--background);
 }
+
+/* This tiny, server-rendered entrance works while the JS chunks load. The
+   independent CSS deadline also uncovers the page if hydration never finishes. */
+.site-entry {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--background);
+  color: var(--foreground);
+  pointer-events: none;
+  animation: entry-fail-open 0.5s ease 4s forwards;
+}
+.site-entry-brand {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+}
+.site-entry-mark { width: 4.5rem; height: 4.5rem; overflow: visible; }
+.site-entry-upper { animation: entry-fold-upper 1.6s ease-in-out infinite; }
+.site-entry-lower { animation: entry-fold-lower 1.6s ease-in-out infinite; }
+[data-site-entered="true"] .site-entry {
+  animation: entry-fail-open 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+[data-site-entered="true"] .site-entry-brand { opacity: 0; transition: opacity 0.25s ease; }
+@keyframes entry-fail-open { to { opacity: 0; visibility: hidden; } }
+@keyframes entry-fold-upper {
+  0%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(16px, -16px); }
+}
+@keyframes entry-fold-lower {
+  0%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(-16px, 16px); }
+}
+.hero-backdrop {
+  background: radial-gradient(ellipse at 65% 40%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 65%);
+}
+[data-site-entered="true"] .hero-line {
+  animation: hero-line-enter 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+[data-site-entered="true"] h1 > span:nth-child(2) .hero-line { animation-delay: 0.1s; }
+[data-site-entered="true"] h1 > span:nth-child(3) .hero-line { animation-delay: 0.2s; }
+[data-site-entered="true"] .hero-copy,
+[data-site-entered="true"] .hero-scroll {
+  animation: hero-copy-enter 0.9s ease 0.3s both;
+}
+@keyframes hero-line-enter { from { opacity: 0; transform: translateY(75%); } }
+@keyframes hero-copy-enter { from { opacity: 0; transform: translateY(12px); } }
+[data-site-entered="false"] .hero-mark { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .site-entry { display: none; }
+  .hero-line, .hero-copy, .hero-scroll { animation: none !important; }
+}

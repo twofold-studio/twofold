@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useSiteEntry } from "./site-entry";
 import { useId } from "react";
 import { MARK_LOWER_FOLD, MARK_UPPER_FOLD, MARK_VIEWBOX } from "@/lib/brand";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function HeroMark({ className = "" }: { className?: string }) {
+  const { entered } = useSiteEntry();
   const shadeId = `${useId()}-shade`;
 
   return (
@@ -20,7 +22,7 @@ export function HeroMark({ className = "" }: { className?: string }) {
       <motion.div
         className="hero-mark-part hero-mark-scrim absolute -inset-[40%]"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: entered ? 1 : 0 }}
         transition={{ duration: 1.4, ease: "easeOut", delay: 0.4 }}
       />
 
@@ -29,7 +31,7 @@ export function HeroMark({ className = "" }: { className?: string }) {
         <motion.div
           className="hero-mark-part absolute inset-0"
           initial={{ opacity: 0, x: "-7%", y: "7%" }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
+          animate={entered ? { opacity: 1, x: 0, y: 0 } : { opacity: 0 }}
           transition={{ duration: 1.6, ease: EASE, delay: 0.75 }}
         >
           <svg
@@ -58,7 +60,7 @@ export function HeroMark({ className = "" }: { className?: string }) {
         <motion.div
           className="hero-mark-part absolute inset-0"
           initial={{ opacity: 0, x: "7%", y: "-7%" }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
+          animate={entered ? { opacity: 1, x: 0, y: 0 } : { opacity: 0 }}
           transition={{ duration: 1.6, ease: EASE, delay: 0.6 }}
         >
           <svg

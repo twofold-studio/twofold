@@ -91,7 +91,15 @@ function createBrushTexture(): THREE.Texture {
   return tex;
 }
 
-function WaterRippleScene({ src, maskRadius, active }: { src: string; maskRadius: number; active: boolean }) {
+function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; maskRadius: number; active: boolean; onReady: () => void }) {
+  const readyRef = useRef(false);
+  const frameRef = useRef(0);
+  useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
+  const handleRendered = () => {
+    if (readyRef.current) return;
+    readyRef.current = true;
+    frameRef.current = requestAnimationFrame(onReady);
+  };
   const { size, gl } = useThree();
   const mainMaterialRef = useRef<THREE.ShaderMaterial>(null);
   const imageTexture = useTexture(src);
@@ -247,7 +255,7 @@ function WaterRippleScene({ src, maskRadius, active }: { src: string; maskRadius
   useEffect(() => () => { brushTexture.dispose(); }, [brushTexture]);
 
   return (
-    <mesh>
+    <mesh onAfterRender={handleRendered}>
       <planeGeometry args={[2, 2]} />
       <shaderMaterial
         ref={mainMaterialRef}
@@ -262,7 +270,7 @@ function WaterRippleScene({ src, maskRadius, active }: { src: string; maskRadius
 
 const emptySubscribe = () => () => {};
 
-export function WaterRipple({ src, maskRadius, active = false }: { src: string; maskRadius: number; active?: boolean }) {
+export function WaterRipple({ src, maskRadius, active = false, onReady }: { src: string; maskRadius: number; active?: boolean; onReady: () => void }) {
   const isMounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
@@ -276,12 +284,12 @@ export function WaterRipple({ src, maskRadius, active = false }: { src: string; 
     >
       {isMounted && (
         <Canvas
-          dpr={[1, 2]}
+          dpr={[1, 1.5]}
           gl={{ antialias: false, alpha: true, powerPreference: "high-performance", stencil: false, depth: false }}
           style={{ width: "100%", height: "100%" }}
           frameloop="always"
         >
-          <WaterRippleScene src={src} maskRadius={maskRadius} active={active} />
+          <WaterRippleScene src={src} maskRadius={maskRadius} active={active} onReady={onReady} />
           <EffectComposer multisampling={0}>
             <Bloom intensity={0.35} luminanceThreshold={0.65} luminanceSmoothing={0.8} mipmapBlur levels={3} />
           </EffectComposer>
