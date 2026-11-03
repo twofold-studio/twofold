@@ -52,6 +52,38 @@ html.dark {
   }
 }
 
+/* Hero mark: after the folds land, a slow drift. */
+.hero-mark {
+  animation: hero-mark-drift 11s ease-in-out 2.6s infinite;
+}
+
+.dark .hero-mark {
+  filter: drop-shadow(0 0 2.5rem rgb(233 228 213 / 0.18));
+}
+
+@keyframes hero-mark-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -0.6rem, 0) rotate(-0.6deg);
+  }
+}
+
+/* Reduced motion: show the finished mark, no entrance, no drift. Motion
+   writes inline styles, so the overrides need !important. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-mark {
+    animation: none;
+  }
+
+  .hero-mark-part {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);

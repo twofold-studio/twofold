@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { HeroMark } from "@/components/hero-mark";
 import { studio } from "@/lib/content";
 
 const fragmentShader = `
@@ -306,52 +307,58 @@ export function Hero({ startColors, endColors }: HeroProps = {}) {
       </div>
 
       <div className="relative z-10 mx-auto flex h-full max-w-360 flex-col justify-start pt-44 px-6 text-left sm:px-12 sm:pt-48 md:justify-center md:pt-0 lg:px-24 2xl:max-w-450 3xl:max-w-550" style={{ perspective: "1200px" }}>
-        <h1 className="text-[clamp(3rem,8vw,12rem)] leading-[1.05] tracking-tight text-foreground">
-          <span className="block overflow-hidden pb-[0.1em]">
-            <motion.span
-              className="block"
-              initial={{ y: "120%", rotateX: -90, z: -200, opacity: 0 }}
-              animate={{ y: 0, rotateX: 0, z: 0, opacity: 1 }}
-              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-              style={{ transformOrigin: "center bottom", transformStyle: "preserve-3d" }}
-            >
-              Two engineers.
-            </motion.span>
-          </span>
-          <span className="block overflow-hidden pb-[0.1em]">
-            <motion.span
-              className="block"
-              initial={{ y: "120%", rotateX: -90, z: -200, opacity: 0 }}
-              animate={{ y: 0, rotateX: 0, z: 0, opacity: 1 }}
-              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
-              style={{ transformOrigin: "center bottom", transformStyle: "preserve-3d" }}
-            >
-              Software that does
-            </motion.span>
-          </span>
-          <span className="block overflow-hidden pb-[0.1em]">
-            <motion.span
-              className="block"
-              initial={{ y: "120%", rotateX: -90, z: -200, opacity: 0 }}
-              animate={{ y: 0, rotateX: 0, z: 0, opacity: 1 }}
-              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}
-              style={{ transformOrigin: "center bottom", transformStyle: "preserve-3d" }}
-            >
-              <em className="font-serif font-normal">the actual work.</em>
-            </motion.span>
-          </span>
-        </h1>
+        <div className="relative">
+          <h1 className="text-[clamp(3rem,8vw,12rem)] leading-[1.05] tracking-tight text-foreground">
+            <span className="block overflow-hidden pb-[0.1em]">
+              <motion.span
+                className="block"
+                initial={{ y: "120%", rotateX: -90, z: -200, opacity: 0 }}
+                animate={{ y: 0, rotateX: 0, z: 0, opacity: 1 }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+                style={{ transformOrigin: "center bottom", transformStyle: "preserve-3d" }}
+              >
+                Two engineers.
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden pb-[0.1em]">
+              <motion.span
+                className="block"
+                initial={{ y: "120%", rotateX: -90, z: -200, opacity: 0 }}
+                animate={{ y: 0, rotateX: 0, z: 0, opacity: 1 }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+                style={{ transformOrigin: "center bottom", transformStyle: "preserve-3d" }}
+              >
+                Software that does
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden pb-[0.1em]">
+              <motion.span
+                className="block"
+                initial={{ y: "120%", rotateX: -90, z: -200, opacity: 0 }}
+                animate={{ y: 0, rotateX: 0, z: 0, opacity: 1 }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}
+                style={{ transformOrigin: "center bottom", transformStyle: "preserve-3d" }}
+              >
+                <em className="font-serif font-normal">the actual work.</em>
+              </motion.span>
+            </span>
+          </h1>
 
-        <motion.p
-          className="mt-8 max-w-md text-[clamp(1.125rem,1.5vw,1.75rem)] leading-relaxed text-foreground/80 lg:max-w-lg 2xl:max-w-xl"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: [0.25, 1, 0.5, 1], delay: 1.2 }}
-        >
-          {studio.name} is a two-person studio in Sofia. We replace PDF price
-          lists, spreadsheet catalogues and 2012 websites with software people
-          can use.
-        </motion.p>
+          <motion.p
+            className="mt-8 max-w-md text-[clamp(1.125rem,1.5vw,1.75rem)] leading-relaxed text-foreground/80 lg:max-w-lg 2xl:max-w-xl"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: [0.25, 1, 0.5, 1], delay: 1.2 }}
+          >
+            {studio.name} is a two-person studio in Sofia. We replace PDF price
+            lists, spreadsheet catalogues and 2012 websites with software people
+            can use.
+          </motion.p>
+
+          {/* Below the copy on small screens; on md+ it sits beside the last
+              heading line (each line is 1.15em tall, so line 3 starts at 2.3em). */}
+          <HeroMark className="mt-10 w-[clamp(6.5rem,30vw,9rem)] md:absolute md:top-[calc(2.3*clamp(3rem,8vw,12rem))] md:right-0 md:mt-0 md:w-[min(22vw,36vh,28rem)]" />
+        </div>
       </div>
 
       <motion.div
