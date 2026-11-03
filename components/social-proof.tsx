@@ -1,212 +1,190 @@
 "use client";
-import { useI18n } from "./i18n-provider";
 
+import { ArrowUpRight, Check, MessageCircle, MousePointer2, Sparkles } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
+import { useReducedMotion } from "@/lib/motion";
+import { useI18n } from "./i18n-provider";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
-function ArrowIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M7 17L17 7M17 7H7M17 7V17"
-      />
-    </svg>
-  );
-}
-
-function QuoteIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
-    </svg>
-  );
-}
-
+// The Agency template's bento, adapted from results to our delivery process.
 export function SocialProof() {
   const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!sectionRef.current) return;
-
+    if (!sectionRef.current || reducedMotion) return;
     const ctx = gsap.context(() => {
-      // Header animation
       gsap.fromTo(
-        headerRef.current,
-        { y: 40, opacity: 0 },
+        "[data-process-reveal]",
+        { y: 35, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1,
+          duration: 0.8,
+          stagger: 0.08,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-            end: "top 50%",
-            scrub: 1,
-          },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true },
         },
       );
-
-      const cards = gridRef.current?.children;
-      if (cards) {
-        gsap.fromTo(
-          cards,
-          { y: 80, opacity: 0, scale: 0.95 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: "top 80%",
-              end: "top 40%",
-              scrub: 1,
-            },
-          },
-        );
-      }
     }, sectionRef);
-
     return () => ctx.revert();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <section
       ref={sectionRef}
       id="social-proof"
+      aria-labelledby="process-heading"
       className="social-proof bg-background py-24 lg:py-32"
     >
-      <div className="px-6 sm:px-12 lg:px-24 max-w-360 2xl:max-w-450 3xl:max-w-550 mx-auto">
-        <div ref={headerRef} className="flex items-center justify-between gap-6 mb-12 lg:mb-16">
-          <h2 className="text-3xl lg:text-5xl font-medium tracking-tight text-foreground">
-            {t.resultHeading}
-          </h2>
+      <div className="mx-auto max-w-360 px-6 sm:px-12 lg:px-24 2xl:max-w-450 3xl:max-w-550">
+        <div
+          data-process-reveal
+          className="mb-12 flex flex-wrap items-end justify-between gap-6 lg:mb-16"
+        >
+          <div>
+            <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
+              {t.results}
+            </p>
+            <h2
+              id="process-heading"
+              className="max-w-3xl text-[clamp(2.25rem,4.5vw,4.5rem)] font-medium leading-[1.08] tracking-tight text-foreground"
+            >
+              {t.processBefore}{" "}
+              <span className="font-serif font-normal italic text-accent">{t.processEmphasis}</span>
+            </h2>
+          </div>
           <a
             href="#contact"
-            className="focus-ring hidden sm:inline-flex items-center justify-center px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-opacity hover:opacity-80"
+            className="focus-ring inline-flex items-center gap-3 rounded-full border border-foreground/20 px-5 py-3 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
           >
-            {t.workWithUs}
+            {t.startProject}
+            <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </div>
 
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:grid-rows-[minmax(220px,auto)_minmax(220px,auto)_minmax(180px,auto)]"
-        >
-          <div className="row-span-2 grid min-h-130 grid-rows-2 gap-4 md:min-h-0">
-            <div className="relative w-full overflow-hidden rounded-2xl">
-              <img
-                src="/work/helios/phones.webp"
-                alt={t.heliosAlt}
-                loading="lazy"
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            </div>
-            <div className="relative w-full overflow-hidden rounded-full">
-              <img
-                src="/work/arkada/phones.webp"
-                alt={t.arkadaAlt}
-                loading="lazy"
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="lg:col-span-2 row-span-2 bg-muted/60 rounded-2xl p-8 flex flex-col">
-            <div>
-              <QuoteIcon className="w-10 h-10 text-accent/60 mb-6" />
-              <blockquote className="text-2xl lg:text-3xl font-medium leading-snug text-foreground">
-                {t.heliosResult}
-              </blockquote>
-              <div className="mt-6">
-                <p className="font-semibold text-foreground">{t.heliosFullName}</p>
-                <p className="text-sm text-foreground/60">{t.heliosSubtitle}</p>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[minmax(220px,auto)_minmax(220px,auto)_minmax(220px,auto)]">
+          <div
+            data-process-reveal
+            className="group relative hidden overflow-hidden rounded-2xl bg-muted/60 md:row-span-2 md:block"
+          >
+            <div className="absolute inset-0 grid grid-rows-2 gap-3 p-3 pb-18">
+              <div className="overflow-hidden rounded-xl">
+                <img
+                  src="/work/helios/phones.webp"
+                  alt={t.heliosAlt}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="overflow-hidden rounded-xl">
+                <img
+                  src="/work/arkada/phones.webp"
+                  alt={t.arkadaAlt}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
             </div>
-            <div className="flex items-center justify-between mt-auto pt-8">
-              <span className="font-serif text-2xl italic text-foreground">helios</span>
-              <a
-                href="https://helios.fractal-tess.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t.openHelios}
-                className="focus-ring w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
-              >
-                <ArrowIcon className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-
-          <div className="bg-muted/60 rounded-2xl p-6 flex flex-col">
-            <div className="flex-1">
-              <p className="text-4xl font-semibold tracking-tight text-foreground">
-                {t.remedyCount}
-              </p>
-              <p className="text-sm text-foreground/60 mt-1">{t.remediesResult}</p>
-            </div>
-            <p className="mt-auto pt-4 text-sm font-medium text-foreground">{t.heliosName}</p>
-          </div>
-
-          <div className="bg-muted/60 rounded-2xl p-6 flex flex-col">
-            <div className="flex-1">
-              <p className="text-4xl font-semibold tracking-tight text-foreground">9</p>
-              <p className="text-sm text-foreground/60 mt-1">{t.designsResult}</p>
-            </div>
-            <div className="flex items-center justify-between mt-auto pt-4">
-              <span className="text-sm font-medium text-foreground">{t.arkadaName}</span>
-              <a
-                href="https://arkadia.fractal-tess.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t.openArkada}
-                className="focus-ring w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
-              >
-                <ArrowIcon className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-
-          <div className="bg-muted/60 rounded-2xl p-8 flex flex-col">
-            <div className="flex-1">
-              <p className="text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
-                {t.bookCount}
-              </p>
-              <p className="text-foreground/60 mt-2">{t.booksResult}</p>
-            </div>
-            <p className="mt-auto pt-6 text-sm font-medium text-foreground">{t.bukinistikaName}</p>
-          </div>
-
-          <div className="lg:col-span-3 bg-accent text-background rounded-2xl p-8 flex flex-col">
-            <p className="text-xl lg:text-2xl font-medium leading-relaxed max-w-3xl flex-1">
-              {t.awards}
+            <p className="absolute inset-x-0 bottom-0 px-6 py-5 text-sm font-medium text-foreground">
+              {t.processScreens}
             </p>
-            <div className="flex items-center justify-between mt-auto pt-6">
-              <span className="text-lg font-semibold">Schwarz · AmCham 2.0 · AmCham 3.0</span>
-              <a
-                href="#about"
-                aria-label={t.meetTeam}
-                className="focus-ring w-10 h-10 rounded-full bg-background/15 flex items-center justify-center hover:bg-background hover:text-accent transition-colors"
-              >
-                <ArrowIcon className="w-4 h-4" />
-              </a>
+          </div>
+
+          <div
+            data-process-reveal
+            className="flex flex-col rounded-2xl bg-muted/60 p-7 md:row-span-2 lg:col-span-2 sm:p-9"
+          >
+            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+              {t.processFirstVersion}
+            </p>
+            <p className="mt-6 font-serif text-[clamp(7rem,13vw,12rem)] leading-none tracking-tight text-accent">
+              1–2
+            </p>
+            <p className="mt-2 text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+              {t.processBusinessDays}
+            </p>
+            <p className="mt-6 mb-8 max-w-lg text-lg leading-relaxed text-muted-foreground">
+              {t.processSpeedCopy}
+            </p>
+            <div className="mt-auto flex items-center gap-3 border-t border-foreground/10 pt-6 text-sm text-foreground/80">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+              {t.processHandsOn}
             </div>
           </div>
+
+          <article data-process-reveal className="flex flex-col rounded-2xl bg-muted/60 p-7">
+            <div className="mb-7 flex items-center justify-between text-accent">
+              <span className="text-sm font-medium">01</span>
+              <MessageCircle size={23} strokeWidth={1.5} aria-hidden="true" />
+            </div>
+            <h3 className="text-xl font-medium tracking-tight text-foreground">
+              {t.processIdeaTitle}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              {t.processIdeaCopy}
+            </p>
+          </article>
+
+          <article data-process-reveal className="flex flex-col rounded-2xl bg-muted/60 p-7">
+            <div className="mb-7 flex items-center justify-between text-accent">
+              <span className="text-sm font-medium">02</span>
+              <MousePointer2 size={23} strokeWidth={1.5} aria-hidden="true" />
+            </div>
+            <h3 className="text-xl font-medium tracking-tight text-foreground">
+              {t.processTryTitle}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t.processTryCopy}</p>
+          </article>
+
+          <article
+            data-process-reveal
+            className="flex flex-col rounded-2xl bg-muted/60 p-7 md:col-span-2 lg:col-span-1"
+          >
+            <div className="mb-7 flex items-center justify-between text-accent">
+              <span className="text-sm font-medium">03</span>
+              <Sparkles size={23} strokeWidth={1.5} aria-hidden="true" />
+            </div>
+            <h3 className="text-xl font-medium tracking-tight text-foreground">
+              {t.processRefineTitle}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              {t.processRefineCopy}
+            </p>
+          </article>
+
+          <article
+            data-process-reveal
+            className="flex flex-col rounded-2xl bg-accent p-7 text-background md:col-span-2 lg:col-span-3 sm:p-9"
+          >
+            <div className="mb-6 flex items-center justify-between">
+              <span className="text-sm font-medium">04</span>
+              <Check size={25} strokeWidth={1.5} aria-hidden="true" />
+            </div>
+            <h3 className="text-2xl font-medium tracking-tight sm:text-3xl">
+              {t.processLaunchTitle}
+            </h3>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed opacity-85">
+              {t.processLaunchCopy}
+            </p>
+            <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
+              {[
+                t.processCheckMobile,
+                t.processCheckSpeed,
+                t.processCheckFlows,
+                t.processCheckDetails,
+              ].map((label) => (
+                <li key={label} className="inline-flex items-center gap-2">
+                  <Check size={15} aria-hidden="true" />
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </article>
         </div>
       </div>
     </section>
