@@ -5,6 +5,7 @@
  * - Arkada, Helios and Bukinistika copy and screenshots come from
  *   Vilian's portfolio (Gitadel: fractal-tess/portfolio-v2, lib/portfolio-data.ts).
  * - Plamen's projects come from github.com/PlamenErmenkov (README files).
+ * - vAIced copy and screenshots come from Gitadel: fractal-tess/vaiced (README, assets/screenshots).
  */
 
 export const studio = {
@@ -145,6 +146,37 @@ export const work: Work[] = [
         src: "/work/bukinistika/admin.webp",
         caption:
           "The owner's book list: about 5,000 copies, searchable by condition, language, publisher and category.",
+      },
+    ],
+  },
+  {
+    slug: "vaiced",
+    name: "vAIced",
+    kicker: "stories, spoken",
+    kind: "Our own product · Vilian & Plamen",
+    summary:
+      "Our own product, built together: web novels turned into audiobooks, with a different voice for every character.",
+    story: [
+      "vAIced is a product the two of us are building together. It reads a chapter of a web novel, works out who says each line, gives every character their own AI voice and turns the chapter into an audiobook you can play in the browser.",
+      "The first finished chapter, from Mother of Learning, has 461 lines across 9 scenes, with seven characters and a narrator. The player highlights each line as it is read, colours it by speaker and shows a picture for every scene. The public site, with a waiting list, is live at vaiced.com.",
+    ],
+    features: ["A voice for every character", "Story player", "Website and waiting list"],
+    builtBy: "Vilian Gerdzhikov & Plamen Ermenkov, together",
+    link: { label: "vaiced.com", href: "https://vaiced.com" },
+    cover: "/work/vaiced/hero.webp",
+    images: [
+      {
+        src: "/work/vaiced/hero.webp",
+        caption:
+          "The story player on chapter 1 of Mother of Learning: the scenes, the cast and every line coloured by who is speaking.",
+      },
+      {
+        src: "/work/vaiced/player.webp",
+        caption: "Every line tagged with who is speaking, and the current one highlighted as it plays.",
+      },
+      {
+        src: "/work/vaiced/website.webp",
+        caption: "The vaiced.com landing page, with a sample player.",
       },
     ],
   },
