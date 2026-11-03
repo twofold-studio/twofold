@@ -3,7 +3,6 @@
 import { useRef, useEffect, useMemo, useSyncExternalStore } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
 const MAX_RIPPLES = 30;
@@ -28,7 +27,7 @@ const vertexShader = `
 const fragmentShader = `
   uniform sampler2D uTexture, uDisplacement;
   uniform vec2 uResolution, uTextureSize, uMaskCenter;
-  uniform float uMaskRadius, uTime, uDuo;
+  uniform float uMaskRadius, uTime;
   varying vec2 vUv;
   const float PI = 3.141592653589793238;
 
@@ -51,20 +50,11 @@ const fragmentShader = `
     return (uv * uResolution - offset) / (texSize * scale);
   }
 
-  vec3 applyDuotone(vec3 c) {
-    c = clamp((c - 0.5) * 1.2 + 0.5, 0.0, 1.0);
-    float lum = pow(dot(c, vec3(0.299, 0.587, 0.114)), 0.9);
-    vec3 shadow = vec3(0.03, 0.07, 0.05), highlight = vec3(0.95, 0.88, 0.74);
-    vec3 duo = mix(shadow, highlight, smoothstep(0.0, 1.0, lum));
-    return clamp(duo, 0.0, 1.0);
-  }
-
   void main() {
     vec4 disp = texture2D(uDisplacement, vUv);
     float theta = disp.r * 2.0 * PI;
     vec2 finalUv = getCoverUV(vUv, uTextureSize) + vec2(sin(theta), cos(theta)) * disp.r * 0.05;
-    vec3 raw = texture2D(uTexture, finalUv).rgb;
-    vec3 color = mix(raw, applyDuotone(raw), uDuo);
+    vec3 color = texture2D(uTexture, finalUv).rgb;
     
     vec2 px = vUv * uResolution;
     float dist = distance(px, uMaskCenter * uResolution);
@@ -91,7 +81,15 @@ function createBrushTexture(): THREE.Texture {
   return tex;
 }
 
-function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; maskRadius: number; active: boolean; onReady: () => void }) {
+// Match the browser's ordinary image colors through the shader pipeline.
+function configureImageTexture(texture: THREE.Texture) {
+  if (texture.colorSpace !== THREE.SRGBColorSpace) {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.needsUpdate = true;
+  }
+}
+
+function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadius: number; onReady: () => void }) {
   const readyRef = useRef(false);
   const frameRef = useRef(0);
   useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
@@ -102,7 +100,7 @@ function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; m
   };
   const { size, gl } = useThree();
   const mainMaterialRef = useRef<THREE.ShaderMaterial>(null);
-  const imageTexture = useTexture(src);
+  const imageTexture = useTexture(src, configureImageTexture);
   const brushTexture = useMemo(createBrushTexture, []);
 
   const fboRef = useRef<THREE.WebGLRenderTarget | null>(null);
@@ -116,7 +114,6 @@ function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; m
   const imageTextureRef = useRef(imageTexture);
   const sizeRef = useRef(size);
   const maskRadiusRef = useRef(maskRadius);
-  const activeRef = useRef(active);
 
   useEffect(() => {
     if (initializedRef.current) return;
@@ -194,7 +191,6 @@ function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; m
   useEffect(() => { imageTextureRef.current = imageTexture; }, [imageTexture]);
   useEffect(() => { sizeRef.current = size; }, [size]);
   useEffect(() => { maskRadiusRef.current = maskRadius; }, [maskRadius]);
-  useEffect(() => { activeRef.current = active; }, [active]);
 
   const uniforms = useMemo(
     () => ({
@@ -205,7 +201,6 @@ function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; m
       uMaskRadius: { value: 0 },
       uMaskCenter: { value: new THREE.Vector2(0.5, 0.5) },
       uTime: { value: 0 },
-      uDuo: { value: active ? 0 : 0.9 },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -244,10 +239,6 @@ function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; m
       if (u.uTextureSize && img?.width && img?.height) u.uTextureSize.value.set(img.width, img.height);
       if (u.uMaskRadius) u.uMaskRadius.value = maskRadiusRef.current;
       if (u.uTime) u.uTime.value = timeRef.current;
-      if (u.uDuo) {
-        const target = activeRef.current ? 0 : 0.9;
-        u.uDuo.value += (target - u.uDuo.value) * Math.min(1, delta * 5);
-      }
     }
     gl.setRenderTarget(prev);
   });
@@ -270,7 +261,7 @@ function WaterRippleScene({ src, maskRadius, active, onReady }: { src: string; m
 
 const emptySubscribe = () => () => {};
 
-export function WaterRipple({ src, maskRadius, active = false, onReady }: { src: string; maskRadius: number; active?: boolean; onReady: () => void }) {
+export function WaterRipple({ src, maskRadius, onReady }: { src: string; maskRadius: number; onReady: () => void }) {
   const isMounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
@@ -289,10 +280,7 @@ export function WaterRipple({ src, maskRadius, active = false, onReady }: { src:
           style={{ width: "100%", height: "100%" }}
           frameloop="always"
         >
-          <WaterRippleScene src={src} maskRadius={maskRadius} active={active} onReady={onReady} />
-          <EffectComposer multisampling={0}>
-            <Bloom intensity={0.35} luminanceThreshold={0.65} luminanceSmoothing={0.8} mipmapBlur levels={3} />
-          </EffectComposer>
+          <WaterRippleScene src={src} maskRadius={maskRadius} onReady={onReady} />
         </Canvas>
       )}
     </div>

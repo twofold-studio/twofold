@@ -272,7 +272,7 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
   );
 }
 
-function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Work; index: number; onHover: (isHovering: boolean) => void; onClick: () => void; coarse: boolean }) {
+function ProjectItem({ project, index, onHover, onClick }: { project: Work; index: number; onHover: (isHovering: boolean) => void; onClick: () => void }) {
   const { t } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
@@ -280,7 +280,6 @@ function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Wo
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLDivElement>(null);
   const [maskRadius, setMaskRadius] = useState(0);
-  const [hovered, setHovered] = useState(false);
   const isEven = index % 2 === 0;
 
   const xTo = useRef<gsap.QuickToFunc | null>(null);
@@ -303,8 +302,8 @@ function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Wo
     yTo.current(-y * 24);
   };
 
-  const handleMouseEnter = () => { onHover(true); setHovered(true); scaleTo.current?.(1.1); };
-  const handleMouseLeave = () => { onHover(false); setHovered(false); xTo.current?.(0); yTo.current?.(0); scaleTo.current?.(1.06); };
+  const handleMouseEnter = () => { onHover(true); scaleTo.current?.(1.1); };
+  const handleMouseLeave = () => { onHover(false); xTo.current?.(0); yTo.current?.(0); scaleTo.current?.(1.06); };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -352,7 +351,7 @@ function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Wo
               className="absolute inset-0 h-full w-full"
               style={{ willChange: "transform", transformStyle: "preserve-3d", backfaceVisibility: "hidden", transform: "scale(1.06)" }}
             >
-              <ProjectCover src={project.cover} maskRadius={maskRadius} active={hovered || coarse} />
+              <ProjectCover src={project.cover} maskRadius={maskRadius} />
             </div>
           </div>
           <div className={`flex flex-col md:w-2/5 ${isEven ? "" : "md:items-end md:text-right"}`}>
@@ -439,7 +438,6 @@ export function Projects() {
             key={project.slug}
             project={project}
             index={index}
-            coarse={coarse}
             onHover={setIsCursorVisible}
             onClick={() => handleProjectClick(project)}
           />

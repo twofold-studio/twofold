@@ -13,11 +13,9 @@ const WaterRipple = dynamic(
 export function ProjectCover({
   src,
   maskRadius,
-  active,
 }: {
   src: string;
   maskRadius: number;
-  active: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const { entered } = useSiteEntry();
@@ -55,7 +53,6 @@ export function ProjectCover({
         loading="lazy"
         decoding="async"
         className="h-full w-full object-cover"
-        style={{ filter: active ? undefined : "sepia(0.4) saturate(0.65)" }}
       />
       {visible && (
         <div
@@ -66,7 +63,6 @@ export function ProjectCover({
             <WaterRipple
               src={src}
               maskRadius={maskRadius}
-              active={active}
               onReady={reportReady}
             />
           </EffectBoundary>
