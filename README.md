@@ -19,5 +19,5 @@ Images are in `public/work/<project>/` and `public/team/`. Case-study screenshot
 ## Sources
 
 - Arkada, Helios and Bukinistika copy and screenshots: Vilian's portfolio, `fractal-tess/portfolio-v2` on Gitadel.
-- Plamen's projects: READMEs at github.com/PlamenErmenkov. The 3-D Secure screenshot was captured from that repository's demo page.
+- Plamen's projects: READMEs at github.com/PlamenErmenkov.
 - Portraits: `portfolio-v2/public/portrait.webp` and Plamen's GitHub avatar.

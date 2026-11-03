@@ -180,29 +180,6 @@ export const work: Work[] = [
       },
     ],
   },
-  {
-    slug: "3ds2",
-    name: "3-D Secure",
-    kicker: "checkout flow",
-    kind: "Payments · teaching demo",
-    summary:
-      "A checkout that shows how online card payments decide when to ask for an extra check: low-risk orders go straight through, riskier ones ask for a one-time code.",
-    story: [
-      "A demo of 3-D Secure, the extra safety step banks use for online card payments. The shop rates each order for risk as you go.",
-      "Low-risk payments go through without interruption; riskier ones ask the buyer for a one-time code. Every step appears on screen as it happens, so you can see exactly how the decision is made.",
-    ],
-    features: ["Secure card checkout", "Interactive demo"],
-    builtBy: "Plamen Ermenkov",
-    link: { label: "GitHub", href: "https://github.com/PlamenErmenkov/3ds2-project" },
-    cover: "/work/plamen/3ds2.webp",
-    images: [
-      {
-        src: "/work/plamen/3ds2.webp",
-        caption:
-          "The demo shop: each product is marked low or high risk, which decides whether the payment goes straight through or asks for a one-time code.",
-      },
-    ],
-  },
 ];
 
 export interface Service {
@@ -214,7 +191,7 @@ export const services: Service[] = [
   { title: "Websites you can edit yourself", proof: "Helios · Arkada" },
   { title: "Catalogues and online shops", proof: "Bukinistika · Helios" },
   { title: "Sales tools in 3D", proof: "Arkada" },
-  { title: "Customer accounts and secure payments", proof: "3-D Secure demo" },
+  { title: "Customer accounts and secure payments", proof: "Secure sign-in · card checkout" },
   { title: "Hosting and upkeep", proof: "Best hosting, lowest cost" },
 ];
 
