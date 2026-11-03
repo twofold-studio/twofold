@@ -4,7 +4,7 @@
 <p align="center"><img src="assets/screenshots/hero.webp" alt="The studio home page and Arkada case study" width="100%" /></p>
 <p align="center">The portfolio of Vilian Gerdzhikov and Plamen Ermenkov.</p>
 
-A small studio site showing our projects, capabilities and team. Built with React and Vite+, with server-rendered Bulgarian and English pages and optional WebGL effects on project images.
+A small studio site showing our projects, capabilities and team. Built with React and Vite+, with server-rendered Bulgarian and English pages and optional WebGL effects in the hero and project images.
 
 ```sh
 vp install

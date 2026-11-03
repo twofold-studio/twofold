@@ -29,8 +29,8 @@ export const en = {
   contact: "Contact",
   heroEyebrow: "Design & development",
   teamIntro: "The people you work with.",
-  heroOne: "Software for",
-  heroTwo: "web, mobile & desktop.",
+  heroOne: "Two engineers.",
+  heroTwo: "Software that does",
   heroThree: "the actual work.",
   heroCopy:
     "Websites, apps, backend services and integrations. Designed, built and maintained by our two-person team.",
@@ -120,8 +120,8 @@ export const bg: Dictionary = {
   contact: "Контакт",
   heroEyebrow: "Дизайн и разработка",
   teamIntro: "Хората, с които работите.",
-  heroOne: "Софтуер за",
-  heroTwo: "уеб, телефон и компютър.",
+  heroOne: "Двама инженери.",
+  heroTwo: "Софтуер, който",
   heroThree: "върши работа.",
   heroCopy:
     "Сайтове, приложения, сървърни услуги и интеграции. Дизайн, разработка и поддръжка от нашия екип от двама души.",

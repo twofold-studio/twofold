@@ -17,8 +17,8 @@ await expectRedirect({ "Accept-Language": "bg-BG", Cookie: "lang=en" }, "/en");
 await expectRedirect({ "Accept-Language": "en-US", Cookie: "lang=bg" }, "/bg");
 await expectRedirect({ "Accept-Language": "bg-BG", Cookie: "lang=invalid" }, "/bg");
 for (const [locale, heading, caseTitle] of [
-  ["bg", "Софтуер за", "Букинистика"],
-  ["en", "Software for", "Bukinistika"],
+  ["bg", "Двама инженери.", "Букинистика"],
+  ["en", "Two engineers.", "Bukinistika"],
 ]) {
   const response = await fetch(`${base}/${locale}`, {
     headers: { "Accept-Language": locale === "bg" ? "en-US" : "bg-BG" },

@@ -8,7 +8,8 @@ import { About } from "@/components/about";
 import { Footer } from "@/components/footer";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SkipToContent } from "@/components/skip-to-content";
-import { ProjectProvider } from "@/components/project-provider";
+import { Faq } from "@/components/faq";
+import { SocialProof } from "@/components/social-proof";
 import { en, bg } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -17,18 +18,20 @@ export function App({ locale }: { locale: Locale }) {
   return (
     <I18nProvider locale={locale}>
       <Providers>
-        <ProjectProvider>
+        <>
           <SkipToContent label={t.skip} />
           <Header />
           <ThemeSwitch />
-          <main id="main-content">
+          <main id="main-content" className="bg-background flex-1 lg:relative lg:z-10">
             <Hero />
             <Projects />
             <Services />
             <About />
+            <SocialProof />
+            <Faq />
           </main>
           <Footer />
-        </ProjectProvider>
+        </>
       </Providers>
     </I18nProvider>
   );

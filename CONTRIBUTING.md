@@ -19,7 +19,7 @@ Set `BASE_URL` for the integration check, for example `BASE_URL=http://localhost
 - `src/app.tsx`: page sections; `src/styles.css`: styling.
 - `lib/content.ts`: English project and team copy; `lib/i18n/content.ts`: Bulgarian copy.
 - `lib/i18n/dictionaries.ts`: UI labels and capabilities in both languages.
-- `components/site-entry.tsx`: loading/reveal coordination; `components/project-provider.tsx`: dialog history.
+- `components/site-entry.tsx`: loading/reveal coordination; `components/projects.tsx`: project details and dialog history.
 - `server/locales.mjs`: shared browser-language and cookie negotiation.
 
 Vite's build hook creates `/en/index.html` and `/bg/index.html` through `scripts/prerender.mjs`. Each includes translated content, metadata and language alternatives before JavaScript runs. The small production server serves these pages and static assets, redirects `/` according to the saved preference or browser language, and returns 404 for unsupported paths.
