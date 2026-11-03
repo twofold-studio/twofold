@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><title>Twofold cover</title
+  ><style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      width: 1600px;
+      height: 1000px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 55% 30%, #23403366, transparent 65%),
+        radial-gradient(#d4a95c15 1px, transparent 1px), #0b0d0c;
+      background-size:
+        auto,
+        22px 22px,
+        auto;
+    }
+    .window {
+      position: absolute;
+      border: 1px solid #ffffff20;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 35px 100px #000a;
+      background: #0b0d0c;
+    }
+    .bar {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #161c18;
+      color: #919a93;
+      font: 11px monospace;
+    }
+    .dots {
+      position: absolute;
+      left: 14px;
+      color: #64746a;
+      letter-spacing: 3px;
+    }
+    img {
+      display: block;
+      width: 100%;
+    }
+    .home {
+      left: 65px;
+      top: 65px;
+      width: 1280px;
+      transform: rotate(-2deg);
+    }
+    .project {
+      right: 55px;
+      bottom: 40px;
+      width: 780px;
+      transform: rotate(3deg);
+    }
+  </style>
+  <div class="window home">
+    <div class="bar"><span class="dots">●●●</span>twofold.fractal-tess.xyz/en</div>
+    <img src="shots/home.png" alt="Twofold home page" />
+  </div>
+  <div class="window project">
+    <div class="bar"><span class="dots">●●●</span>Twofold / Arkada</div>
+    <img src="shots/project.png" alt="Arkada case study" />
+  </div>
+</html>

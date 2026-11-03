@@ -14,7 +14,10 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-const RANDOM_ROTATIONS = Array.from({ length: MAX_RIPPLES }, (_, i) => seededRandom(i + 1) * Math.PI * 2);
+const RANDOM_ROTATIONS = Array.from(
+  { length: MAX_RIPPLES },
+  (_, i) => seededRandom(i + 1) * Math.PI * 2,
+);
 
 const vertexShader = `
   varying vec2 vUv;
@@ -67,7 +70,10 @@ const fragmentShader = `
 `;
 
 function createBrushTexture(): THREE.Texture {
-  const canvas = Object.assign(document.createElement("canvas"), { width: 128, height: 128 });
+  const canvas = Object.assign(document.createElement("canvas"), {
+    width: 128,
+    height: 128,
+  });
   const ctx = canvas.getContext("2d")!;
   const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
   g.addColorStop(0, "rgba(255,255,255,1)");
@@ -89,7 +95,15 @@ function configureImageTexture(texture: THREE.Texture) {
   }
 }
 
-function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadius: number; onReady: () => void }) {
+function WaterRippleScene({
+  src,
+  maskRadius,
+  onReady,
+}: {
+  src: string;
+  maskRadius: number;
+  onReady: () => void;
+}) {
   const readyRef = useRef(false);
   const frameRef = useRef(0);
   useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
@@ -127,7 +141,8 @@ function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadiu
       format: THREE.RGBAFormat,
     });
     brushSceneRef.current = new THREE.Scene();
-    const hw = (size.width || 1) / 2, hh = (size.height || 1) / 2;
+    const hw = (size.width || 1) / 2,
+      hh = (size.height || 1) / 2;
     brushCameraRef.current = new THREE.OrthographicCamera(-hw, hw, hh, -hh, 0, 10);
 
     const geo = new THREE.PlaneGeometry(BRUSH_SIZE, BRUSH_SIZE);
@@ -153,15 +168,22 @@ function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadiu
       ripplesRef.current.forEach((r) => r.material.dispose());
       initializedRef.current = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [brushTexture]);
 
   useEffect(() => {
-    const w = Math.floor(size.width * FBO_SCALE), h = Math.floor(size.height * FBO_SCALE);
+    const w = Math.floor(size.width * FBO_SCALE),
+      h = Math.floor(size.height * FBO_SCALE);
     fboRef.current?.setSize(w, h);
     if (brushCameraRef.current) {
-      const hw = size.width / 2, hh = size.height / 2;
-      Object.assign(brushCameraRef.current, { left: -hw, right: hw, top: hh, bottom: -hh });
+      const hw = size.width / 2,
+        hh = size.height / 2;
+      Object.assign(brushCameraRef.current, {
+        left: -hw,
+        right: hw,
+        top: hh,
+        bottom: -hh,
+      });
       brushCameraRef.current.updateProjectionMatrix();
     }
   }, [size.width, size.height]);
@@ -188,9 +210,15 @@ function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadiu
     return () => canvas.removeEventListener("pointermove", onMove);
   }, [gl]);
 
-  useEffect(() => { imageTextureRef.current = imageTexture; }, [imageTexture]);
-  useEffect(() => { sizeRef.current = size; }, [size]);
-  useEffect(() => { maskRadiusRef.current = maskRadius; }, [maskRadius]);
+  useEffect(() => {
+    imageTextureRef.current = imageTexture;
+  }, [imageTexture]);
+  useEffect(() => {
+    sizeRef.current = size;
+  }, [size]);
+  useEffect(() => {
+    maskRadiusRef.current = maskRadius;
+  }, [maskRadius]);
 
   const uniforms = useMemo(
     () => ({
@@ -202,8 +230,8 @@ function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadiu
       uMaskCenter: { value: new THREE.Vector2(0.5, 0.5) },
       uTime: { value: 0 },
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   useFrame((_, delta) => {
@@ -236,14 +264,20 @@ function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadiu
       if (u.uTexture) u.uTexture.value = imageTextureRef.current;
       if (u.uResolution) u.uResolution.value.set(sizeRef.current.width, sizeRef.current.height);
       const img = imageTextureRef.current.image as HTMLImageElement;
-      if (u.uTextureSize && img?.width && img?.height) u.uTextureSize.value.set(img.width, img.height);
+      if (u.uTextureSize && img?.width && img?.height)
+        u.uTextureSize.value.set(img.width, img.height);
       if (u.uMaskRadius) u.uMaskRadius.value = maskRadiusRef.current;
       if (u.uTime) u.uTime.value = timeRef.current;
     }
     gl.setRenderTarget(prev);
   });
 
-  useEffect(() => () => { brushTexture.dispose(); }, [brushTexture]);
+  useEffect(
+    () => () => {
+      brushTexture.dispose();
+    },
+    [brushTexture],
+  );
 
   return (
     <mesh onAfterRender={handleRendered}>
@@ -261,22 +295,40 @@ function WaterRippleScene({ src, maskRadius, onReady }: { src: string; maskRadiu
 
 const emptySubscribe = () => () => {};
 
-export function WaterRipple({ src, maskRadius, onReady }: { src: string; maskRadius: number; onReady: () => void }) {
+export function WaterRipple({
+  src,
+  maskRadius,
+  onReady,
+}: {
+  src: string;
+  maskRadius: number;
+  onReady: () => void;
+}) {
   const isMounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
-    () => false
+    () => false,
   );
 
   return (
     <div
-      className="absolute inset-0 w-full h-full"
-      style={{ willChange: "transform", transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
+      className="absolute inset-0 h-full w-full"
+      style={{
+        willChange: "transform",
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+      }}
     >
       {isMounted && (
         <Canvas
           dpr={[1, 1.5]}
-          gl={{ antialias: false, alpha: true, powerPreference: "high-performance", stencil: false, depth: false }}
+          gl={{
+            antialias: false,
+            alpha: true,
+            powerPreference: "high-performance",
+            stencil: false,
+            depth: false,
+          }}
           style={{ width: "100%", height: "100%" }}
           frameloop="always"
         >

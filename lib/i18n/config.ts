@@ -10,10 +10,7 @@ export const DEFAULT_LOCALE: Locale = "en";
  */
 export const LOCALE_COOKIE = "lang";
 
-export const LOCALE_INFO: Record<
-  Locale,
-  { short: string; name: string; openGraph: string }
-> = {
+export const LOCALE_INFO: Record<Locale, { short: string; name: string; openGraph: string }> = {
   en: { short: "EN", name: "English", openGraph: "en_US" },
   bg: { short: "BG", name: "Български", openGraph: "bg_BG" },
 };

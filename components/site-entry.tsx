@@ -23,13 +23,9 @@ export function SiteEntry({ children }: { children: ReactNode }) {
   const [fontsReady, setFontsReady] = useState(false);
   const [minimumElapsed, setMinimumElapsed] = useState(false);
   const [deadlineExpired, setDeadlineExpired] = useState(false);
-  const completing =
-    minimumElapsed && ((heroReady && fontsReady) || deadlineExpired);
+  const completing = minimumElapsed && ((heroReady && fontsReady) || deadlineExpired);
   const reportHeroReady = useCallback(() => setHeroReady(true), []);
-  const value = useMemo(
-    () => ({ entered, reportHeroReady }),
-    [entered, reportHeroReady]
-  );
+  const value = useMemo(() => ({ entered, reportHeroReady }), [entered, reportHeroReady]);
 
   useEffect(() => {
     let cancelled = false;
@@ -74,12 +70,7 @@ export function SiteEntry({ children }: { children: ReactNode }) {
           <div className="site-entry-brand">
             <div className="site-entry-emblem">
               <svg viewBox="0 0 120 120" className="site-entry-ring">
-                <circle
-                  className="site-entry-ring-track"
-                  cx="60"
-                  cy="60"
-                  r="54"
-                />
+                <circle className="site-entry-ring-track" cx="60" cy="60" r="54" />
                 <circle
                   className="site-entry-ring-progress"
                   cx="60"
@@ -91,16 +82,8 @@ export function SiteEntry({ children }: { children: ReactNode }) {
                 />
               </svg>
               <svg viewBox={MARK_VIEWBOX} className="site-entry-mark">
-                <path
-                  className="site-entry-upper"
-                  fill="currentColor"
-                  d={MARK_UPPER_FOLD}
-                />
-                <path
-                  className="site-entry-lower"
-                  fill="currentColor"
-                  d={MARK_LOWER_FOLD}
-                />
+                <path className="site-entry-upper" fill="currentColor" d={MARK_UPPER_FOLD} />
+                <path className="site-entry-lower" fill="currentColor" d={MARK_LOWER_FOLD} />
               </svg>
             </div>
             <span>Twofold</span>

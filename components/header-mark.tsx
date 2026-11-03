@@ -12,16 +12,8 @@ export function HeaderMark({ className = "" }: { className?: string }) {
       viewBox={MARK_VIEWBOX}
       className={`header-mark overflow-visible ${className}`}
     >
-      <path
-        className="header-mark-lower"
-        fill="currentColor"
-        d={MARK_LOWER_FOLD}
-      />
-      <path
-        className="header-mark-upper"
-        fill="currentColor"
-        d={MARK_UPPER_FOLD}
-      />
+      <path className="header-mark-lower" fill="currentColor" d={MARK_LOWER_FOLD} />
+      <path className="header-mark-upper" fill="currentColor" d={MARK_UPPER_FOLD} />
     </svg>
   );
 }

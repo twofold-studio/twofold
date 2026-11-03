@@ -1,22 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { lazy, Suspense } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSiteEntry } from "./site-entry";
 import { EffectBoundary } from "./effect-boundary";
 
-const WaterRipple = dynamic(
-  () => import("./water-ripple").then((m) => m.WaterRipple),
-  { ssr: false }
-);
+const WaterRipple = lazy(() => import("./water-ripple").then((m) => ({ default: m.WaterRipple })));
 
-export function ProjectCover({
-  src,
-  maskRadius,
-}: {
-  src: string;
-  maskRadius: number;
-}) {
+export function ProjectCover({ src, maskRadius }: { src: string; maskRadius: number }) {
   const container = useRef<HTMLDivElement>(null);
   const { entered } = useSiteEntry();
   const [visible, setVisible] = useState(false);
@@ -24,11 +15,7 @@ export function ProjectCover({
   const reportReady = useCallback(() => setReady(true), []);
 
   useEffect(() => {
-    if (
-      !entered ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
+    if (!entered || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const element = container.current;
     if (!element) return;
     const observer = new IntersectionObserver(
@@ -37,7 +24,7 @@ export function ProjectCover({
         setVisible(nearView);
         if (!nearView) setReady(false);
       },
-      { rootMargin: "150px" }
+      { rootMargin: "150px" },
     );
     observer.observe(element);
     return () => observer.disconnect();
@@ -46,7 +33,6 @@ export function ProjectCover({
   return (
     <div ref={container} className="absolute inset-0">
       {/* A real image stays available while the optional GPU effect loads. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt=""
@@ -60,11 +46,9 @@ export function ProjectCover({
           style={{ opacity: ready ? 1 : 0 }}
         >
           <EffectBoundary>
-            <WaterRipple
-              src={src}
-              maskRadius={maskRadius}
-              onReady={reportReady}
-            />
+            <Suspense fallback={null}>
+              <WaterRipple src={src} maskRadius={maskRadius} onReady={reportReady} />
+            </Suspense>
           </EffectBoundary>
         </div>
       )}

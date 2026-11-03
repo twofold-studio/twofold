@@ -15,47 +15,31 @@ await expectRedirect({ "Accept-Language": "bg;q=0,en;q=0.5" }, "/en");
 await expectRedirect({ "Accept-Language": "de-DE" }, "/en");
 await expectRedirect({ "Accept-Language": "bg-BG", Cookie: "lang=en" }, "/en");
 await expectRedirect({ "Accept-Language": "en-US", Cookie: "lang=bg" }, "/bg");
-await expectRedirect(
-  { "Accept-Language": "bg-BG", Cookie: "lang=invalid" },
-  "/bg"
-);
+await expectRedirect({ "Accept-Language": "bg-BG", Cookie: "lang=invalid" }, "/bg");
 for (const [locale, heading, caseTitle] of [
-  ["bg", "Двама инженери.", "Букинистика"],
-  ["en", "Two engineers.", "Bukinistika"],
+  ["bg", "Софтуер за", "Букинистика"],
+  ["en", "Software for", "Bukinistika"],
 ]) {
   const response = await fetch(`${base}/${locale}`, {
     headers: { "Accept-Language": locale === "bg" ? "en-US" : "bg-BG" },
     redirect: "manual",
   });
-  assert.equal(
-    response.status,
-    200,
-    "Explicit locale must override browser preference"
-  );
+  assert.equal(response.status, 200, "Explicit locale must override browser preference");
   const html = await response.text();
   assert.match(html, new RegExp(`<html[^>]*lang="${locale}"`));
   assert.ok(html.includes(heading));
   assert.ok(html.includes(caseTitle));
-  assert.ok(
-    html.includes(
-      `rel="canonical" href="https://twofold.fractal-tess.xyz/${locale}"`
-    )
-  );
+  assert.ok(html.includes(`rel="canonical" href="https://twofold.fractal-tess.xyz/${locale}"`));
   assert.ok(html.includes('hrefLang="bg"') || html.includes('hreflang="bg"'));
   assert.ok(html.includes('hrefLang="en"') || html.includes('hreflang="en"'));
 }
 assert.equal((await fetch(`${base}/de`)).status, 404);
-for (const path of [
-  "/icon.svg",
-  "/apple-icon.png",
-  "/site.webmanifest",
-  "/robots.txt",
-]) {
+for (const path of ["/icon.svg", "/apple-icon.png", "/site.webmanifest", "/robots.txt"]) {
   assert.equal((await fetch(`${base}${path}`)).status, 200, path);
 }
 const sitemap = await (await fetch(`${base}/sitemap.xml`)).text();
 assert.ok(sitemap.includes("https://twofold.fractal-tess.xyz/bg"));
 assert.ok(sitemap.includes("https://twofold.fractal-tess.xyz/en"));
 console.log(
-  "Language negotiation, preference cookies, explicit routes, server-rendered translations, SEO and static assets passed."
+  "Language negotiation, preference cookies, explicit routes, server-rendered translations, SEO and static assets passed.",
 );

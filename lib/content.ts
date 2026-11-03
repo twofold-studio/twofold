@@ -15,7 +15,7 @@ export const studio = {
   email: "vgfractal@gmail.com",
   url: "https://twofold.fractal-tess.xyz",
   description:
-    "A two-person software studio in Sofia. We build websites, catalogues, shops and sales tools for businesses that have outgrown a PDF price list, a spreadsheet or a 2012 website.",
+    "A two-person software studio building websites, mobile and desktop apps, backend services and integrations. Based in Sofia.",
 } as const;
 
 export interface WorkImage {
@@ -172,7 +172,8 @@ export const work: Work[] = [
       },
       {
         src: "/work/vaiced/player.webp",
-        caption: "Every line tagged with who is speaking, and the current one highlighted as it plays.",
+        caption:
+          "Every line tagged with who is speaking, and the current one highlighted as it plays.",
       },
       {
         src: "/work/vaiced/website.webp",
@@ -209,7 +210,7 @@ export const founders: Founder[] = [
     name: "Vilian Gerdzhikov",
     role: "Websites, apps and servers",
     photo: "/team/vilian.webp",
-    bio: "Core developer at CarrierX, where he modernised a decade-old customer portal and is rebuilding the system behind it. He also builds desktop software and runs his own servers, including the one this studio's work lives on.",
+    bio: "Builds web and desktop applications and works on CarrierX's customer portal and backend. Self-hosts his own projects and everyday tools, including Gitadel, Immich and Nextcloud.",
     facts: [
       "Schwarz Hackathon · 1st place",
       "AmCham Hackathon 2.0 · Best Team",
@@ -224,8 +225,12 @@ export const founders: Founder[] = [
     name: "Plamen Ermenkov",
     role: "Web apps and security",
     photo: "/team/plamen.webp",
-    bio: "Builds web applications and wrote his thesis on keeping sign-in secure: confirming email addresses, stopping repeated break-in attempts, two-step login and password-free login links. His earlier work covers software that talks over networks and handles many users at once.",
-    facts: ["Thesis · secure sign-in", "Payments · secure card checkout", "Java · C · TypeScript · PHP"],
+    bio: "Advanced Software Engineer at Palms Bet, with a degree in cybersecurity. Builds web applications, with experience in secure sign-in and card payments.",
+    facts: [
+      "Thesis · secure sign-in",
+      "Payments · secure card checkout",
+      "Java · C · TypeScript · PHP",
+    ],
     links: [{ label: "GitHub", href: "https://github.com/PlamenErmenkov" }],
   },
 ];

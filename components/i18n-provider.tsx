@@ -27,7 +27,7 @@ export function I18nProvider({
       t: locale === "bg" ? bg : en,
       content: getContent(locale),
     }),
-    [locale]
+    [locale],
   );
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }

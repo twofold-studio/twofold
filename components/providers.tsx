@@ -9,15 +9,12 @@ import type { ReactNode } from "react";
 
 export function Providers({ children }: { children: ReactNode }): ReactNode {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="dark"
-      enableSystem
-      disableTransitionOnChange
-    >
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
       <ReducedMotionProvider>
         <OverlayProvider>
-          <SiteEntry><SmoothScroll>{children}</SmoothScroll></SiteEntry>
+          <SiteEntry>
+            <SmoothScroll>{children}</SmoothScroll>
+          </SiteEntry>
         </OverlayProvider>
       </ReducedMotionProvider>
     </ThemeProvider>
