@@ -162,7 +162,7 @@ export function SocialProof() {
           <div className="bg-muted/60 rounded-2xl p-6 flex flex-col">
             <div className="flex-1">
               <p className="text-4xl font-semibold tracking-tight text-foreground">9</p>
-              <p className="text-sm text-foreground/60 mt-1">Design directions on one CMS, switchable from any page</p>
+              <p className="text-sm text-foreground/60 mt-1">Designs over the same content, switchable from any page</p>
             </div>
             <div className="flex items-center justify-between mt-auto pt-4">
               <span className="text-sm font-medium text-foreground">Arkada</span>

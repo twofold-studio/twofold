@@ -32,7 +32,8 @@ export interface Work {
   summary: string;
   /** Paragraphs for the detail view. */
   story: string[];
-  stack: string[];
+  /** What the project includes, in plain words. */
+  features: string[];
   builtBy: string;
   link?: { label: string; href: string };
   cover: string;
@@ -49,9 +50,9 @@ export const work: Work[] = [
       "Buyers pick a building from its facade, a floor from the plan or a 3D model, and an apartment with its price and room areas.",
     story: [
       "Buyers of new-build apartments in Sofia usually get a PDF price list and a phone number. Arkada shows the same offer as a site: pick a building from its facade, a floor from the plan or a 3D model, and an apartment with its price and room areas, then compare and send an enquiry.",
-      "It is a sales demo, so it comes in nine visual directions over the same content and the same Payload CMS. A “Versions” button on every page opens that page in another design, so a developer chooses a look by clicking through real pages instead of mockups.",
+      "Because it is a sales demo, it comes in nine different designs with the same content behind them. A “Versions” button on every page shows that page in another design, so a developer can choose a look by clicking through real pages instead of mockups. The sales team can update apartments, prices and availability themselves at any time.",
     ],
-    stack: ["Next.js", "Payload CMS", "Three.js", "BG / EN"],
+    features: ["3D building model", "Self-service editing", "Bulgarian / English"],
     builtBy: "Twofold",
     link: { label: "arkadia.fractal-tess.xyz", href: "https://arkadia.fractal-tess.xyz" },
     cover: "/work/arkada/hero.webp",
@@ -85,9 +86,9 @@ export const work: Work[] = [
       "A 2012 website and a spreadsheet download became a searchable catalogue of 3,646 remedies, with a price for every form.",
     story: [
       "Helios Homeopharm is a homeopathic pharmacy in Sofia whose website dated from 2012. Its catalogue of about 3,600 remedies was only available as a spreadsheet you downloaded.",
-      "The new site is a static Bulgarian website built from Sanity. The whole catalogue is searchable by name, abbreviation, potency or first letter, and each remedy shows its forms with their prices. Customers put remedies, kits and books into one request and send it to the pharmacy by email. The staff keep products, prices and opening hours up to date in Sanity Studio, and the old site's pages and spreadsheets were imported into it.",
+      "The new site is fast and fully in Bulgarian. The whole catalogue can be searched by name, abbreviation, potency or first letter, and each remedy shows its forms with their prices. Customers put remedies, kits and books into one request and send it to the pharmacy. The staff update products, prices and opening hours themselves, whenever they need to, and everything from the old site and the spreadsheets was carried over.",
     ],
-    stack: ["Next.js", "Sanity", "Tailwind CSS", "Static export"],
+    features: ["Searchable catalogue", "Self-service editing", "Order requests"],
     builtBy: "Twofold",
     link: { label: "helios.fractal-tess.xyz", href: "https://helios.fractal-tess.xyz" },
     cover: "/work/helios/hero.webp",
@@ -119,12 +120,12 @@ export const work: Work[] = [
     kicker: "rare books",
     kind: "Antiquarian bookshop · online store",
     summary:
-      "An online shop for antique and rare books in Bulgarian, English and Russian, kept in step with its source listings by a scraper.",
+      "An online shop for antique and rare books in Bulgarian, English and Russian, with a catalogue that keeps itself up to date.",
     story: [
       "Bukinistika sells antique and rare books. The shop runs in Bulgarian, English and Russian, and antiquarian copies get their own darker room, the rare archive.",
-      "A Python scraper keeps the catalogue of about 5,000 copies in step with the listings it started from. Checkout begins by asking whether the books stay in Bulgaria or go abroad, and the admin can search and filter every copy by condition, language, publisher and category.",
+      "The catalogue of about 5,000 copies updates itself automatically from the listings it started from. Checkout begins by asking whether the books stay in Bulgaria or go abroad, and the owner can find any copy by condition, language, publisher or category.",
     ],
-    stack: ["Next.js", "PocketBase", "Python", "BG / EN / RU"],
+    features: ["Online shop", "Automatic catalogue updates", "Bulgarian / English / Russian"],
     builtBy: "Twofold",
     cover: "/work/bukinistika/hero.webp",
     images: [
@@ -143,7 +144,7 @@ export const work: Work[] = [
       {
         src: "/work/bukinistika/admin.webp",
         caption:
-          "The admin book list: about 5,000 copies, searchable and filterable by condition, language, publisher and category.",
+          "The owner's book list: about 5,000 copies, searchable by condition, language, publisher and category.",
       },
     ],
   },
@@ -153,12 +154,12 @@ export const work: Work[] = [
     kicker: "checkout flow",
     kind: "Payments · teaching demo",
     summary:
-      "A merchant checkout that walks through EMV 3-D Secure 2: frictionless approval for low-risk carts, an OTP challenge for risky ones.",
+      "A checkout that shows how online card payments decide when to ask for an extra check: low-risk orders go straight through, riskier ones ask for a one-time code.",
     story: [
-      "A front-end demo of how EMV 3-D Secure 2 decides whether a card payment needs a second step. The shop scores each cart for risk as you go.",
-      "Low-risk transactions pass frictionlessly; high-risk ones get a one-time-password challenge. Every step is shown as a status update and written to a system event log, so you can watch the protocol make its decisions.",
+      "A demo of 3-D Secure, the extra safety step banks use for online card payments. The shop rates each order for risk as you go.",
+      "Low-risk payments go through without interruption; riskier ones ask the buyer for a one-time code. Every step appears on screen as it happens, so you can see exactly how the decision is made.",
     ],
-    stack: ["HTML", "CSS", "JavaScript"],
+    features: ["Secure card checkout", "Interactive demo"],
     builtBy: "Plamen Ermenkov",
     link: { label: "GitHub", href: "https://github.com/PlamenErmenkov/3ds2-project" },
     cover: "/work/plamen/3ds2.webp",
@@ -166,7 +167,7 @@ export const work: Work[] = [
       {
         src: "/work/plamen/3ds2.webp",
         caption:
-          "The demo shop: each product is tagged low or high risk, which decides between frictionless approval and an OTP challenge.",
+          "The demo shop: each product is marked low or high risk, which decides whether the payment goes straight through or asks for a one-time code.",
       },
     ],
   },
@@ -178,10 +179,10 @@ export interface Service {
 }
 
 export const services: Service[] = [
-  { title: "Websites your staff can run", proof: "Helios · Sanity" },
+  { title: "Websites you can edit yourself", proof: "Helios · Arkada" },
   { title: "Catalogues and online shops", proof: "Bukinistika · Helios" },
-  { title: "Sales tools in 3D", proof: "Arkada · Three.js" },
-  { title: "Sign-in, accounts and payments", proof: "Meridian · 3-D Secure" },
+  { title: "Sales tools in 3D", proof: "Arkada" },
+  { title: "Customer accounts and secure payments", proof: "3-D Secure demo" },
   { title: "Hosting and upkeep", proof: "Best hosting, lowest cost" },
 ];
 
@@ -197,9 +198,9 @@ export interface Founder {
 export const founders: Founder[] = [
   {
     name: "Vilian Gerdzhikov",
-    role: "Fullstack · infrastructure",
+    role: "Websites, apps and servers",
     photo: "/team/vilian.webp",
-    bio: "Core developer at CarrierX, where he moved a decade-old customer portal from Ember to React and is rewriting the Rails backend in TypeScript. Writes Rust on the desktop and runs his own servers, including Gitadel, the Git forge this studio's code lives on.",
+    bio: "Core developer at CarrierX, where he modernised a decade-old customer portal and is rebuilding the system behind it. He also builds desktop software and runs his own servers, including the one this studio's work lives on.",
     facts: [
       "Schwarz Hackathon · 1st place",
       "AmCham Hackathon 2.0 · Best Team",
@@ -212,10 +213,10 @@ export const founders: Founder[] = [
   },
   {
     name: "Plamen Ermenkov",
-    role: "Fullstack · security",
+    role: "Web apps and security",
     photo: "/team/plamen.webp",
-    bio: "Builds Next.js applications on Prisma and PostgreSQL, and wrote his thesis on secure sign-in: email confirmation, account lockout, two-factor and magic links. His earlier work in Java and C covers sockets, threads and inter-process messaging.",
-    facts: ["Thesis · secure authentication", "Payments · 3-D Secure 2", "Java · C · TypeScript · PHP"],
+    bio: "Builds web applications and wrote his thesis on keeping sign-in secure: confirming email addresses, stopping repeated break-in attempts, two-step login and password-free login links. His earlier work covers software that talks over networks and handles many users at once.",
+    facts: ["Thesis · secure sign-in", "Payments · secure card checkout", "Java · C · TypeScript · PHP"],
     links: [{ label: "GitHub", href: "https://github.com/PlamenErmenkov" }],
   },
 ];
@@ -224,27 +225,27 @@ export const faqs = [
   {
     question: "Who will we actually be working with?",
     answer:
-      "The two of us. There is no account manager in between: the people on the call are the people writing the code, and you can see both of us on this page.",
+      "The two of us. There is no account manager in between: the people on the call are the people building your product, and you can see both of us on this page.",
   },
   {
     question: "Can our own staff update the site afterwards?",
     answer:
-      "Yes, that is usually the point. Helios's staff keep 3,600 products, prices and opening hours current in Sanity Studio; Arkada's apartments, prices and availability live in Payload CMS. You get an editor, not a ticket queue.",
+      "Yes, that is usually the point. You get a simple editor and full control: change text, photos, products and prices yourself, at any hour, without waiting on us. Helios's staff look after 3,600 products, prices and opening hours this way.",
   },
   {
     question: "Do you build in Bulgarian?",
     answer:
-      "Yes. Helios is in Bulgarian, Arkada in Bulgarian and English, and Bukinistika in Bulgarian, English and Russian. Translations live next to each other in the CMS, so a new language is content work rather than a rebuild.",
+      "Yes. Helios is in Bulgarian, Arkada in Bulgarian and English, and Bukinistika in Bulgarian, English and Russian. Languages are edited side by side, so adding one later means adding translations, not rebuilding the site.",
   },
   {
     question: "We already have content in an old site or a spreadsheet.",
     answer:
-      "Good. We import it. Helios's old WordPress pages and its remedy spreadsheets went straight into the new CMS, and Bukinistika's catalogue is kept in sync by a scraper.",
+      "Good. We move it over for you. Helios's old pages and remedy spreadsheets were carried into the new site, and Bukinistika's catalogue updates itself from its original listings.",
   },
   {
     question: "What happens after launch?",
     answer:
-      "We can host it for you on the best, cheapest hosting that fits the project and keep it updated, or hand it over to you with the code and the deploy setup. Either way you own the code.",
+      "We can host it for you on the best, cheapest hosting that fits the project and keep it up to date, or hand everything over to you. Either way, the site is yours.",
   },
   {
     question: "How do we start?",

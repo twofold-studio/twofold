@@ -216,9 +216,9 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
                   ))}
                   <dl className="grid grid-cols-2 gap-6 border-t border-border pt-6 text-sm">
                     <div>
-                      <dt className="mb-2 text-muted-foreground">Stack</dt>
+                      <dt className="mb-2 text-muted-foreground">Includes</dt>
                       <dd className="flex flex-wrap gap-2">
-                        {project.stack.map((t) => (
+                        {project.features.map((t) => (
                           <span key={t} className="rounded-full border border-border px-3 py-1 text-foreground">{t}</span>
                         ))}
                       </dd>
@@ -362,7 +362,7 @@ function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Wo
             </h3>
             <div ref={descRef} className={`flex flex-col gap-6 ${isEven ? "" : "md:items-end"}`}>
               <p className="max-w-lg text-lg leading-relaxed text-muted-foreground md:text-xl">{project.summary}</p>
-              <p className="text-sm text-foreground/60">{project.stack.join(" · ")}</p>
+              <p className="text-sm text-foreground/60">{project.features.join(" · ")}</p>
               <button
                 type="button"
                 onClick={onClick}
