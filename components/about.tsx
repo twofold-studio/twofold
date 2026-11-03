@@ -1,16 +1,18 @@
 "use client";
+import { useI18n } from "./i18n-provider";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { founders, studio } from "@/lib/content";
+
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 export function About() {
+  const { t, content: { founders } } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
@@ -53,9 +55,8 @@ export function About() {
           ref={headingRef}
           className="mx-auto max-w-4xl text-center text-[clamp(1.75rem,4vw,3.25rem)] font-medium leading-[1.15] tracking-tight text-foreground"
         >
-          {studio.name} is two people. You talk to the ones{" "}
-          <span className="font-serif font-normal italic text-accent">writing the code</span>, from the
-          first call to the last deploy.
+          {t.aboutBefore}{" "}
+          <span className="font-serif font-normal italic text-accent">{t.aboutEmphasis}</span>{t.aboutAfter}
         </h2>
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:mt-24 lg:gap-8">
@@ -67,7 +68,7 @@ export function About() {
               <div className="relative aspect-4/5 w-full shrink-0 sm:w-2/5 md:w-full xl:w-2/5">
                 <Image
                   src={f.photo}
-                  alt={`Portrait of ${f.name}`}
+                  alt={`${t.portrait} ${f.name}`}
                   fill
                   sizes="(min-width: 1280px) 20vw, (min-width: 768px) 45vw, (min-width: 640px) 40vw, 100vw"
                   className="object-cover grayscale"

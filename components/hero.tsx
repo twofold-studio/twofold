@@ -1,11 +1,12 @@
 "use client";
+import { useI18n } from "./i18n-provider";
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSiteEntry } from "./site-entry";
 import { EffectBoundary } from "./effect-boundary";
 import { HeroMark } from "@/components/hero-mark";
-import { studio } from "@/lib/content";
+
 
 const HeroBackground = dynamic(
   () => import("./hero-background").then((m) => m.HeroBackground),
@@ -18,6 +19,7 @@ export interface HeroProps {
 }
 
 export function Hero({ startColors, endColors }: HeroProps = {}) {
+  const { t, content: { studio } } = useI18n();
   const { reportHeroReady } = useSiteEntry();
   const [backgroundReady, setBackgroundReady] = useState(false);
   const [enableBackground, setEnableBackground] = useState(false);
@@ -37,7 +39,7 @@ export function Hero({ startColors, endColors }: HeroProps = {}) {
   return (
     <section
       id="hero"
-      className="hero bg-background relative h-screen w-full overflow-hidden"
+      className="hero bg-background relative h-auto min-h-screen w-full overflow-hidden md:h-screen"
     >
       <div className="hero-backdrop absolute inset-0 z-0" aria-hidden="true">
         <div className="h-full w-full opacity-50 saturate-125 md:opacity-85">
@@ -59,28 +61,26 @@ export function Hero({ startColors, endColors }: HeroProps = {}) {
       </div>
 
       <div
-        className="3xl:max-w-550 relative z-10 mx-auto flex h-full max-w-360 flex-col justify-start px-6 pt-44 text-left sm:px-12 sm:pt-48 md:justify-center md:pt-0 lg:px-24 2xl:max-w-450"
+        className="3xl:max-w-550 relative z-10 mx-auto flex h-full max-w-360 flex-col justify-start px-6 pb-32 pt-44 md:pb-0 text-left sm:px-12 sm:pt-48 md:justify-center md:pt-0 lg:px-24 2xl:max-w-450"
         style={{ perspective: "1200px" }}
       >
         <div className="relative">
           <h1 className="text-foreground text-[clamp(3rem,8vw,12rem)] leading-[1.05] tracking-tight">
             <span className="block overflow-hidden pb-[0.1em]">
-              <span className="hero-line block">Two engineers.</span>
+              <span className="hero-line block">{t.heroOne}</span>
             </span>
             <span className="block overflow-hidden pb-[0.1em]">
-              <span className="hero-line block">Software that does</span>
+              <span className="hero-line block">{t.heroTwo}</span>
             </span>
             <span className="block overflow-hidden pb-[0.1em]">
               <span className="hero-line block">
-                <em className="font-serif font-normal">the actual work.</em>
+                <em className="font-serif font-normal">{t.heroThree}</em>
               </span>
             </span>
           </h1>
 
           <p className="hero-copy text-foreground/80 mt-8 max-w-md text-[clamp(1.125rem,1.5vw,1.75rem)] leading-relaxed lg:max-w-lg 2xl:max-w-xl">
-            {studio.name} is a two-person studio in Sofia. We replace PDF price
-            lists, spreadsheet catalogues and 2012 websites with software people
-            can use.
+            {t.heroCopy}
           </p>
 
           {/* Below the copy on small screens; on md+ it sits beside the last
@@ -91,9 +91,9 @@ export function Hero({ startColors, endColors }: HeroProps = {}) {
 
       <div className="hero-scroll 3xl:max-w-550 absolute bottom-8 left-1/2 z-10 w-full max-w-360 -translate-x-1/2 px-6 sm:px-12 lg:px-24 2xl:max-w-450">
         <div className="text-foreground/70 flex items-end justify-between gap-6 text-sm tracking-tight sm:text-base">
-          <span className="font-medium">Scroll</span>
+          <span className="font-medium">{t.scroll}</span>
           <span className="hidden text-right sm:block">
-            Vilian Gerdzhikov &amp; Plamen Ermenkov
+            {t.founderNames}
             <br />
             {studio.location}
           </span>

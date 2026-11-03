@@ -1,4 +1,5 @@
 "use client";
+import { useI18n } from "./i18n-provider";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -37,6 +38,7 @@ function QuoteIcon({ className }: { className?: string }) {
 }
 
 export function SocialProof() {
+  const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -94,13 +96,13 @@ export function SocialProof() {
       <div className="px-6 sm:px-12 lg:px-24 max-w-360 2xl:max-w-450 3xl:max-w-550 mx-auto">
         <div ref={headerRef} className="flex items-center justify-between gap-6 mb-12 lg:mb-16">
           <h2 className="text-3xl lg:text-5xl font-medium tracking-tight text-foreground">
-            What it came down to
+            {t.resultHeading}
           </h2>
           <Link
             href="#contact"
             className="focus-ring hidden sm:inline-flex items-center justify-center px-6 py-3 rounded-full bg-foreground text-background text-sm font-medium transition-opacity hover:opacity-80"
           >
-            Work with us
+            {t.workWithUs}
           </Link>
         </div>
 
@@ -109,7 +111,7 @@ export function SocialProof() {
             <div className="relative w-full overflow-hidden rounded-2xl">
               <Image
                 src="/work/helios/phones.webp"
-                alt="Helios home, catalogue and kits pages on three phones"
+                alt={t.heliosAlt}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover"
@@ -118,7 +120,7 @@ export function SocialProof() {
             <div className="relative w-full overflow-hidden rounded-full">
               <Image
                 src="/work/arkada/phones.webp"
-                alt="Arkada home page, 3D building model and project page on three phones"
+                alt={t.arkadaAlt}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover"
@@ -130,11 +132,11 @@ export function SocialProof() {
             <div>
               <QuoteIcon className="w-10 h-10 text-accent/60 mb-6" />
               <blockquote className="text-2xl lg:text-3xl font-medium leading-snug text-foreground">
-                Helios&apos;s catalogue of about 3,600 remedies used to be a spreadsheet you downloaded. Now it is searchable by name, potency or letter, with a price for every form, and the staff keep it current themselves.
+                {t.heliosResult}
               </blockquote>
               <div className="mt-6">
-                <p className="font-semibold text-foreground">Helios Homeopharm</p>
-                <p className="text-sm text-foreground/60">Homeopathic pharmacy, Sofia · site from 2012, rebuilt</p>
+                <p className="font-semibold text-foreground">{t.heliosFullName}</p>
+                <p className="text-sm text-foreground/60">{t.heliosSubtitle}</p>
               </div>
             </div>
             <div className="flex items-center justify-between mt-auto pt-8">
@@ -143,7 +145,7 @@ export function SocialProof() {
                 href="https://helios.fractal-tess.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Open the Helios website"
+                aria-label={t.openHelios}
                 className="focus-ring w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
               >
                 <ArrowIcon className="w-4 h-4" />
@@ -153,24 +155,24 @@ export function SocialProof() {
 
           <div className="bg-muted/60 rounded-2xl p-6 flex flex-col">
             <div className="flex-1">
-              <p className="text-4xl font-semibold tracking-tight text-foreground">3,646</p>
-              <p className="text-sm text-foreground/60 mt-1">Remedies searchable, each with its forms and prices</p>
+              <p className="text-4xl font-semibold tracking-tight text-foreground">{t.remedyCount}</p>
+              <p className="text-sm text-foreground/60 mt-1">{t.remediesResult}</p>
             </div>
-            <p className="mt-auto pt-4 text-sm font-medium text-foreground">Helios</p>
+            <p className="mt-auto pt-4 text-sm font-medium text-foreground">{t.heliosName}</p>
           </div>
 
           <div className="bg-muted/60 rounded-2xl p-6 flex flex-col">
             <div className="flex-1">
               <p className="text-4xl font-semibold tracking-tight text-foreground">9</p>
-              <p className="text-sm text-foreground/60 mt-1">Designs over the same content, switchable from any page</p>
+              <p className="text-sm text-foreground/60 mt-1">{t.designsResult}</p>
             </div>
             <div className="flex items-center justify-between mt-auto pt-4">
-              <span className="text-sm font-medium text-foreground">Arkada</span>
+              <span className="text-sm font-medium text-foreground">{t.arkadaName}</span>
               <a
                 href="https://arkadia.fractal-tess.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Open the Arkada demo"
+                aria-label={t.openArkada}
                 className="focus-ring w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
               >
                 <ArrowIcon className="w-4 h-4" />
@@ -180,23 +182,23 @@ export function SocialProof() {
 
           <div className="bg-muted/60 rounded-2xl p-8 flex flex-col">
             <div className="flex-1">
-              <p className="text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">~5,000</p>
+              <p className="text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">{t.bookCount}</p>
               <p className="text-foreground/60 mt-2">
-                Rare and antique books,<br />in three languages
+                {t.booksResult}
               </p>
             </div>
-            <p className="mt-auto pt-6 text-sm font-medium text-foreground">Bukinistika</p>
+            <p className="mt-auto pt-6 text-sm font-medium text-foreground">{t.bukinistikaName}</p>
           </div>
 
           <div className="lg:col-span-3 bg-accent text-background rounded-2xl p-8 flex flex-col">
             <p className="text-xl lg:text-2xl font-medium leading-relaxed max-w-3xl flex-1">
-              Vilian&apos;s three hackathon awards: first place at the Schwarz Hackathon, Best Team at AmCham 2.0 and Most Innovative Solution at AmCham 3.0.
+              {t.awards}
             </p>
             <div className="flex items-center justify-between mt-auto pt-6">
               <span className="text-lg font-semibold">Schwarz · AmCham 2.0 · AmCham 3.0</span>
               <Link
                 href="#about"
-                aria-label="Meet the team"
+                aria-label={t.meetTeam}
                 className="focus-ring w-10 h-10 rounded-full bg-background/15 flex items-center justify-center hover:bg-background hover:text-accent transition-colors"
               >
                 <ArrowIcon className="w-4 h-4" />

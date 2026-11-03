@@ -4,11 +4,15 @@ import { baseMetadata } from "@/lib/metadata";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import type { ReactNode } from "react";
-import "./globals.css";
+import "../globals.css";
+import { I18nProvider } from "@/components/i18n-provider";
+import { en, bg } from "@/lib/i18n/dictionaries";
+import { LOCALES, isLocale } from "@/lib/i18n/config";
+import { notFound } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   display: "swap",
 });
 
@@ -22,11 +26,22 @@ const instrumentSerif = Instrument_Serif({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   display: "swap",
 });
 
-export const metadata: Metadata = baseMetadata;
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return isLocale(locale) ? baseMetadata(locale) : {};
+}
 
 export const viewport: Viewport = {
   themeColor: [
@@ -38,24 +53,31 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: ReactNode;
-}>): ReactNode {
+  params: Promise<{ locale: string }>;
+}>): Promise<ReactNode> {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const t = locale === "bg" ? bg : en;
   return (
     <html
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
       <body
-        className={`min-h-screen bg-background font-sans text-foreground antialiased`}
+        className={`bg-background text-foreground min-h-screen font-sans antialiased`}
       >
-        <Providers>
-          <SkipToContent />
-          {children}
-        </Providers>
+        <I18nProvider locale={locale}>
+          <Providers>
+            <SkipToContent label={t.skip} />
+            {children}
+          </Providers>
+        </I18nProvider>
       </body>
     </html>
   );

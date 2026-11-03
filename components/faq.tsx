@@ -1,9 +1,10 @@
 "use client";
+import { useI18n } from "./i18n-provider";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
-import { faqs } from "@/lib/content";
+
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -78,6 +79,7 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
 }
 
 export function Faq() {
+  const { t, content: { faqs } } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
@@ -112,12 +114,13 @@ export function Faq() {
         {/* Title */}
         <h2
           ref={titleRef}
+          aria-label={[t.faqBefore, t.faqEmphasis, t.faqAfter].filter(Boolean).join(" ")}
           className="text-4xl lg:text-5xl font-medium tracking-tight text-foreground text-center mb-12 lg:mb-16"
         >
-          Before you{" "}
-          <span className="font-serif font-normal italic text-accent">write</span>
+          {t.faqBefore}{" "}
+          <span className="font-serif font-normal italic text-accent">{t.faqEmphasis}</span>
           <br />
-          to us
+          {t.faqAfter}
         </h2>
 
         {/* FAQ Items */}

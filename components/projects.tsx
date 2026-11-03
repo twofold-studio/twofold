@@ -1,4 +1,5 @@
 "use client";
+import { useI18n } from "./i18n-provider";
 
 import { useCallback, useEffect, useRef, useLayoutEffect, useState } from "react";
 import { useOverlay } from "@/lib/overlay-context";
@@ -15,13 +16,14 @@ import {
   AnimatePresence,
 } from "motion/react";
 import { ProjectCover } from "./project-cover";
-import { work, type Work } from "@/lib/content";
+import type { Work } from "@/lib/content";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 function BlobCursor({ isVisible }: { isVisible: boolean }) {
+  const { t } = useI18n();
   const blobRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -78,7 +80,7 @@ function BlobCursor({ isVisible }: { isVisible: boolean }) {
               scaleY: useTransform(scalePerp, (s) => 1 / s),
             }}
           >
-            View
+            {t.view}
           </motion.span>
         </motion.div>
       </motion.div>
@@ -156,6 +158,7 @@ function ArrowUpRight({ className }: { className?: string }) {
 }
 
 function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: () => void }) {
+  const { t } = useI18n();
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -188,7 +191,7 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
               ref={closeRef}
               onClick={onClose}
               className="focus-ring fixed right-4 top-4 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-foreground text-background transition-transform hover:scale-105 active:scale-95 sm:right-8 sm:top-8 md:h-14 md:w-14"
-              aria-label="Close project"
+              aria-label={t.closeProject}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -216,7 +219,7 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
                   ))}
                   <dl className="grid grid-cols-2 gap-6 border-t border-border pt-6 text-sm">
                     <div>
-                      <dt className="mb-2 text-muted-foreground">Includes</dt>
+                      <dt className="mb-2 text-muted-foreground">{t.includes}</dt>
                       <dd className="flex flex-wrap gap-2">
                         {project.features.map((t) => (
                           <span key={t} className="rounded-full border border-border px-3 py-1 text-foreground">{t}</span>
@@ -224,7 +227,7 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
                       </dd>
                     </div>
                     <div>
-                      <dt className="mb-2 text-muted-foreground">Built by</dt>
+                      <dt className="mb-2 text-muted-foreground">{t.builtBy}</dt>
                       <dd className="text-foreground">{project.builtBy}</dd>
                     </div>
                   </dl>
@@ -270,6 +273,7 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
 }
 
 function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Work; index: number; onHover: (isHovering: boolean) => void; onClick: () => void; coarse: boolean }) {
+  const { t } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
@@ -368,7 +372,7 @@ function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Wo
                 onClick={onClick}
                 className="focus-ring group inline-flex w-fit items-center gap-3 rounded-full border border-foreground/20 px-5 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-foreground hover:text-background"
               >
-                Read the case
+                {t.readCase}
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </button>
             </div>
@@ -380,8 +384,10 @@ function ProjectItem({ project, index, onHover, onClick, coarse }: { project: Wo
 }
 
 export function Projects() {
+  const { t, content: { work } } = useI18n();
   const [isCursorVisible, setIsCursorVisible] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Work | null>(null);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const selectedProject = work.find((item) => item.slug === selectedSlug) ?? null;
   const { setIsOverlayOpen } = useOverlay();
   const coarse = useCoarsePointer();
 
@@ -392,41 +398,41 @@ export function Projects() {
       const slug = window.history.state?.twofoldProject;
       const project = work.find((item) => item.slug === slug) ?? null;
       activeProject.current = project?.slug ?? null;
-      setSelectedProject(project);
+      setSelectedSlug(project?.slug ?? null);
       setIsOverlayOpen(Boolean(project));
     };
     window.addEventListener("popstate", syncHistory);
     syncHistory();
     return () => window.removeEventListener("popstate", syncHistory);
-  }, [setIsOverlayOpen]);
+  }, [setIsOverlayOpen, work]);
 
   const handleProjectClick = (project: Work) => {
     if (activeProject.current) return;
     activeProject.current = project.slug;
     window.history.pushState({ ...window.history.state, twofoldProject: project.slug }, "");
     setIsCursorVisible(false);
-    setSelectedProject(project);
+    setSelectedSlug(project?.slug ?? null);
     setIsOverlayOpen(true);
   };
 
   const handleClose = useCallback(() => {
     if (!activeProject.current) return;
     activeProject.current = null;
-    setSelectedProject(null);
+    setSelectedSlug(null);
     setIsOverlayOpen(false);
     if (window.history.state?.twofoldProject) window.history.back();
   }, [setIsOverlayOpen]);
 
   return (
-    <section id="projects" className="projects relative bg-background py-24" aria-label="Selected work">
+    <section id="projects" className="projects relative bg-background py-24" aria-label={t.selectedWorkLabel}>
       {!coarse && <BlobCursor isVisible={isCursorVisible} />}
       <ProjectOverlay project={selectedProject} onClose={handleClose} />
       <div className="pb-10 md:pb-16" aria-hidden="true">
         <VelocityText baseVelocity={80} className="px-8 text-[clamp(4rem,12vw,14rem)] font-medium uppercase italic tracking-tight text-foreground">
-          Selected <span className="font-serif font-normal normal-case text-accent">work</span>&nbsp;
+          {t.selected} <span className="font-serif font-normal normal-case text-accent">{t.selectedWork}</span>&nbsp;
         </VelocityText>
       </div>
-      <h2 className="sr-only">Selected work</h2>
+      <h2 className="sr-only">{t.selectedWorkLabel}</h2>
       <div className="flex flex-col">
         {work.map((project, index) => (
           <ProjectItem

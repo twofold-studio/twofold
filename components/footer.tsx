@@ -1,26 +1,30 @@
-import { studio, work } from "@/lib/content";
+"use client";
+import { useI18n } from "./i18n-provider";
 
-const socialLinks = [
-  { label: "Vilian on GitHub", href: "https://github.com/Fractal-Tess" },
-  { label: "Plamen on GitHub", href: "https://github.com/PlamenErmenkov" },
+
+const socialLinks = (t: ReturnType<typeof useI18n>["t"]) => [
+  { label: t.vilianGithub, href: "https://github.com/Fractal-Tess" },
+  { label: t.plamenGithub, href: "https://github.com/PlamenErmenkov" },
   { label: "fractal-tess.xyz", href: "https://fractal-tess.xyz" },
 ];
 
-const navLinks = [
-  { label: "Work", href: "#projects" },
-  { label: "Services", href: "#services" },
-  { label: "Team", href: "#about" },
-  { label: "Questions", href: "#faq" },
+const navLinks = (t: ReturnType<typeof useI18n>["t"]) => [
+  { label: t.work, href: "#projects" },
+  { label: t.services, href: "#services" },
+  { label: t.team, href: "#about" },
+  { label: t.questions, href: "#faq" },
 ];
 
-const subject = encodeURIComponent(`Project enquiry for ${studio.name}`);
+
 
 export function Footer() {
+  const { t, content: { studio, work } } = useI18n();
+  const subject = encodeURIComponent(t.emailSubject);
   return (
     <footer id="contact" className="lg:sticky lg:bottom-0 lg:z-0 bg-foreground text-background">
       <div className="px-6 sm:px-12 lg:px-24 pt-24 lg:pt-32 pb-16 lg:pb-24 max-w-360 2xl:max-w-450 3xl:max-w-550 mx-auto">
         <p className="mb-6 text-sm font-medium uppercase tracking-widest text-background/50">
-          Tell us what customers see today
+          {t.footerIntro}
         </p>
         <a
           href={`mailto:${studio.email}?subject=${subject}`}
@@ -34,9 +38,9 @@ export function Footer() {
             href={`mailto:${studio.email}?subject=${subject}`}
             className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-full bg-background text-foreground hover:bg-background/90 transition-colors"
           >
-            Start a project
+            {t.startProject}
           </a>
-          <p className="text-background/60 sm:ml-4">Based in {studio.location}. We work in Bulgarian and English.</p>
+          <p className="text-background/60 sm:ml-4">{t.footerLocation}</p>
         </div>
       </div>
 
@@ -49,23 +53,23 @@ export function Footer() {
           <div>
             <span className="text-4xl font-medium tracking-tight">{studio.name}</span>
             <p className="mt-4 text-background/60 text-3xl lg:text-4xl">
-              Two engineers. <span className="font-serif italic">One studio.</span>
+              {t.footerOne} <span className="font-serif italic">{t.footerTwo}</span>
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-12 sm:flex sm:gap-16 lg:gap-24">
             <div>
-              <h4 className="text-sm font-medium text-background/60 mb-6">Studio</h4>
+              <h4 className="text-sm font-medium text-background/60 mb-6">{t.studio}</h4>
               <p className="font-medium mb-1">{studio.location}</p>
               <p className="text-background/60 text-sm">
-                Vilian Gerdzhikov
+                {t.vilian}
                 <br />
-                Plamen Ermenkov
+                {t.plamen}
               </p>
             </div>
 
             <div>
-              <h4 className="text-sm font-medium text-background/60 mb-6">Work</h4>
+              <h4 className="text-sm font-medium text-background/60 mb-6">{t.work}</h4>
               <ul className="space-y-3">
                 {work.map((w) => (
                   <li key={w.slug}>{w.name}</li>
@@ -74,9 +78,9 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="text-sm font-medium text-background/60 mb-6">Navigation</h4>
+              <h4 className="text-sm font-medium text-background/60 mb-6">{t.navigation}</h4>
               <ul className="space-y-3">
-                {navLinks.map((link) => (
+                {navLinks(t).map((link) => (
                   <li key={link.label}>
                     <a href={link.href} className="hover:text-background/60 transition-colors">
                       {link.label}
@@ -87,9 +91,9 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="text-sm font-medium text-background/60 mb-6">Elsewhere</h4>
+              <h4 className="text-sm font-medium text-background/60 mb-6">{t.elsewhere}</h4>
               <ul className="space-y-3">
-                {socialLinks.map((link) => (
+                {socialLinks(t).map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
@@ -112,7 +116,7 @@ export function Footer() {
           <p className="text-sm text-background/40">
             © {new Date().getFullYear()} {studio.name}
           </p>
-          <p className="text-sm text-background/40">Designed and built by the two of us.</p>
+          <p className="text-sm text-background/40">{t.footerCredit}</p>
         </div>
       </div>
     </footer>

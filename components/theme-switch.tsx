@@ -1,4 +1,5 @@
 "use client";
+import { useI18n } from "./i18n-provider";
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -13,6 +14,7 @@ function useIsMounted(): boolean {
 }
 
 export function ThemeSwitch(): ReactNode {
+  const { t } = useI18n();
   const mounted = useIsMounted();
   const { setTheme, resolvedTheme } = useTheme();
 
@@ -25,7 +27,7 @@ export function ThemeSwitch(): ReactNode {
       <div className="fixed bottom-6 right-6 z-50">
         <button
           className="w-12 h-12 rounded-full bg-foreground/10 opacity-30 cursor-not-allowed"
-          aria-label="Toggle theme"
+          aria-label={t.toggleTheme}
           disabled
         />
       </div>
@@ -39,7 +41,7 @@ export function ThemeSwitch(): ReactNode {
       <button
         onClick={toggleTheme}
         className="w-10 h-10 cursor-pointer rounded-full bg-muted text-foreground flex items-center justify-center opacity-30 hover:opacity-100 transition-opacity duration-300 shadow-lg hover:shadow-xl"
-        aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+        aria-label={isDark ? t.lightTheme : t.darkTheme}
         aria-pressed={isDark}
         type="button"
       >

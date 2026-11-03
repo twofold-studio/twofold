@@ -7,22 +7,17 @@ import { Projects } from "@/components/projects";
 import { Services } from "@/components/services";
 import { SocialProof } from "@/components/social-proof";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { createMetadata, siteConfig } from "@/lib/metadata";
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
-
-export const metadata: Metadata = createMetadata({
-  title: `${siteConfig.name} · Software studio in Sofia`,
-  description: siteConfig.description,
-  path: "/",
-});
 
 export default function HomePage(): ReactNode {
   return (
     <>
       <Header />
       <ThemeSwitch />
-      <main id="main-content" className="lg:relative lg:z-10 flex-1 bg-background">
+      <main
+        id="main-content"
+        className="bg-background flex-1 lg:relative lg:z-10"
+      >
         <Hero />
         <Projects />
         <Services />

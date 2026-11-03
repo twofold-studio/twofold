@@ -1,9 +1,10 @@
 "use client";
+import { useI18n } from "./i18n-provider";
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { services } from "@/lib/content";
+
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -201,6 +202,7 @@ function ServiceItem({ title, proof, index }: { title: string; proof: string; in
 }
 
 export function Services() {
+  const { t, content: { services } } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -213,7 +215,7 @@ export function Services() {
     const section = sectionRef.current;
     const content = contentRef.current;
 
-    gsap.fromTo(
+    const animation = gsap.fromTo(
       chars,
       {
         willChange: "transform",
@@ -237,9 +239,10 @@ export function Services() {
     );
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      animation.scrollTrigger?.kill();
+      animation.revert();
     };
-  }, []);
+  }, [t.servicesHeading]);
 
   return (
     <section
@@ -253,9 +256,10 @@ export function Services() {
       >
         <h2
           ref={titleRef}
+          aria-label={t.servicesHeading}
           className="text-center text-[clamp(2.5rem,7vw,7rem)] font-medium leading-[1.1] tracking-tight text-foreground max-w-350"
         >
-          <SplitText>We build the part of the business your customers actually touch.</SplitText>
+          <SplitText>{t.servicesHeading}</SplitText>
         </h2>
       </div>
 

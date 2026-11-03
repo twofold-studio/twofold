@@ -1,3 +1,6 @@
+import { getContent } from "./i18n/content";
+import { en, bg } from "./i18n/dictionaries";
+import type { Locale } from "./i18n/config";
 import type { Metadata } from "next";
 import { studio } from "@/lib/content";
 
@@ -24,102 +27,48 @@ export const siteConfig = {
   ],
 } as const;
 
-export const baseMetadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  keywords: [...siteConfig.keywords],
-  authors: [...siteConfig.authors],
-  creator: siteConfig.creator,
-  publisher: siteConfig.name,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 3200,
-        height: 2000,
-        alt: siteConfig.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
-    creator: siteConfig.creator,
-  },
-  manifest: "/site.webmanifest",
-};
-
-export function createMetadata({
-  title,
-  description,
-  path = "/",
-  image,
-  noIndex = false,
-}: {
-  title?: string;
-  description?: string;
-  path?: string;
-  image?: string;
-  noIndex?: boolean;
-}): Metadata {
-  const url = `${siteConfig.url}${path}`;
-  const ogImage = image ?? siteConfig.ogImage;
-
+export function baseMetadata(locale: Locale): Metadata {
+  const content = getContent(locale);
+  const t = locale === "bg" ? bg : en;
+  const title = `${studio.name} · ${t.metaTitle}`;
+  const url = `${siteConfig.url}/${locale}`;
   return {
+    metadataBase: new URL(siteConfig.url),
     title,
-    description,
+    description: content.studio.description,
+    authors: [...siteConfig.authors],
+    creator: siteConfig.creator,
+    manifest: "/site.webmanifest",
     alternates: {
-      canonical: path,
+      canonical: url,
+      languages: {
+        en: `${siteConfig.url}/en`,
+        bg: `${siteConfig.url}/bg`,
+        "x-default": siteConfig.url,
+      },
     },
     openGraph: {
-      title: title ?? siteConfig.name,
-      description: description ?? siteConfig.description,
+      type: "website",
+      title,
+      description: content.studio.description,
       url,
+      locale: locale === "bg" ? "bg_BG" : "en_US",
+      alternateLocale: locale === "bg" ? "en_US" : "bg_BG",
+      siteName: studio.name,
       images: [
         {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title ?? siteConfig.name,
+          url: siteConfig.ogImage,
+          width: 3200,
+          height: 2000,
+          alt: studio.name,
         },
       ],
     },
     twitter: {
-      title: title ?? siteConfig.name,
-      description: description ?? siteConfig.description,
-      images: [ogImage],
+      card: "summary_large_image",
+      title,
+      description: content.studio.description,
+      images: [siteConfig.ogImage],
     },
-    ...(noIndex && {
-      robots: {
-        index: false,
-        follow: false,
-      },
-    }),
   };
 }
