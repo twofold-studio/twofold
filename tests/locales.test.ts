@@ -31,7 +31,7 @@ describe("translation completeness", () => {
   it("includes the founder facts supplied by the user in both languages", () => {
     for (const locale of ["bg", "en"] as const) {
       const founders = getContent(locale).founders;
-      expect(founders[0]!.bio).toContain("Gitadel");
+      expect(founders[0]!.bio).toContain("50");
       expect(founders[1]!.bio).toContain("Palms Bet");
       expect(founders[1]!.bio).toMatch(/cybersecurity|киберсигурност/);
     }

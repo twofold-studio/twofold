@@ -210,7 +210,7 @@ export const founders: Founder[] = [
     name: "Vilian Gerdzhikov",
     role: "Websites, apps and servers",
     photo: "/team/vilian.webp",
-    bio: "Builds web and desktop applications and works on CarrierX's customer portal and backend. Self-hosts his own projects and everyday tools, including Gitadel, Immich and Nextcloud.",
+    bio: "Builds web and desktop applications and works on CarrierX's customer portal and backend. Has built over 50 websites and services.",
     facts: [
       "Schwarz Hackathon · 1st place",
       "AmCham Hackathon 2.0 · Best Team",
