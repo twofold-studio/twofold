@@ -2,6 +2,7 @@ import { describe, expect, it } from "vite-plus/test";
 import { chooseLocale } from "../server/locales.mjs";
 import { getContent } from "../lib/i18n/content";
 import { en, bg } from "../lib/i18n/dictionaries";
+import { pageFromPath, pagePath } from "../lib/pages";
 
 describe("browser language and saved preference", () => {
   it.each([
@@ -48,5 +49,13 @@ describe("translation completeness", () => {
       const text = JSON.stringify(getContent(locale));
       expect(text).not.toMatch(/3[ ,]?646|около 3600|about 3,600|5[ ,]?000/);
     }
+  });
+});
+describe("case study pages", () => {
+  it("map project paths in both directions", () => {
+    expect(pageFromPath("/bg/work/helios")).toEqual({ kind: "work", slug: "helios" });
+    expect(pageFromPath("/en/work/vaiced/")).toEqual({ kind: "work", slug: "vaiced" });
+    expect(pageFromPath("/bg")).toEqual({ kind: "home" });
+    expect(pagePath("en", { kind: "work", slug: "arkada" })).toBe("/en/work/arkada");
   });
 });

@@ -16,13 +16,14 @@ Set `BASE_URL` for the integration check, for example `BASE_URL=http://localhost
 
 ## Source
 
-- `src/app.tsx`: page sections; `src/styles.css`: styling.
-- `lib/content.ts`: English project and team copy; `lib/i18n/content.ts`: Bulgarian copy.
-- `lib/i18n/dictionaries.ts`: UI labels and capabilities in both languages.
-- `components/site-entry.tsx`: loading/reveal coordination; `components/projects.tsx`: project details and dialog history.
+- `src/app.tsx`: the home page sections or a case study; `lib/pages.ts`: page paths.
+- `src/styles.css`: colours, the type scale (`text-display`, `text-h2`, `text-h3`, `text-lead`, `text-body`, `text-small`), buttons (`btn btn-primary`, `btn btn-secondary`, `btn-sm`) and section spacing (`container-site`, `section`).
+- `lib/content.ts`: English project, team and FAQ copy; `lib/i18n/content.ts`: Bulgarian copy.
+- `lib/i18n/dictionaries.ts`: interface text in both languages.
+- `components/case-study.tsx`: a project's own page.
 - `server/locales.mjs`: shared browser-language and cookie negotiation.
 
-Vite's build hook creates `/en/index.html` and `/bg/index.html` through `scripts/prerender.mjs`. Each includes translated content, metadata and language alternatives before JavaScript runs. The small production server serves these pages and static assets, redirects `/` according to the saved preference or browser language, and returns 404 for unsupported paths.
+Vite's build hook runs `scripts/prerender.mjs`, which writes `/en/index.html`, `/bg/index.html` and `/{en,bg}/work/<project>/index.html`, plus `sitemap.xml`. Each page includes translated content, its own title, description, share image and language alternatives before JavaScript runs. The small production server serves these pages and static assets, redirects `/` according to the saved preference or browser language, and returns 404 for unsupported paths.
 
 ## Deployment
 

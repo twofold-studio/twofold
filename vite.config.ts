@@ -36,7 +36,7 @@ export default defineConfig({
             res.end();
             return;
           }
-          if (!/^\/(en|bg)\/?$/.test(url.pathname)) {
+          if (!/^\/(en|bg)(\/work\/[a-z0-9-]+)?\/?$/.test(url.pathname)) {
             next();
             return;
           }
@@ -47,7 +47,13 @@ export default defineConfig({
               await readFile("index.html", "utf8"),
             );
             const { render } = await server.ssrLoadModule("/src/entry-server.tsx");
-            const { head, html } = render(locale);
+            const { pageFromPath } = await server.ssrLoadModule("/lib/pages.ts");
+            const page = render(locale, pageFromPath(url.pathname));
+            if (!page) {
+              next();
+              return;
+            }
+            const { head, html } = page;
             res.writeHead(200, { "Content-Type": "text/html" });
             res.end(
               template

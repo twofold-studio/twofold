@@ -18,6 +18,9 @@ const types = {
   ".xml": "application/xml",
   ".txt": "text/plain; charset=utf-8",
 };
+/** A localized home page or case study; unknown case studies have no file and get a 404. */
+const PAGE_PATH = /^\/(en|bg)(\/work\/[a-z0-9-]+)?\/?$/;
+
 export function createAppServer(root = resolve("dist")) {
   return createServer(async (req, res) => {
     if (req.method !== "GET" && req.method !== "HEAD") {
@@ -40,7 +43,7 @@ export function createAppServer(root = resolve("dist")) {
       const pathname = decodeURIComponent(url.pathname);
       const file = resolve(
         root,
-        `.${/^\/(en|bg)\/?$/.test(pathname) ? `${pathname.replace(/\/$/, "")}/index.html` : pathname}`,
+        `.${PAGE_PATH.test(pathname) ? `${pathname.replace(/\/$/, "")}/index.html` : pathname}`,
       );
       if (!file.startsWith(`${root}${sep}`)) {
         res.writeHead(404);
