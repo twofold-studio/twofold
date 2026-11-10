@@ -3,7 +3,10 @@ import { useI18n } from "./i18n-provider";
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useSyncExternalStore, type ReactNode } from "react";
+
+/** Page background per theme, for the browser bar on phones (meta theme-color). */
+const BROWSER_BAR = { dark: "#0b0d0c", light: "#f3f0e8" } as const;
 
 function useIsMounted(): boolean {
   return useSyncExternalStore(
@@ -14,42 +17,39 @@ function useIsMounted(): boolean {
 }
 
 const button =
-  "focus-ring flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-lg transition-opacity duration-300";
+  "focus-ring flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground";
 
+/**
+ * The light/dark switch in the header. Its label says what a press will do,
+ * so it is a plain button rather than an on/off toggle.
+ */
 export function ThemeSwitch(): ReactNode {
   const { t } = useI18n();
   const mounted = useIsMounted();
   const { setTheme, resolvedTheme } = useTheme();
+  const isDark = resolvedTheme !== "light";
 
+  useEffect(() => {
+    if (!mounted) return;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", BROWSER_BAR[isDark ? "dark" : "light"]);
+  }, [mounted, isDark]);
+
+  // The theme is only known in the browser; until then, a placeholder of the same size.
   if (!mounted) {
-    return (
-      <div className="fixed bottom-5 right-5 z-40">
-        <button
-          type="button"
-          className={`${button} opacity-40`}
-          aria-label={t.toggleTheme}
-          disabled
-        />
-      </div>
-    );
+    return <span aria-hidden="true" className="h-10 w-10" />;
   }
 
-  const isDark = resolvedTheme === "dark";
   return (
-    <div className="fixed bottom-5 right-5 z-40">
-      <button
-        type="button"
-        onClick={() => setTheme(isDark ? "light" : "dark")}
-        className={`${button} opacity-60 hover:opacity-100`}
-        aria-label={isDark ? t.lightTheme : t.darkTheme}
-        aria-pressed={isDark}
-      >
-        {isDark ? (
-          <Sun className="h-5 w-5" aria-hidden="true" />
-        ) : (
-          <Moon className="h-5 w-5" aria-hidden="true" />
-        )}
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className={button}
+      aria-label={isDark ? t.lightTheme : t.darkTheme}
+      title={isDark ? t.lightTheme : t.darkTheme}
+    >
+      {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+    </button>
   );
 }

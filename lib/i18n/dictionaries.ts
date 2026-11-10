@@ -81,11 +81,14 @@ export const en = {
   formSent: "Thank you. We'll reply to your email within a few working days.",
   formInvalid: "Please add your name, a valid email and a short message.",
   formFallback:
-    "We've opened your email app with the message filled in. Please send it from there.",
+    "We've tried to open your email app with the message filled in. If it didn't open, copy your message and write to us at",
   formError: "We couldn't send your enquiry. Please email us at",
-  formPrivacy: "We use your details only to reply to your enquiry.",
+  formPrivacy:
+    "Your enquiry is read only by Vilian Gerdzhikov and Plamen Ermenkov, and we use your details only to reply to it. To have them deleted, write to",
   footerTagline: "We design, build and maintain software.",
   navigation: "Navigation",
+  mainNavigation: "Main navigation",
+  screenshot: "Screenshot",
   elsewhere: "Elsewhere",
   vilianGithub: "Vilian on GitHub",
   plamenGithub: "Plamen on GitHub",
@@ -93,7 +96,6 @@ export const en = {
   plamen: "Plamen Ermenkov",
   footerCredit: "Designed and built by Twofold.",
   skip: "Skip to main content",
-  toggleTheme: "Toggle theme",
   lightTheme: "Switch to light theme",
   darkTheme: "Switch to dark theme",
 };
@@ -183,11 +185,15 @@ export const bg: Dictionary = {
   formSending: "Изпращане…",
   formSent: "Благодарим Ви. Ще отговорим на посочения имейл до няколко работни дни.",
   formInvalid: "Моля, попълнете име, валиден имейл и кратко съобщение.",
-  formFallback: "Отворихме имейл програмата Ви с попълнено съобщение. Моля, изпратете го оттам.",
+  formFallback:
+    "Опитахме да отворим имейл програмата Ви с попълнено съобщение. Ако не се е отворила, копирайте съобщението и ни пишете на",
   formError: "Не успяхме да изпратим запитването. Моля, пишете ни на",
-  formPrivacy: "Използваме данните Ви само за да отговорим на запитването.",
+  formPrivacy:
+    "Запитването Ви четат само Вилиян Герджиков и Пламен Ерменков, а данните Ви използваме единствено, за да Ви отговорим. За да поискате изтриването им, пишете ни на",
   footerTagline: "Проектираме, разработваме и поддържаме софтуер.",
   navigation: "Навигация",
+  mainNavigation: "Основна навигация",
+  screenshot: "Екранна снимка",
   elsewhere: "Профили",
   vilianGithub: "Вилиян в GitHub",
   plamenGithub: "Пламен в GitHub",
@@ -195,7 +201,6 @@ export const bg: Dictionary = {
   plamen: "Пламен Ерменков",
   footerCredit: "Дизайн и разработка: Twofold.",
   skip: "Към основното съдържание",
-  toggleTheme: "Сменете темата",
   lightTheme: "Превключете към светла тема",
   darkTheme: "Превключете към тъмна тема",
 };

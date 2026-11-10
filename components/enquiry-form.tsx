@@ -55,8 +55,17 @@ export function EnquiryForm() {
   const messages: Partial<Record<Status, string>> = {
     sent: t.formSent,
     invalid: t.formInvalid,
-    fallback: t.formFallback,
   };
+  // These end with our address, in case the visitor has no email app set up.
+  const withAddress: Partial<Record<Status, string>> = {
+    fallback: t.formFallback,
+    error: t.formError,
+  };
+  const address = (
+    <a href={`mailto:${studio.email}`} className="link focus-ring">
+      {studio.email}
+    </a>
+  );
   const label = "flex flex-col gap-2 text-small font-medium text-foreground";
 
   return (
@@ -95,7 +104,7 @@ export function EnquiryForm() {
       </div>
 
       <p id="enquiry-privacy" className="text-small text-muted-foreground">
-        {t.formPrivacy}
+        {t.formPrivacy} {address}.
       </p>
       <div>
         <button type="submit" disabled={status === "sending"} className="btn btn-primary">
@@ -103,13 +112,9 @@ export function EnquiryForm() {
         </button>
       </div>
       <output aria-live="polite" className="block min-h-[1.65em] text-body text-foreground">
-        {status === "error" ? (
+        {withAddress[status] ? (
           <>
-            {t.formError}{" "}
-            <a href={`mailto:${studio.email}`} className="link focus-ring">
-              {studio.email}
-            </a>
-            .
+            {withAddress[status]} {address}.
           </>
         ) : (
           messages[status]

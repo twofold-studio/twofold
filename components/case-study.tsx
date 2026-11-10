@@ -81,7 +81,7 @@ export function CaseStudy({ slug }: { slug: string }) {
             <figure key={image.src}>
               <ResponsiveImage
                 src={image.src}
-                alt={image.caption}
+                alt={`${t.screenshot}: ${project.name}`}
                 sizes="(min-width: 1216px) 1120px, 92vw"
                 eager={i === 0}
                 className="h-auto w-full rounded-2xl border border-border"

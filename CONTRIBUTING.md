@@ -23,11 +23,11 @@ Set `BASE_URL` for the integration check, for example `BASE_URL=http://localhost
 - `components/case-study.tsx`: a project's own page; `components/enquiry-form.tsx` and `server/enquiry.mjs`: the contact form.
 - `server/locales.mjs`: shared browser-language and cookie negotiation.
 
-Vite's build hook runs `scripts/prerender.mjs`, which writes `/en/index.html`, `/bg/index.html` and `/{en,bg}/work/<project>/index.html`, plus `sitemap.xml`. Each page includes translated content, its own title, description, share image and language alternatives before JavaScript runs. The small production server serves these pages and static assets, redirects `/` according to the saved preference or browser language, and returns 404 for unsupported paths.
+Vite's build hook runs `scripts/prerender.mjs`, which writes `/en/index.html`, `/bg/index.html` and `/{en,bg}/work/<project>/index.html`, plus `sitemap.xml` and `robots.txt` (there is no copy in `public/`). Each page includes translated content, its own title, description, share image and language alternatives before JavaScript runs. The small production server serves these pages and static assets, redirects `/` according to the saved preference or browser language, and returns 404 for unsupported paths.
 
 ## Contact form
 
-The form posts to `/api/enquiry`, which checks the fields, ignores bots that fill a hidden field, allows 5 enquiries per address every 10 minutes and forwards the enquiry as JSON (`text`, `content`, `enquiry`) to `ENQUIRY_WEBHOOK_URL`. Slack and Discord incoming webhooks and automation tools such as n8n, Make or Zapier can receive it; send one test enquiry after setting it up. Without `ENQUIRY_WEBHOOK_URL` the endpoint answers 503 and the form opens the visitor's email app with the message filled in.
+The form posts to `/api/enquiry`, which checks the fields, ignores bots that fill a hidden field, allows 5 enquiries per address every 10 minutes (the address the proxy adds last to `X-Forwarded-For`) and forwards the enquiry as JSON (`text`, `content`, `enquiry`) to `ENQUIRY_WEBHOOK_URL`. Slack and Discord incoming webhooks and automation tools such as n8n, Make or Zapier can receive it; send one test enquiry after setting it up. Without `ENQUIRY_WEBHOOK_URL` the endpoint answers 503 and the form opens the visitor's email app with the message filled in.
 
 ## Images
 

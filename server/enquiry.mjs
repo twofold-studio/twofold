@@ -38,6 +38,20 @@ export function formatEnquiry({ name, email, company, message, locale }) {
   ].join("\n");
 }
 
+/**
+ * The visitor's address, for the rate limit. A proxy adds the address it sees
+ * to the end of X-Forwarded-For; anything before that came from the request
+ * itself and can be made up. So the last entry is the one to trust (Dokploy's
+ * Traefik replaces the header from unknown senders, leaving a single entry).
+ */
+export function clientAddress(req) {
+  const forwarded = String(req.headers["x-forwarded-for"] ?? "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  return forwarded.at(-1) || req.socket?.remoteAddress || "unknown";
+}
+
 function isRateLimited(client, now = Date.now()) {
   const hits = (recent.get(client) ?? []).filter((time) => now - time < WINDOW_MS);
   hits.push(now);
@@ -68,13 +82,7 @@ export async function handleEnquiry(req, res, webhook = process.env.ENQUIRY_WEBH
     return;
   }
   if (!webhook) return send(503, { error: "unavailable" });
-  const client =
-    String(req.headers["x-forwarded-for"] ?? "")
-      .split(",")[0]
-      ?.trim() ||
-    req.socket.remoteAddress ||
-    "unknown";
-  if (isRateLimited(client)) return send(429, { error: "rate-limited" });
+  if (isRateLimited(clientAddress(req))) return send(429, { error: "rate-limited" });
 
   let enquiry;
   try {

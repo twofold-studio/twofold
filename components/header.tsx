@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { HeaderMark } from "./header-mark";
 import { LanguageToggle } from "./language-toggle";
+import { ThemeSwitch } from "./theme-switch";
 
 type Dictionary = ReturnType<typeof useI18n>["t"];
 
@@ -128,7 +129,7 @@ export function Header({ home }: { home: boolean }) {
           {studio.name}
         </a>
 
-        <nav aria-label={t.navigation} className="ml-12 hidden lg:block">
+        <nav aria-label={t.mainNavigation} className="ml-12 hidden lg:block">
           <ul className="flex items-center gap-7">
             {primaryLinks(t).map((link) => (
               <li key={link.id}>
@@ -150,6 +151,7 @@ export function Header({ home }: { home: boolean }) {
 
         <div className="ml-auto flex items-center gap-3 sm:gap-5">
           <LanguageToggle />
+          <ThemeSwitch />
           <a href={href("contact")} className="btn btn-primary btn-sm hidden md:inline-flex">
             {t.contactUs}
           </a>
@@ -181,7 +183,7 @@ export function Header({ home }: { home: boolean }) {
       {menuOpen && (
         <nav
           id="mobile-menu"
-          aria-label={t.navigation}
+          aria-label={t.mainNavigation}
           className="menu-enter fixed inset-x-0 bottom-0 top-16 overflow-y-auto bg-background lg:hidden"
         >
           <div className="container-site flex flex-col pb-10 pt-6">

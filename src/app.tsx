@@ -10,7 +10,6 @@ import { Faq } from "@/components/faq";
 import { CaseStudy } from "@/components/case-study";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
-import { ThemeSwitch } from "@/components/theme-switch";
 import { SkipToContent } from "@/components/skip-to-content";
 import { en, bg } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
@@ -23,7 +22,6 @@ export function App({ locale, page }: { locale: Locale; page: Page }) {
       <Providers>
         <SkipToContent label={t.skip} />
         <Header home={page.kind === "home"} />
-        <ThemeSwitch />
         <main id="main-content">
           {page.kind === "home" ? (
             <>

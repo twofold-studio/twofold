@@ -3,7 +3,12 @@ import { chooseLocale } from "../server/locales.mjs";
 import { getContent } from "../lib/i18n/content";
 import { en, bg } from "../lib/i18n/dictionaries";
 import { pageFromPath, pagePath } from "../lib/pages";
-import { formatEnquiry, handleEnquiry, validateEnquiry } from "../server/enquiry.mjs";
+import {
+  clientAddress,
+  formatEnquiry,
+  handleEnquiry,
+  validateEnquiry,
+} from "../server/enquiry.mjs";
 
 describe("browser language and saved preference", () => {
   it.each([
@@ -96,5 +101,14 @@ describe("contact form enquiries", () => {
     const res = { writeHead: (code: number) => (status = code), end: () => {} };
     await handleEnquiry({ method: "POST", headers: {}, socket: {} } as never, res as never, "");
     expect(status).toBe(503);
+  });
+  it.each([
+    ["203.0.113.7", undefined, "203.0.113.7"],
+    ["1.2.3.4, 203.0.113.7", undefined, "203.0.113.7"],
+    [undefined, "198.51.100.2", "198.51.100.2"],
+    [undefined, undefined, "unknown"],
+  ])("rate-limit by the proxy-added address (%s, socket %s)", (forwarded, socket, expected) => {
+    const req = { headers: { "x-forwarded-for": forwarded }, socket: { remoteAddress: socket } };
+    expect(clientAddress(req as never)).toBe(expected);
   });
 });
