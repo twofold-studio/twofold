@@ -286,8 +286,8 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
                       </dd>
                     </div>
                     <div>
-                      <dt className="mb-2 text-muted-foreground">{t.builtBy}</dt>
-                      <dd className="text-foreground">{project.builtBy}</dd>
+                      <dt className="mb-2 text-muted-foreground">{t.year}</dt>
+                      <dd className="text-foreground">{project.year}</dd>
                     </div>
                   </dl>
                   {project.link && (
@@ -470,10 +470,22 @@ function ProjectItem({
               <span className="font-serif font-normal italic text-accent">{project.kicker}</span>
             </h3>
             <div ref={descRef} className={`flex flex-col gap-6 ${isEven ? "" : "md:items-end"}`}>
-              <p className="max-w-lg text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {project.summary}
-              </p>
-              <p className="text-sm text-foreground/60">{project.features.join(" · ")}</p>
+              <dl className="flex max-w-lg flex-col gap-4">
+                {(
+                  [
+                    [project.own ? t.idea : t.challenge, project.challenge],
+                    [t.solution, project.solution],
+                    [t.result, project.result],
+                  ] as const
+                ).map(([label, text]) => (
+                  <div key={label}>
+                    <dt className="text-sm font-medium text-foreground">{label}</dt>
+                    <dd className="mt-1 text-base leading-relaxed text-muted-foreground md:text-lg">
+                      {text}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
               <button
                 type="button"
                 onClick={onClick}

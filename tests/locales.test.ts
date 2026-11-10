@@ -32,8 +32,21 @@ describe("translation completeness", () => {
     for (const locale of ["bg", "en"] as const) {
       const founders = getContent(locale).founders;
       expect(founders[0]!.bio).toContain("50");
-      expect(founders[1]!.bio).toContain("Palms Bet");
+      expect(founders[1]!.bio).toContain("Front-end");
       expect(founders[1]!.bio).toMatch(/cybersecurity|киберсигурност/);
+    }
+  });
+  it("keeps current employers out of the founder bios", () => {
+    for (const locale of ["bg", "en"] as const) {
+      for (const founder of getContent(locale).founders) {
+        expect(founder.bio).not.toMatch(/CarrierX|Palms ?Bet/i);
+      }
+    }
+  });
+  it("uses the same rounded catalogue figures everywhere", () => {
+    for (const locale of ["bg", "en"] as const) {
+      const text = JSON.stringify(getContent(locale));
+      expect(text).not.toMatch(/3[ ,]?646|около 3600|about 3,600|5[ ,]?000/);
     }
   });
 });

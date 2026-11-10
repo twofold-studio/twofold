@@ -102,19 +102,12 @@ export function SocialProof() {
             <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
               {t.processFirstVersion}
             </p>
-            <p className="mt-6 font-serif text-[clamp(7rem,13vw,12rem)] leading-none tracking-tight text-accent">
-              1–2
+            <p className="mt-6 max-w-lg text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
+              {t.processProgress}
             </p>
-            <p className="mt-2 text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
-              {t.processBusinessDays}
-            </p>
-            <p className="mt-6 mb-8 max-w-lg text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
               {t.processSpeedCopy}
             </p>
-            <div className="mt-auto flex items-center gap-3 border-t border-foreground/10 pt-6 text-sm text-foreground/80">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-              {t.processHandsOn}
-            </div>
           </div>
 
           <article data-process-reveal className="flex flex-col rounded-2xl bg-muted/60 p-7">
