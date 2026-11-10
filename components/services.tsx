@@ -9,10 +9,15 @@ function ServiceRow({ title, note }: { title: string; note: string }) {
   return (
     <li
       ref={ref}
-      className="grid gap-2 border-b border-border py-7 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-10 md:py-8"
+      className="reveal-group reveal-rule grid gap-2 py-7 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-10 md:py-8"
     >
-      <h3 className="text-h3 font-medium text-foreground">{title}</h3>
-      <p className="text-body text-muted-foreground md:pt-0.5">{note}</p>
+      <h3 className="reveal-item text-h3 font-medium text-foreground">{title}</h3>
+      <p
+        className="reveal-item text-body text-muted-foreground md:pt-0.5"
+        style={{ transitionDelay: "100ms" }}
+      >
+        {note}
+      </p>
     </li>
   );
 }

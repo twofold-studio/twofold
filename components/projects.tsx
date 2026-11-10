@@ -21,14 +21,14 @@ function ProjectCard({ project, index }: { project: Work; index: number }) {
   return (
     <li
       ref={ref}
-      className="grid items-center gap-8 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-12 lg:gap-16"
+      className="reveal-group grid items-center gap-8 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-12 lg:gap-16"
     >
       {/* The image repeats the button's link for pointer users only. */}
       <a
         href={href}
         tabIndex={-1}
         aria-hidden="true"
-        className="group block overflow-hidden rounded-2xl border border-border bg-muted"
+        className="reveal-image group block overflow-hidden rounded-2xl border border-border bg-muted"
       >
         <ResponsiveImage
           src={project.cover}
@@ -37,7 +37,7 @@ function ProjectCard({ project, index }: { project: Work; index: number }) {
           className="aspect-16/10 w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
         />
       </a>
-      <div>
+      <div className="reveal-item" style={{ transitionDelay: "150ms" }}>
         <p className="text-small text-muted-foreground">
           {String(index + 1).padStart(2, "0")} · {project.kind}
         </p>

@@ -50,9 +50,16 @@ export function Process() {
           <p className="text-body text-muted-foreground md:pt-8">{t.processSpeedCopy}</p>
         </div>
 
-        <ol ref={stepsRef} className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <ol
+          ref={stepsRef}
+          className="reveal-group mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
+        >
           {steps.map((step, index) => (
-            <li key={step.title}>
+            <li
+              key={step.title}
+              className="reveal-item"
+              style={{ transitionDelay: `${index * 110}ms` }}
+            >
               <p className="text-small font-medium text-accent">
                 {String(index + 1).padStart(2, "0")}
               </p>
