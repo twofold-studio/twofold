@@ -1,44 +1,72 @@
 "use client";
 import { useI18n } from "./i18n-provider";
 
+import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { HeaderMark } from "@/components/header-mark";
+import { HeaderMark } from "./header-mark";
 import { LanguageToggle } from "./language-toggle";
 
 type Dictionary = ReturnType<typeof useI18n>["t"];
 
-const sections = (t: Dictionary) => [
-  { id: "hero", label: t.home },
+/** The sections visitors look for most, in page order. */
+const primaryLinks = (t: Dictionary) => [
   { id: "projects", label: t.work },
   { id: "services", label: t.services },
   { id: "about", label: t.team },
   { id: "process", label: t.results },
-  { id: "faq", label: t.questions },
-  { id: "contact", label: t.contact },
 ];
 
-/** Tracks which home-page section is in view, for the menu button's label. */
-function useActiveSection(enabled: boolean, t: Dictionary): string {
-  const [active, setActive] = useState(enabled ? "hero" : "projects");
+/** The phone menu adds the questions; contact is its button. */
+const menuLinks = (t: Dictionary) => [...primaryLinks(t), { id: "faq", label: t.questions }];
+
+/** The home-page section in view, for the underline under its link. */
+function useActiveSection(enabled: boolean): string | null {
+  const [active, setActive] = useState<string | null>(null);
   useEffect(() => {
     if (!enabled) return;
+    const ids = ["projects", "services", "about", "process", "faq", "contact"];
     const update = () => {
-      const nearBottom =
-        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 100;
-      if (nearBottom) return setActive("contact");
       const line = window.scrollY + window.innerHeight / 3;
-      const current = sections(t)
-        .map(({ id }) => document.getElementById(id))
+      const current = ids
+        .map((id) => document.getElementById(id))
         .filter((element): element is HTMLElement => Boolean(element))
         .reverse()
         .find((element) => element.offsetTop <= line);
-      setActive(current?.id ?? "hero");
+      setActive(current?.id ?? null);
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
-  }, [enabled, t]);
+  }, [enabled]);
   return active;
+}
+
+/** Solid once the page has scrolled; out of the way while reading down, back on the way up. */
+function useScrollState() {
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      if (Math.abs(y - last) < 8) return;
+      setHidden(y > last && y > 160);
+      last = y;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+  return { scrolled, hidden };
 }
 
 export function Header({ home }: { home: boolean }) {
@@ -47,101 +75,148 @@ export function Header({ home }: { home: boolean }) {
     t,
     content: { studio },
   } = useI18n();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const active = useActiveSection(home, t);
-  const activeLabel = sections(t).find((section) => section.id === active)?.label ?? t.home;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const firstMenuLink = useRef<HTMLAnchorElement>(null);
+  const active = useActiveSection(home);
+  const { scrolled, hidden } = useScrollState();
+  const href = (id: string) => `/${locale}#${id}`;
+  const isCurrent = (id: string) => home && active === id;
 
+  // The phone menu covers the page: lock scrolling, focus its first link,
+  // close it with Escape or when the screen becomes wide enough for the bar.
   useEffect(() => {
-    if (!isMenuOpen) return;
-    const close = (event: MouseEvent | KeyboardEvent) => {
-      if (
-        event instanceof KeyboardEvent
-          ? event.key === "Escape"
-          : !menuRef.current?.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false);
-      }
+    if (!menuOpen) return;
+    const root = document.documentElement;
+    const wide = window.matchMedia("(min-width: 1024px)");
+    const close = () => setMenuOpen(false);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      close();
+      menuButton.current?.focus();
     };
-    document.addEventListener("mousedown", close);
-    document.addEventListener("keydown", close);
+    root.style.overflow = "hidden";
+    firstMenuLink.current?.focus();
+    document.addEventListener("keydown", onKey);
+    wide.addEventListener("change", close);
     return () => {
-      document.removeEventListener("mousedown", close);
-      document.removeEventListener("keydown", close);
+      root.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", close);
     };
-  }, [isMenuOpen]);
+  }, [menuOpen]);
 
-  const pill = "rounded-2xl bg-neutral-900/75 text-white shadow-lg backdrop-blur-lg";
+  // No backdrop blur while the menu is open: it would trap the full-screen panel inside the bar.
+  const surface = menuOpen
+    ? "border-border bg-background"
+    : scrolled
+      ? "border-border bg-background/85 backdrop-blur-md"
+      : "border-transparent";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 py-4 sm:py-6">
-      <div className="container-site flex items-center gap-2 sm:gap-3">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition duration-300 ${surface} ${
+        hidden && !menuOpen ? "-translate-y-full focus-within:translate-y-0" : ""
+      }`}
+    >
+      <div className="container-site flex h-16 items-center lg:h-[4.5rem]">
         <a
           href={`/${locale}`}
-          className={`focus-ring flex h-12 shrink-0 items-center gap-2 px-4 text-body font-medium ${pill}`}
+          className="focus-ring flex shrink-0 items-center gap-2.5 rounded-md text-body font-medium text-foreground"
         >
           <HeaderMark className="h-5 w-5" />
-          <span className="max-[400px]:sr-only">{studio.name}</span>
+          {studio.name}
         </a>
 
-        <LanguageToggle className="ml-auto" />
-        <a
-          href={`/${locale}#contact`}
-          className="focus-ring hidden h-12 shrink-0 items-center rounded-2xl bg-white px-5 text-small font-medium text-neutral-950 shadow-lg transition-colors hover:bg-white/90 md:inline-flex"
-        >
-          {t.contactUs}
-        </a>
+        <nav aria-label={t.navigation} className="ml-12 hidden lg:block">
+          <ul className="flex items-center gap-7">
+            {primaryLinks(t).map((link) => (
+              <li key={link.id}>
+                <a
+                  href={href(link.id)}
+                  aria-current={isCurrent(link.id) ? "location" : undefined}
+                  className={`focus-ring relative rounded-sm py-2 text-small font-medium transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:bg-accent after:transition-transform after:duration-300 ${
+                    isCurrent(link.id)
+                      ? "text-foreground after:scale-x-100"
+                      : "text-muted-foreground after:scale-x-0 hover:text-foreground"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        <div ref={menuRef} className="relative h-12 w-24 shrink-0 sm:w-52">
-          <div
-            className={`absolute right-0 top-0 w-44 overflow-hidden sm:w-52 ${isMenuOpen ? "" : "max-sm:w-24"} ${pill}`}
+        <div className="ml-auto flex items-center gap-3 sm:gap-5">
+          <LanguageToggle />
+          <a href={href("contact")} className="btn btn-primary btn-sm hidden md:inline-flex">
+            {t.contactUs}
+          </a>
+          <button
+            ref={menuButton}
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? t.closeMenu : t.openMenu}
+            className="focus-ring -mr-2 flex h-10 w-10 items-center justify-center rounded-full text-foreground lg:hidden"
           >
-            <button
-              type="button"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-expanded={isMenuOpen}
-              aria-controls="site-menu"
-              aria-label={`${t.menu} ${activeLabel}`}
-              className="focus-ring flex h-12 w-full items-center justify-between gap-3 px-4"
-            >
-              <span className="text-body font-medium">
-                <span className="sm:hidden">{t.menuShort}</span>
-                <span className="hidden sm:inline">{activeLabel}</span>
-              </span>
+            <span aria-hidden="true" className="relative block h-3 w-5">
               <span
-                aria-hidden="true"
-                className={`relative h-4 w-4 transition-transform duration-300 ${isMenuOpen ? "rotate-45" : ""}`}
-              >
-                <span className="absolute left-1/2 top-0 h-4 w-[1.5px] -translate-x-1/2 bg-current" />
-                <span className="absolute left-0 top-1/2 h-[1.5px] w-4 -translate-y-1/2 bg-current" />
-              </span>
-            </button>
-
-            {isMenuOpen && (
-              <nav id="site-menu" aria-label={t.navigation} className="menu-enter px-4 pb-4">
-                <ul className="flex flex-col">
-                  {sections(t).map((section) => (
-                    <li key={section.id}>
-                      <a
-                        href={section.id === "hero" ? `/${locale}` : `/${locale}#${section.id}`}
-                        onClick={() => setIsMenuOpen(false)}
-                        aria-current={home && section.id === active ? "true" : undefined}
-                        className={`block py-1.5 text-body font-medium transition-colors hover:text-white ${
-                          home && section.id === active
-                            ? "text-white underline underline-offset-4"
-                            : "text-white/70"
-                        }`}
-                      >
-                        {section.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
-          </div>
+                className={`absolute left-0 h-[1.5px] w-5 bg-current transition-transform duration-300 ${
+                  menuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0"
+                }`}
+              />
+              <span
+                className={`absolute left-0 h-[1.5px] w-5 bg-current transition-transform duration-300 ${
+                  menuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-0"
+                }`}
+              />
+            </span>
+          </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <nav
+          id="mobile-menu"
+          aria-label={t.navigation}
+          className="menu-enter fixed inset-x-0 bottom-0 top-16 overflow-y-auto bg-background lg:hidden"
+        >
+          <div className="container-site flex flex-col pb-10 pt-6">
+            <ul className="border-t border-border">
+              {menuLinks(t).map((link, index) => (
+                <li key={link.id} className="border-b border-border">
+                  <a
+                    ref={index === 0 ? firstMenuLink : undefined}
+                    href={href(link.id)}
+                    onClick={() => setMenuOpen(false)}
+                    aria-current={isCurrent(link.id) ? "location" : undefined}
+                    className="focus-ring flex items-center justify-between py-4 text-h3 font-medium text-foreground"
+                  >
+                    {link.label}
+                    <ArrowRight size={20} aria-hidden="true" className="text-muted-foreground" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={href("contact")}
+              onClick={() => setMenuOpen(false)}
+              className="btn btn-primary mt-10"
+            >
+              {t.contactUs}
+            </a>
+            <a
+              href={`mailto:${studio.email}`}
+              className="link focus-ring mt-6 self-start text-small text-muted-foreground"
+            >
+              {studio.email}
+            </a>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
