@@ -17,7 +17,12 @@ export function HeroMark({ className = "" }: { className?: string }) {
 
       <div className="hero-mark absolute inset-0">
         <div className="hero-mark-lower absolute inset-0">
-          <svg viewBox={MARK_VIEWBOX} className="h-full w-full overflow-visible">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox={MARK_VIEWBOX}
+            className="h-full w-full overflow-visible"
+          >
             <defs>
               {/* Shade where the lower fold tucks under the upper one. */}
               <linearGradient
@@ -36,7 +41,12 @@ export function HeroMark({ className = "" }: { className?: string }) {
           </svg>
         </div>
         <div className="hero-mark-upper absolute inset-0">
-          <svg viewBox={MARK_VIEWBOX} className="h-full w-full overflow-visible">
+          <svg
+            width="1em"
+            height="1em"
+            viewBox={MARK_VIEWBOX}
+            className="h-full w-full overflow-visible"
+          >
             <path fill="currentColor" d={MARK_UPPER_FOLD} />
           </svg>
         </div>

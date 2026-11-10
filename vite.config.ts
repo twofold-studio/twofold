@@ -7,6 +7,14 @@ import { prerender } from "./scripts/prerender.mjs";
 import { chooseLocale } from "./server/locales.mjs";
 import { handleEnquiry } from "./server/enquiry.mjs";
 
+/**
+ * In development Vite adds the CSS from JavaScript, after the server-rendered
+ * HTML has already painted, so the page flashes unstyled (and unsized SVGs
+ * fill the screen). Linking the stylesheet in <head> matches production, where
+ * the build adds this link itself. `?direct` asks Vite for plain CSS.
+ */
+const DEV_STYLESHEET = '<link rel="stylesheet" href="/src/styles.css?direct">';
+
 let thisIsSSR = false;
 export default defineConfig({
   appType: "custom",
@@ -63,7 +71,7 @@ export default defineConfig({
             res.end(
               template
                 .replace('<html lang="en">', `<html lang="${locale}">`)
-                .replace("<!--head-->", head)
+                .replace("<!--head-->", `${head}${DEV_STYLESHEET}`)
                 .replace("<!--app-->", html),
             );
           } catch (error) {
