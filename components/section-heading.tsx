@@ -13,22 +13,31 @@ export function SectionHeading({
   label,
   children,
   action,
+  align = "start",
+  reveal = true,
   className = "mb-12 md:mb-16",
 }: {
   id: string;
   label: string;
   children: ReactNode;
   action?: ReactNode;
+  /** "center" stacks the label and heading in the middle (used by the FAQ). */
+  align?: "start" | "center";
+  /** false when the section animates the heading itself (the FAQ). */
+  reveal?: boolean;
   className?: string;
 }) {
+  const centered = align === "center";
   const ref = useReveal<HTMLDivElement>();
   return (
     <div
-      ref={ref}
-      className={`reveal-group flex flex-wrap items-end justify-between gap-6 ${className}`}
+      ref={reveal ? ref : undefined}
+      className={`reveal-group flex flex-wrap gap-6 ${
+        centered ? "flex-col items-center text-center" : "items-end justify-between"
+      } ${className}`}
     >
       <div className="max-w-3xl">
-        <p className="eyebrow reveal-item">{label}</p>
+        <p className={`eyebrow reveal-item ${centered ? "justify-center" : ""}`}>{label}</p>
         <h2 id={id} className="mt-4 text-h2 font-medium text-foreground">
           <span className="reveal-mask">
             <span className="reveal-line">{children}</span>
