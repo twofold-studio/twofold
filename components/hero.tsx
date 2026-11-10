@@ -4,7 +4,6 @@ import { useI18n } from "./i18n-provider";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { EffectBoundary } from "./effect-boundary";
 import { HeroMark } from "./hero-mark";
-import { useSiteEntry } from "./site-entry";
 
 const HeroBackground = lazy(() =>
   import("./hero-background").then((m) => ({ default: m.HeroBackground })),
@@ -30,9 +29,6 @@ function useDesktopEffect(): boolean {
 
 export function Hero() {
   const { t } = useI18n();
-  // Until the loading screen is removed, tell it the hero is ready.
-  const { reportHeroReady } = useSiteEntry();
-  useEffect(() => reportHeroReady(), [reportHeroReady]);
   const showBackground = useDesktopEffect();
   const [backgroundReady, setBackgroundReady] = useState(false);
 

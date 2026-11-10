@@ -25,6 +25,10 @@ Set `BASE_URL` for the integration check, for example `BASE_URL=http://localhost
 
 Vite's build hook runs `scripts/prerender.mjs`, which writes `/en/index.html`, `/bg/index.html` and `/{en,bg}/work/<project>/index.html`, plus `sitemap.xml`. Each page includes translated content, its own title, description, share image and language alternatives before JavaScript runs. The small production server serves these pages and static assets, redirects `/` according to the saved preference or browser language, and returns 404 for unsupported paths.
 
+## Images
+
+Project screenshots in `public/work/` are 3200 px wide. After adding or replacing one, run `node scripts/image-sizes.mjs` (needs `cwebp`) to make the 800, 1600 and 2400 px copies the pages load on smaller screens. Link-preview images (1200×630) live in `public/og/`: one per project, cropped from its cover, and `twofold-en.jpg` / `twofold-bg.jpg` for the home pages.
+
 ## Deployment
 
 Gitadel repository: `fractal-tess/twofold`. Pushes to `main` trigger Dokploy. The multi-stage Dockerfile builds with Vite+, then serves only `dist/` and the dependency-free HTTP server on `0.0.0.0:3000`. The image supports ARM64. Check deployment with `gtd deploy status fractal-tess/twofold --wait`.
