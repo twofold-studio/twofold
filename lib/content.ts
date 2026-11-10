@@ -55,7 +55,7 @@ export const work: Work[] = [
     slug: "arkada",
     name: "Arkada",
     kicker: "new-build sales",
-    kind: "Residential developer · sales demo",
+    kind: "For residential developers · sales demo",
     seoTitle: "Arkada — a 3D sales site for new-build apartments",
     challenge: "New-build buyers usually get a PDF price list and a phone number.",
     solution:
@@ -277,7 +277,7 @@ export const faqs = [
   {
     question: "What happens after launch?",
     answer:
-      "There are two options. We look after hosting and maintenance, on hosting chosen to fit the project and its budget, or we hand everything over to you. Either way, it's entirely yours.",
+      "There are two options. We host and maintain it on a server chosen to fit the project and its budget, or we hand everything over to you. Either way, it's entirely yours.",
   },
   {
     question: "How do we start?",

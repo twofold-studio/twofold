@@ -71,7 +71,7 @@ export function Projects() {
     <section id="projects" aria-labelledby="projects-heading" className="section">
       <div className="container-site">
         <SectionHeading id="projects-heading" label={t.work}>
-          {t.selectedWorkLabel}
+          {t.workHeading}
         </SectionHeading>
         <ol className="flex flex-col gap-20 md:gap-28">
           {work.map((project, index) => (
