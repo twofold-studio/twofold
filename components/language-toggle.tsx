@@ -8,7 +8,7 @@ export function LanguageToggle({ className = "" }: { className?: string }) {
   return (
     <fieldset
       aria-label={t.language}
-      className={`flex gap-1 rounded-xl bg-neutral-900/70 p-1.5 text-white backdrop-blur-lg ${className}`}
+      className={`flex h-12 shrink-0 items-center gap-1 rounded-2xl bg-neutral-900/75 p-1.5 text-white shadow-lg backdrop-blur-lg ${className}`}
     >
       {LOCALES.map((language) => (
         <button
@@ -20,7 +20,7 @@ export function LanguageToggle({ className = "" }: { className?: string }) {
           onClick={() => {
             if (language !== locale) switchLocale(language);
           }}
-          className={`focus-ring rounded-lg px-3 py-2 text-xs font-medium tracking-widest transition-colors ${language === locale ? "bg-white text-neutral-950" : "hover:bg-white/10"}`}
+          className={`focus-ring h-full rounded-xl px-2.5 text-small sm:px-3 font-medium transition-colors ${language === locale ? "bg-white text-neutral-950" : "text-white/80 hover:bg-white/10"}`}
         >
           {LOCALE_INFO[language].short}
         </button>

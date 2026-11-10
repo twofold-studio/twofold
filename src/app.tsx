@@ -20,7 +20,7 @@ export function App({ locale }: { locale: Locale }) {
       <Providers>
         <>
           <SkipToContent label={t.skip} />
-          <Header />
+          <Header home />
           <ThemeSwitch />
           <main id="main-content" className="bg-background flex-1 lg:relative lg:z-10">
             <Hero />

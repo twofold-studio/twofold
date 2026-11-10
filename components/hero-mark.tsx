@@ -1,36 +1,22 @@
-"use client";
-
-import { motion } from "motion/react";
-import { useSiteEntry } from "./site-entry";
 import { useId } from "react";
 import { MARK_LOWER_FOLD, MARK_UPPER_FOLD, MARK_VIEWBOX } from "@/lib/brand";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
+/**
+ * The large Twofold mark beside the hero heading. The two folds meet and then
+ * drift slowly; all of it is CSS (src/styles.css), so it runs without JavaScript
+ * and stops for visitors who prefer reduced motion.
+ */
 export function HeroMark({ className = "" }: { className?: string }) {
-  const { entered } = useSiteEntry();
   const shadeId = `${useId()}-shade`;
 
   return (
-    <div aria-hidden="true" className={`text-foreground relative aspect-square ${className}`}>
+    <div aria-hidden="true" className={`relative aspect-square text-foreground ${className}`}>
       {/* Background-coloured mask that dims the shader behind the mark so the
-          mark keeps its contrast where the bright band passes. It stays put
-          while the mark drifts. */}
-      <motion.div
-        className="hero-mark-part hero-mark-scrim absolute -inset-[40%]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: entered ? 1 : 0 }}
-        transition={{ duration: 1.4, ease: "easeOut", delay: 0.4 }}
-      />
+          mark keeps its contrast where the bright band passes. */}
+      <div className="hero-mark-scrim absolute -inset-[40%]" />
 
       <div className="hero-mark absolute inset-0">
-        {/* Lower fold arrives from the lower left... */}
-        <motion.div
-          className="hero-mark-part absolute inset-0"
-          initial={{ opacity: 0, x: "-7%", y: "7%" }}
-          animate={entered ? { opacity: 1, x: 0, y: 0 } : { opacity: 0 }}
-          transition={{ duration: 1.6, ease: EASE, delay: 0.75 }}
-        >
+        <div className="hero-mark-lower absolute inset-0">
           <svg viewBox={MARK_VIEWBOX} className="h-full w-full overflow-visible">
             <defs>
               {/* Shade where the lower fold tucks under the upper one. */}
@@ -48,19 +34,12 @@ export function HeroMark({ className = "" }: { className?: string }) {
             </defs>
             <path fill={`url(#${shadeId})`} d={MARK_LOWER_FOLD} />
           </svg>
-        </motion.div>
-
-        {/* ...and the upper fold from the upper right, so the two meet. */}
-        <motion.div
-          className="hero-mark-part absolute inset-0"
-          initial={{ opacity: 0, x: "7%", y: "-7%" }}
-          animate={entered ? { opacity: 1, x: 0, y: 0 } : { opacity: 0 }}
-          transition={{ duration: 1.6, ease: EASE, delay: 0.6 }}
-        >
+        </div>
+        <div className="hero-mark-upper absolute inset-0">
           <svg viewBox={MARK_VIEWBOX} className="h-full w-full overflow-visible">
             <path fill="currentColor" d={MARK_UPPER_FOLD} />
           </svg>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

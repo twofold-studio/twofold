@@ -30,6 +30,8 @@ export const en = {
   heroThree: "software.",
   heroCopy:
     "We design, build and maintain websites, apps, backend services and integrations. Based in Sofia.",
+  seeWork: "See our work",
+  contactUs: "Contact us",
   selected: "Selected",
   selectedWork: "work",
   selectedWorkLabel: "Selected work",
@@ -126,6 +128,8 @@ export const bg: Dictionary = {
   heroThree: "софтуер.",
   heroCopy:
     "Проектираме, разработваме и поддържаме сайтове, приложения, сървърни услуги и интеграции. Студио в София.",
+  seeWork: "Разгледайте проектите",
+  contactUs: "Свържете се с нас",
   selected: "Избрани",
   selectedWork: "проекти",
   selectedWorkLabel: "Избрани проекти",
