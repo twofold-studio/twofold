@@ -45,3 +45,4 @@ next-env.d.ts
 /.vite/
 /.vite-plus/
 /assets/screenshots/source/shots/
+/.screenshots/
