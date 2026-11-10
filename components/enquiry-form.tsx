@@ -1,7 +1,7 @@
 "use client";
 import { useI18n } from "./i18n-provider";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 
 type Status = "idle" | "sending" | "sent" | "invalid" | "fallback" | "error";
 
@@ -16,6 +16,7 @@ export function EnquiryForm() {
     content: { studio },
   } = useI18n();
   const [status, setStatus] = useState<Status>("idle");
+  const pending = useRef(false);
 
   const openEmail = (data: Record<string, string>) => {
     const signature = [data.name, data.company].filter(Boolean).join(", ");
@@ -25,10 +26,12 @@ export function EnquiryForm() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (pending.current) return;
     const form = event.currentTarget;
     const data = Object.fromEntries(
       [...new FormData(form)].map(([key, value]) => [key, typeof value === "string" ? value : ""]),
     );
+    pending.current = true;
     setStatus("sending");
     try {
       const response = await fetch("/api/enquiry", {
@@ -49,6 +52,8 @@ export function EnquiryForm() {
       }
     } catch {
       setStatus("error");
+    } finally {
+      pending.current = false;
     }
   }
 
