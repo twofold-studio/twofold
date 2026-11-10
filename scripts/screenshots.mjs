@@ -4,17 +4,22 @@
  *   npm run build
  *   node scripts/screenshots.mjs                 # every page type, desktop/tablet/phone, both themes
  *   node scripts/screenshots.mjs /bg /en/work/arkada   # just these pages, desktop and phone
+ *   node scripts/screenshots.mjs --readme        # rebuild assets/screenshots/hero.webp
  *
  * Serves dist/ on port 4399, drives a headless Google Chrome over its debugging
- * port (9333), scrolls each page once so the scroll animations have run, and
- * saves PNGs in .screenshots/ (ignored by git). Needs Google Chrome installed.
+ * port (9333) and saves PNGs in .screenshots/ (ignored by git). Long pages are
+ * captured one screen at a time, scrolled there first, because parts of the
+ * page move with the scroll. --readme captures the English home page and the
+ * Arkada page at double resolution, places them in
+ * assets/screenshots/source/hero.html and saves the result as the README image
+ * (needs `cwebp`, e.g. `brew install webp`). Needs Google Chrome installed.
  */
-import { spawn } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import { existsSync, mkdirSync, openSync, readdirSync, rmSync } from "node:fs";
 import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -37,29 +42,58 @@ const desk = { width: 1440, height: 900, scale: 0.7 };
 const mob = { width: 390, height: 844, mobile: true };
 const slug = (path) => path.replace(/^\//, "").replaceAll("/", "-") || "root";
 
-const requested = process.argv.slice(2);
-const jobs = requested.length
-  ? requested.flatMap((path) => [
-      { name: `${slug(path)}-desk-dark`, url: path, ...desk, full: true },
-      { name: `${slug(path)}-mob-dark`, url: path, ...mob, full: true },
-    ])
-  : [
-      { name: "bg-desk-dark", url: "/bg", ...desk, full: true },
-      { name: "bg-desk-light", url: "/bg", ...desk, theme: "light", full: true },
-      { name: "bg-mob-dark", url: "/bg", ...mob, full: true },
-      { name: "bg-mob-light", url: "/bg", ...mob, theme: "light", full: true },
-      { name: "bg-tablet-dark", url: "/bg", width: 1024, height: 768, scale: 0.8, full: true },
-      { name: "en-desk-dark-top", url: "/en", ...desk },
-      { name: "bg-desk-dark-pointer", url: "/bg", ...desk, pointer: [1150, 420] },
+const args = process.argv.slice(2);
+const readme = args.includes("--readme");
+const requested = args.filter((arg) => !arg.startsWith("--"));
+const cover = join(REPO, "assets/screenshots/source");
+const jobs = readme
+  ? [
       {
-        name: "bg-mob-dark-menu",
-        url: "/bg",
-        ...mob,
-        click: 'button[aria-controls="mobile-menu"]',
+        name: "home",
+        url: "/en",
+        width: 1440,
+        height: 900,
+        dpr: 2,
+        path: join(cover, "shots/home.png"),
       },
-      { name: "bg-case-desk-dark", url: "/bg/work/helios", ...desk, full: true },
-      { name: "bg-case-mob-dark", url: "/bg/work/helios", ...mob, full: true },
-    ];
+      {
+        name: "project",
+        url: "/en/work/arkada",
+        width: 1440,
+        height: 900,
+        dpr: 2,
+        path: join(cover, "shots/project.png"),
+      },
+      {
+        name: "readme-hero",
+        url: pathToFileURL(join(cover, "hero.html")).href,
+        width: 1600,
+        height: 1000,
+        dpr: 2,
+      },
+    ]
+  : requested.length
+    ? requested.flatMap((path) => [
+        { name: `${slug(path)}-desk-dark`, url: path, ...desk, full: true },
+        { name: `${slug(path)}-mob-dark`, url: path, ...mob, full: true },
+      ])
+    : [
+        { name: "bg-desk-dark", url: "/bg", ...desk, full: true },
+        { name: "bg-desk-light", url: "/bg", ...desk, theme: "light", full: true },
+        { name: "bg-mob-dark", url: "/bg", ...mob, full: true },
+        { name: "bg-mob-light", url: "/bg", ...mob, theme: "light", full: true },
+        { name: "bg-tablet-dark", url: "/bg", width: 1024, height: 768, scale: 0.8, full: true },
+        { name: "en-desk-dark-top", url: "/en", ...desk },
+        { name: "bg-desk-dark-pointer", url: "/bg", ...desk, pointer: [1150, 420] },
+        {
+          name: "bg-mob-dark-menu",
+          url: "/bg",
+          ...mob,
+          click: 'button[aria-controls="mobile-menu"]',
+        },
+        { name: "bg-case-desk-dark", url: "/bg/work/helios", ...desk, full: true },
+        { name: "bg-case-mob-dark", url: "/bg/work/helios", ...mob, full: true },
+      ];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const children = [];
@@ -143,6 +177,7 @@ async function open() {
 
 try {
   await mkdir(out, { recursive: true });
+  await mkdir(join(cover, "shots"), { recursive: true });
   await waitFor(`${SITE}/en`);
   await waitFor(`http://127.0.0.1:${DEBUG}/json/version`);
 
@@ -157,7 +192,7 @@ try {
     await send("Emulation.setDeviceMetricsOverride", {
       width: job.width,
       height: job.height,
-      deviceScaleFactor: 1,
+      deviceScaleFactor: job.dpr ?? 1,
       mobile: Boolean(job.mobile),
     });
     if (job.mobile) {
@@ -167,7 +202,7 @@ try {
       source: `try { localStorage.setItem("theme", ${JSON.stringify(job.theme ?? "dark")}); } catch {}`,
     });
     const loaded = page.once("Page.loadEventFired");
-    await send("Page.navigate", { url: SITE + job.url });
+    await send("Page.navigate", { url: job.url.startsWith("file:") ? job.url : SITE + job.url });
     await loaded;
     await sleep(3000);
 
@@ -187,32 +222,48 @@ try {
         clip: { x: 0, y, width: job.width, height, scale: job.scale ?? 1 },
         captureBeyondViewport: true,
       });
-      await writeFile(join(out, file), Buffer.from(data, "base64"));
-      console.log(file);
+      await writeFile(file.startsWith("/") ? file : join(out, file), Buffer.from(data, "base64"));
+      console.log(file.replace(`${REPO}/`, ""));
     };
 
     if (!job.full) {
-      await capture(`${job.name}.png`, 0, job.height);
+      await capture(job.path ?? `${job.name}.png`, 0, job.height);
     } else {
-      // Scroll through once so every scroll reveal has run, then back to the top.
+      // Scroll through once so every one-time reveal has run.
       const total = await evaluate("document.documentElement.scrollHeight");
       for (let y = 0; y < total; y += Math.floor(job.height * 0.5)) {
         await evaluate(`window.scrollTo({ top: ${y}, behavior: "instant" })`);
         await sleep(180);
       }
-      await sleep(1500);
-      await evaluate(`window.scrollTo({ top: 0, behavior: "instant" })`);
-      await sleep(1200);
+      // Then one screen at a time, scrolled there and given time to settle,
+      // because the FAQ, service rows and process steps move with the scroll.
       const height = await evaluate("document.documentElement.scrollHeight");
       let index = 1;
       for (let y = 0; y < height; y += job.height) {
+        await evaluate(`window.scrollTo({ top: ${y}, behavior: "instant" })`);
+        await sleep(1400);
         const name = `${job.name}-${String(index++).padStart(2, "0")}.png`;
         await capture(name, y, Math.min(job.height, height - y));
       }
     }
     await page.close();
   }
-  console.log(`\nDone. Screenshots are in ${out}`);
+  if (readme) {
+    const image = join(REPO, "assets/screenshots/hero.webp");
+    execFileSync("cwebp", [
+      "-quiet",
+      "-q",
+      "82",
+      "-m",
+      "6",
+      join(out, "readme-hero.png"),
+      "-o",
+      image,
+    ]);
+    console.log(`\nDone. The README image is ${image}`);
+  } else {
+    console.log(`\nDone. Screenshots are in ${out}`);
+  }
 } finally {
   stop();
 }

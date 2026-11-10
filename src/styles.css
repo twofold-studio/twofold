@@ -277,7 +277,6 @@ a {
    put and moves its parts instead:
    - .reveal-item fades up (stagger with an inline transition-delay),
    - .reveal-line rises out of its .reveal-mask, like the hero headline,
-   - .reveal-rule draws its bottom rule from the left,
    - .reveal-image opens from a smaller frame while its image settles. */
 [data-reveal] {
   transition:
@@ -325,27 +324,6 @@ a {
 
 [data-reveal="pending"] .reveal-line {
   transform: translateY(105%);
-}
-
-.reveal-rule {
-  position: relative;
-}
-
-.reveal-rule::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 1px;
-  background: var(--border);
-  transform-origin: left;
-}
-
-.reveal-rule[data-reveal]::after {
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal-rule[data-reveal="pending"]::after {
-  transform: scaleX(0);
 }
 
 [data-reveal] .reveal-image {

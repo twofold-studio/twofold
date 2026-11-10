@@ -1,57 +1,15 @@
 "use client";
 import { useI18n } from "./i18n-provider";
 
-import { useEffect, useId, useRef, useState, type RefObject } from "react";
+import { useId, useRef, useState } from "react";
 import { SectionHeading } from "./section-heading";
+import { useScrubIn } from "./scrub-in";
 
 /**
- * The FAQ's motion is taken from the earlier site (main branch): GSAP scrubs
- * each card and the heading into place with the scroll (smoothed by one
- * second), and answers open with a CSS grid transition. GSAP is loaded only
- * here and only when needed, so it stays out of the main download. Nothing
- * moves with reduced motion.
+ * The FAQ's motion is taken from the earlier site (main branch): each card and
+ * the heading scrub into place with the scroll (components/scrub-in.ts), and
+ * answers open with a CSS grid transition.
  */
-function useScrubIn(
-  target: RefObject<HTMLElement | null>,
-  trigger: RefObject<HTMLElement | null>,
-  options: { y: number; duration: number; start: string; end: string },
-) {
-  const { y, duration, start, end } = options;
-  useEffect(() => {
-    const element = target.current;
-    const anchor = trigger.current;
-    if (!element || !anchor || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-    let cancelled = false;
-    let revert: (() => void) | undefined;
-    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
-      ([{ gsap }, { ScrollTrigger }]) => {
-        if (cancelled) return;
-        gsap.registerPlugin(ScrollTrigger);
-        const context = gsap.context(() => {
-          gsap.fromTo(
-            element,
-            { y, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration,
-              ease: "power3.out",
-              scrollTrigger: { trigger: anchor, start, end, scrub: 1 },
-            },
-          );
-        });
-        revert = () => context.revert();
-      },
-    );
-    return () => {
-      cancelled = true;
-      revert?.();
-    };
-  }, [target, trigger, y, duration, start, end]);
-}
-
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);
