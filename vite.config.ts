@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { readFile } from "node:fs/promises";
 import { prerender } from "./scripts/prerender.mjs";
 import { chooseLocale } from "./server/locales.mjs";
+import { handleEnquiry } from "./server/enquiry.mjs";
 
 let thisIsSSR = false;
 export default defineConfig({
@@ -27,6 +28,10 @@ export default defineConfig({
       configureServer(server) {
         server.middlewares.use(async (req, res, next) => {
           const url = new URL(req.url ?? "/", "http://localhost");
+          if (url.pathname === "/api/enquiry") {
+            await handleEnquiry(req, res);
+            return;
+          }
           if (url.pathname === "/") {
             res.writeHead(307, {
               Location: `/${chooseLocale(req.headers["accept-language"], req.headers.cookie)}${url.search}`,

@@ -3,6 +3,7 @@ import { chooseLocale } from "../server/locales.mjs";
 import { getContent } from "../lib/i18n/content";
 import { en, bg } from "../lib/i18n/dictionaries";
 import { pageFromPath, pagePath } from "../lib/pages";
+import { formatEnquiry, handleEnquiry, validateEnquiry } from "../server/enquiry.mjs";
 
 describe("browser language and saved preference", () => {
   it.each([
@@ -67,5 +68,33 @@ describe("case study pages", () => {
         ).toBeTruthy();
       }
     }
+  });
+});
+describe("contact form enquiries", () => {
+  const valid = { name: "Иван", email: "ivan@example.com", message: "Нов сайт", locale: "bg" };
+  it("accept a complete enquiry and trim it", () => {
+    expect(validateEnquiry({ ...valid, name: "  Иван " })).toMatchObject({
+      name: "Иван",
+      locale: "bg",
+    });
+  });
+  it.each([
+    [{ ...valid, email: "not-an-email" }],
+    [{ ...valid, name: "" }],
+    [{ ...valid, message: "x".repeat(5001) }],
+    [null],
+  ])("reject %j", (input) => expect(validateEnquiry(input)).toBeNull());
+  it("flag the hidden trap field as spam", () => {
+    expect(validateEnquiry({ ...valid, website: "https://spam.example" })).toEqual({ spam: true });
+  });
+  it("include the company only when given", () => {
+    expect(formatEnquiry({ ...valid, company: "" })).not.toContain("Company");
+    expect(formatEnquiry({ ...valid, company: "Хелиос" })).toContain("Company: Хелиос");
+  });
+  it("answer 503 when no delivery webhook is configured", async () => {
+    let status = 0;
+    const res = { writeHead: (code: number) => (status = code), end: () => {} };
+    await handleEnquiry({ method: "POST", headers: {}, socket: {} } as never, res as never, "");
+    expect(status).toBe(503);
   });
 });

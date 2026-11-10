@@ -4,6 +4,7 @@ import { stat } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chooseLocale } from "./locales.mjs";
+import { handleEnquiry } from "./enquiry.mjs";
 
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -24,6 +25,10 @@ const PAGE_PATH = /^\/(en|bg)(\/work\/[a-z0-9-]+)?\/?$/;
 
 export function createAppServer(root = resolve("dist")) {
   return createServer(async (req, res) => {
+    if ((req.url ?? "").split("?")[0] === "/api/enquiry") {
+      await handleEnquiry(req, res);
+      return;
+    }
     if (req.method !== "GET" && req.method !== "HEAD") {
       res.writeHead(405, { Allow: "GET, HEAD" });
       res.end();

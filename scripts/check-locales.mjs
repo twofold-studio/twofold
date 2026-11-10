@@ -47,6 +47,11 @@ for (const [locale, title] of [
 }
 assert.equal((await fetch(`${base}/bg/work/unknown`)).status, 404);
 assert.equal((await fetch(`${base}/de`)).status, 404);
+const enquiry = await fetch(`${base}/api/enquiry`, { method: "POST", body: "{}" });
+assert.ok(
+  [400, 503].includes(enquiry.status),
+  "Enquiries: 400 when invalid, 503 when not configured",
+);
 for (const path of ["/icon.svg", "/apple-icon.png", "/site.webmanifest", "/robots.txt"]) {
   assert.equal((await fetch(`${base}${path}`)).status, 200, path);
 }

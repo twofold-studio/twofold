@@ -1,6 +1,7 @@
 "use client";
 import { useI18n } from "./i18n-provider";
 
+import { EnquiryForm } from "./enquiry-form";
 import { SectionHeading } from "./section-heading";
 
 export function Contact() {
@@ -14,7 +15,7 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="section border-t border-border"
+      className="section relative border-t border-border"
     >
       <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
         <div>
@@ -22,19 +23,16 @@ export function Contact() {
             {t.footerIntro}
           </SectionHeading>
           <p className="max-w-md text-body text-muted-foreground">{t.footerLocation}</p>
-        </div>
-        <div className="lg:pt-10">
+          <p className="mt-10 text-small text-muted-foreground">{t.preferEmail}</p>
           <a
             href={mailto}
-            className="link focus-ring inline-block text-h3 font-medium text-foreground [overflow-wrap:anywhere]"
+            className="link focus-ring mt-2 inline-block text-h3 font-medium text-foreground [overflow-wrap:anywhere]"
           >
             {studio.email}
           </a>
-          <div className="mt-8">
-            <a href={mailto} className="btn btn-primary">
-              {t.startProject}
-            </a>
-          </div>
+        </div>
+        <div className="lg:pt-10">
+          <EnquiryForm />
         </div>
       </div>
     </section>
