@@ -61,8 +61,7 @@ export function About() {
           ref={headingRef}
           className="mx-auto max-w-4xl text-center text-[clamp(1.75rem,4vw,3.25rem)] font-medium leading-[1.15] tracking-tight text-foreground"
         >
-          {t.aboutBefore}{" "}
-          <span className="font-serif font-normal italic text-accent">{t.aboutEmphasis}</span>
+          {t.aboutBefore} <span className="text-accent">{t.aboutEmphasis}</span>
           {t.aboutAfter}
         </h2>
 

@@ -113,8 +113,7 @@ export function Faq() {
           aria-label={[t.faqBefore, t.faqEmphasis, t.faqAfter].filter(Boolean).join(" ")}
           className="text-4xl lg:text-5xl font-medium tracking-tight text-foreground text-center mb-12 lg:mb-16"
         >
-          {t.faqBefore}{" "}
-          <span className="font-serif font-normal italic text-accent">{t.faqEmphasis}</span>
+          {t.faqBefore} <span className="text-accent">{t.faqEmphasis}</span>
           <br />
           {t.faqAfter}
         </h2>

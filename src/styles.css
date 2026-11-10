@@ -6,8 +6,9 @@
   --muted: #e8e3d8;
   --muted-foreground: #5f655f;
   --border: #d9d3c5;
-  --ring: #8a6a2f;
-  --accent: #8a6a2f;
+  /* Darker than the dark theme's gold so small text passes WCAG AA (5.2:1). */
+  --ring: #7d5f28;
+  --accent: #7d5f28;
 }
 
 .dark {
@@ -20,6 +21,7 @@
   --accent: #d4a95c;
 }
 
+/* One family, six sizes, two weights (400 and 500). */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -28,49 +30,170 @@
   --color-border: var(--border);
   --color-ring: var(--ring);
   --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-instrument-serif), Georgia, serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --breakpoint-3xl: 120rem;
+  --font-sans: "Geist Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-display: clamp(2.5rem, 5.5vw, 5rem);
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.035em;
+  --text-h2: clamp(2rem, 3.5vw, 3rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.015em;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.55;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
 }
 
 html {
   color-scheme: light;
+  scroll-padding-top: 6rem;
 }
 
 html.dark {
   color-scheme: dark;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-/* Hero mark: after the folds land, a slow drift. */
-.hero-mark {
-  animation: hero-mark-drift 11s ease-in-out 2.6s infinite;
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes hero-mark-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
+button {
+  cursor: pointer;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+@layer components {
+  /* One content width and one rhythm between sections. */
+  .container-site {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
   }
-  50% {
-    transform: translate3d(0, -0.6rem, 0) rotate(-0.6deg);
+
+  .section {
+    padding-block: clamp(6rem, 12vw, 10rem);
+  }
+
+  /* Small label above each section heading. */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: var(--text-small);
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
-/* Soft mask in the page background colour behind the hero mark, so the
-   shader's bright band doesn't wash it out. */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  background: var(--background);
+  border: 2px solid var(--ring);
+  border-radius: 0.375rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.skip-to-content:focus {
+  left: 1rem;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* One quiet fade-in per element, added only after hydration and only for
+   elements that start below the fold (see components/reveal.tsx). */
+[data-reveal] {
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* Hero: a short entrance in CSS, so it runs before (and without) JavaScript. */
+.hero-backdrop {
+  background: radial-gradient(
+    ellipse at 65% 40%,
+    color-mix(in srgb, var(--accent) 9%, transparent),
+    transparent 65%
+  );
+}
+
+.hero-enter {
+  animation: hero-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-2 {
+  animation-delay: 0.08s;
+}
+
+.hero-enter-3 {
+  animation-delay: 0.16s;
+}
+
+.hero-enter-4 {
+  animation-delay: 0.24s;
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* Hero mark: the two folds meet, then drift slowly. */
 .hero-mark-scrim {
   pointer-events: none;
+  animation: fade-in 1.4s ease-out 0.4s both;
   /* Many stops on an eased curve, so the falloff doesn't band. */
   background: radial-gradient(
     closest-side,
@@ -83,6 +206,48 @@ html.dark {
     color-mix(in srgb, var(--background) 8%, transparent) 88%,
     transparent
   );
+}
+
+.hero-mark {
+  animation: hero-mark-drift 11s ease-in-out 2.6s infinite;
+}
+
+.hero-mark-upper {
+  animation: hero-mark-upper-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+.hero-mark-lower {
+  animation: hero-mark-lower-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes hero-mark-upper-in {
+  from {
+    opacity: 0;
+    transform: translate(7%, -7%);
+  }
+}
+
+@keyframes hero-mark-lower-in {
+  from {
+    opacity: 0;
+    transform: translate(-7%, 7%);
+  }
+}
+
+@keyframes hero-mark-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -0.6rem, 0) rotate(-0.6deg);
+  }
 }
 
 /* Header mark: the folds meet on load, then every 7s part slightly and
@@ -142,59 +307,23 @@ html.dark {
   }
 }
 
-/* Reduced motion: show the finished marks, no entrance, no drift, no
-   refold. Motion writes inline styles, so the overrides need !important. */
+.menu-enter {
+  animation: fade-in 0.2s ease both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-mark,
-  .header-mark-upper,
-  .header-mark-lower {
-    animation: none;
-  }
-
-  .hero-mark-part {
-    opacity: 1 !important;
-    transform: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.skip-to-content {
-  position: absolute;
-  left: -9999px;
-  top: 1rem;
-  z-index: 9999;
-  padding: 0.75rem 1rem;
-  background: var(--background);
-  border: 2px solid var(--ring);
-  border-radius: 0.375rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--foreground);
-}
-
-.skip-to-content:focus {
-  left: 1rem;
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-.focus-ring:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-::selection {
-  background: var(--accent);
-  color: var(--background);
-}
-
+/* Legacy: the loading screen and the previous hero entrance, still used until
+   the speed step removes them. */
 /* This tiny, server-rendered entrance works while the JS chunks load. The
    independent CSS deadline also uncovers the page if hydration never finishes. */
 .site-entry {
@@ -337,18 +466,9 @@ body {
   }
 }
 
-:root {
-  --font-geist-sans: "Geist Variable";
-  --font-instrument-serif: "Instrument Serif";
-  --font-geist-mono: ui-monospace;
-}
-html {
-  scroll-padding-top: 100px;
-}
-button {
-  cursor: pointer;
-}
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
+@media (prefers-reduced-motion: reduce) {
+  .hero-mark-part {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

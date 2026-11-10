@@ -55,7 +55,7 @@ export function Footer() {
           <div>
             <span className="text-4xl font-medium tracking-tight">{studio.name}</span>
             <p className="mt-4 text-background/60 text-3xl lg:text-4xl">
-              {t.footerOne} <span className="font-serif italic">{t.footerTwo}</span>
+              {t.footerOne} <span>{t.footerTwo}</span>
             </p>
           </div>
 

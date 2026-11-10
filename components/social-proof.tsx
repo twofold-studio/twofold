@@ -54,8 +54,7 @@ export function SocialProof() {
               id="process-heading"
               className="max-w-3xl text-[clamp(2.25rem,4.5vw,4.5rem)] font-medium leading-[1.08] tracking-tight text-foreground"
             >
-              {t.processBefore}{" "}
-              <span className="font-serif font-normal italic text-accent">{t.processEmphasis}</span>
+              {t.processBefore} <span className="text-accent">{t.processEmphasis}</span>
             </h2>
           </div>
           <a

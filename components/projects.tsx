@@ -257,9 +257,7 @@ function ProjectOverlay({ project, onClose }: { project: Work | null; onClose: (
                     className="text-[clamp(3rem,8vw,7.5rem)] font-medium leading-[0.95] tracking-tight text-foreground"
                   >
                     <span className="block">{project.name}</span>
-                    <span className="block font-serif font-normal italic text-accent">
-                      {project.kicker}
-                    </span>
+                    <span className="block text-accent">{project.kicker}</span>
                   </h2>
                 </div>
                 <div className="flex flex-col justify-end gap-6">
@@ -467,7 +465,7 @@ function ProjectItem({
             >
               <span className="font-medium">{project.name}</span>
               <br />
-              <span className="font-serif font-normal italic text-accent">{project.kicker}</span>
+              <span className="text-accent">{project.kicker}</span>
             </h3>
             <div ref={descRef} className={`flex flex-col gap-6 ${isEven ? "" : "md:items-end"}`}>
               <dl className="flex max-w-lg flex-col gap-4">
@@ -556,10 +554,9 @@ export function Projects() {
       <div className="pb-10 md:pb-16" aria-hidden="true">
         <VelocityText
           baseVelocity={80}
-          className="px-8 text-[clamp(4rem,12vw,14rem)] font-medium uppercase italic tracking-tight text-foreground"
+          className="px-8 text-[clamp(4rem,12vw,14rem)] font-medium uppercase tracking-tight text-foreground"
         >
-          {t.selected}{" "}
-          <span className="font-serif font-normal normal-case text-accent">{t.selectedWork}</span>
+          {t.selected} <span className="normal-case text-accent">{t.selectedWork}</span>
           &nbsp;
         </VelocityText>
       </div>

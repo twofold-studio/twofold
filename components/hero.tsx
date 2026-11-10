@@ -73,7 +73,7 @@ export function Hero({ startColors, endColors }: HeroProps = {}) {
             </span>
             <span className="block overflow-hidden pb-[0.1em]">
               <span className="hero-line block">
-                <em className="font-serif font-normal">{t.heroThree}</em>
+                <em className="not-italic text-accent">{t.heroThree}</em>
               </span>
             </span>
           </h1>
