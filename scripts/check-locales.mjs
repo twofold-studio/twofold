@@ -33,6 +33,19 @@ for (const [locale, heading, caseTitle] of [
   assert.ok(html.includes('hrefLang="bg"') || html.includes('hreflang="bg"'));
   assert.ok(html.includes('hrefLang="en"') || html.includes('hreflang="en"'));
 }
+for (const [locale, title] of [
+  ["bg", "Хелиос — каталог с търсене"],
+  ["en", "Helios — a searchable catalogue"],
+]) {
+  const response = await fetch(`${base}/${locale}/work/helios`);
+  assert.equal(response.status, 200, `Case study page /${locale}/work/helios`);
+  const html = await response.text();
+  assert.ok(html.includes(title));
+  assert.ok(
+    html.includes(`rel="canonical" href="https://twofold.fractal-tess.xyz/${locale}/work/helios"`),
+  );
+}
+assert.equal((await fetch(`${base}/bg/work/unknown`)).status, 404);
 assert.equal((await fetch(`${base}/de`)).status, 404);
 for (const path of ["/icon.svg", "/apple-icon.png", "/site.webmanifest", "/robots.txt"]) {
   assert.equal((await fetch(`${base}${path}`)).status, 200, path);

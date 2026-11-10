@@ -58,4 +58,14 @@ describe("case study pages", () => {
     expect(pageFromPath("/bg")).toEqual({ kind: "home" });
     expect(pagePath("en", { kind: "work", slug: "arkada" })).toBe("/en/work/arkada");
   });
+  it("give every project a page title in both languages", () => {
+    for (const locale of ["bg", "en"] as const) {
+      for (const project of getContent(locale).work) {
+        expect(project.seoTitle.startsWith(project.name)).toBe(true);
+        expect(
+          project.challenge && project.solution && project.result && project.year,
+        ).toBeTruthy();
+      }
+    }
+  });
 });

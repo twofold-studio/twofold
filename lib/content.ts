@@ -28,10 +28,12 @@ export interface WorkImage {
 export interface Work {
   slug: string;
   name: string;
-  /** Short italic line under the name in the big heading. */
+  /** Short line under the project name, in the accent colour. */
   kicker: string;
   /** What kind of client or job it was. */
   kind: string;
+  /** Page title for the case study in search results and link previews. */
+  seoTitle: string;
   /** Our own product: the first card line reads "Idea" instead of "Challenge". */
   own?: boolean;
   /** The three card lines: the starting point, what we built, what it gives the client. */
@@ -54,6 +56,7 @@ export const work: Work[] = [
     name: "Arkada",
     kicker: "new-build sales",
     kind: "Residential developer · sales demo",
+    seoTitle: "Arkada — a 3D sales site for new-build apartments",
     challenge: "New-build buyers usually get a PDF price list and a phone number.",
     solution:
       "A site where buyers pick a building, floor and apartment from the facade, the floor plan or a 3D model, and see the price and every room's area.",
@@ -93,6 +96,7 @@ export const work: Work[] = [
     name: "Helios",
     kicker: "homeopathy",
     kind: "Pharmacy in Sofia · website rebuild",
+    seoTitle: "Helios — a searchable catalogue for a homeopathic pharmacy",
     challenge:
       "A 2012 website, and a catalogue of over 3,600 remedies available only as a spreadsheet download.",
     solution:
@@ -134,6 +138,7 @@ export const work: Work[] = [
     name: "Bukinistika",
     kicker: "rare books",
     kind: "Antiquarian bookshop · online store",
+    seoTitle: "Bukinistika — an online shop for rare books in three languages",
     challenge:
       "Over 4,000 rare and antiquarian books that needed to reach buyers in Bulgaria and abroad.",
     solution:
@@ -173,6 +178,7 @@ export const work: Work[] = [
     name: "vAIced",
     kicker: "stories, spoken",
     kind: "Our own product",
+    seoTitle: "vAIced — web novels turned into audiobooks",
     own: true,
     challenge: "Turns web novels into audiobooks, with a distinct voice for every character.",
     solution: "It works out who speaks each line and gives every character their own AI voice.",
