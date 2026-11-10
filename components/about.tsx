@@ -6,15 +6,23 @@ import type { Founder } from "@/lib/content";
 import { useReveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
+/**
+ * The original site's founder card: soft filled card, grayscale portrait on the
+ * left, role in capitals, a large name, the bio, facts with gold dots and
+ * pill links. The cards sit side by side, which is narrower than on the
+ * original, so the facts and links run under the photo instead of beside it.
+ * That keeps the text beside the photo short enough for the photo to show in
+ * full: its frame is always 4:5, the photos' own shape, and never stretches.
+ */
 function FounderCard({ founder }: { founder: Founder }) {
   const { t } = useI18n();
   const ref = useReveal<HTMLElement>();
   return (
     <article
       ref={ref}
-      className="flex flex-col overflow-hidden rounded-2xl border border-border sm:flex-row md:flex-col xl:flex-row"
+      className="grid overflow-hidden rounded-[2rem] bg-muted/60 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
     >
-      <div className="relative aspect-4/5 w-full shrink-0 bg-muted sm:w-2/5 md:w-full xl:w-2/5">
+      <div className="relative aspect-4/5 w-full self-start bg-muted">
         <img
           src={founder.photo}
           alt={`${t.portrait} ${founder.name}`}
@@ -22,15 +30,21 @@ function FounderCard({ founder }: { founder: Founder }) {
           height={1000}
           loading="lazy"
           decoding="async"
-          sizes="(min-width: 1280px) 20vw, (min-width: 768px) 45vw, (min-width: 640px) 40vw, 100vw"
+          sizes="(min-width: 1024px) 22rem, (min-width: 768px) 45vw, (min-width: 640px) 40vw, 100vw"
           className="absolute inset-0 h-full w-full object-cover grayscale"
         />
       </div>
-      <div className="flex flex-1 flex-col p-7 lg:p-8">
-        <p className="text-small text-muted-foreground">{founder.role}</p>
-        <h3 className="mt-2 text-h3 font-medium text-foreground">{founder.name}</h3>
-        <p className="mt-4 text-body text-foreground/85">{founder.bio}</p>
-        <ul className="mt-6 flex flex-col gap-2 border-t border-border pt-5 text-small text-muted-foreground">
+
+      <div className="p-7 pb-0 lg:p-8 lg:pb-0">
+        <p className="text-small font-medium uppercase tracking-widest text-muted-foreground">
+          {founder.role}
+        </p>
+        <h3 className="mt-3 text-3xl font-medium tracking-tight text-foreground">{founder.name}</h3>
+        <p className="mt-5 text-body text-foreground/80">{founder.bio}</p>
+      </div>
+
+      <div className="px-7 pb-7 pt-6 sm:col-span-2 md:col-span-1 lg:col-span-2 lg:px-8 lg:pb-8">
+        <ul className="flex flex-col gap-2 border-t border-border pt-5 text-small text-muted-foreground">
           {founder.facts.map((fact) => (
             <li key={fact} className="flex items-center gap-3">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
@@ -38,14 +52,14 @@ function FounderCard({ founder }: { founder: Founder }) {
             </li>
           ))}
         </ul>
-        <div className="mt-auto flex flex-wrap gap-2 pt-7">
+        <div className="mt-6 flex flex-wrap gap-3">
           {founder.links.map((link) => (
             <a
               key={link.href}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-secondary btn-sm"
+              className="focus-ring inline-flex items-center gap-1.5 rounded-full border border-foreground/20 px-4 py-2 text-small font-medium text-foreground transition-colors hover:bg-foreground hover:text-background"
             >
               {link.label}
               <ArrowUpRight size={14} aria-hidden="true" />
