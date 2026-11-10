@@ -5,9 +5,10 @@ import { Hero } from "@/components/hero";
 import { Projects } from "@/components/projects";
 import { Services } from "@/components/services";
 import { About } from "@/components/about";
-import { SocialProof } from "@/components/social-proof";
+import { Process } from "@/components/process";
 import { Faq } from "@/components/faq";
 import { CaseStudy } from "@/components/case-study";
+import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SkipToContent } from "@/components/skip-to-content";
@@ -23,19 +24,20 @@ export function App({ locale, page }: { locale: Locale; page: Page }) {
         <SkipToContent label={t.skip} />
         <Header home={page.kind === "home"} />
         <ThemeSwitch />
-        <main id="main-content" className="bg-background flex-1 lg:relative lg:z-10">
+        <main id="main-content">
           {page.kind === "home" ? (
             <>
               <Hero />
               <Projects />
               <Services />
               <About />
-              <SocialProof />
+              <Process />
               <Faq />
             </>
           ) : (
             <CaseStudy slug={page.slug} />
           )}
+          <Contact />
         </main>
         <Footer />
       </Providers>

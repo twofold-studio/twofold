@@ -170,6 +170,18 @@ a {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
+
+  /* Text links inside running copy and lists. */
+  .link {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+    text-underline-offset: 0.25em;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
 }
 
 .skip-to-content {
