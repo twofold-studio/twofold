@@ -34,7 +34,7 @@ export function Services() {
   ];
 
   return (
-    <section id="services" aria-labelledby="services-heading" className="section">
+    <section id="services" aria-labelledby="services-heading" className="section band">
       <div className="container-site">
         <SectionHeading id="services-heading" label={t.services}>
           {t.servicesHeading}

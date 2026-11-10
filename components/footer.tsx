@@ -30,7 +30,7 @@ export function Footer() {
   const heading = "mb-5 text-small font-medium text-muted-foreground";
 
   return (
-    <footer className="border-t border-border bg-muted/50">
+    <footer className="border-t border-border bg-muted">
       <div className="container-site grid gap-12 py-16 sm:grid-cols-2 md:py-20 lg:grid-cols-[minmax(0,2fr)_repeat(3,minmax(0,1fr))]">
         <div>
           <a

@@ -12,23 +12,32 @@ function ProjectCard({ project, index }: { project: Work; index: number }) {
   const { locale, t } = useI18n();
   const ref = useReveal<HTMLLIElement>();
   const href = pagePath(locale, { kind: "work", slug: project.slug });
+  // On phones the card keeps only the solution; the project page has the rest.
   const lines = [
-    [project.own ? t.idea : t.challenge, project.challenge],
-    [t.solution, project.solution],
-    [t.result, project.result],
-  ] as const;
+    { label: project.own ? t.idea : t.challenge, text: project.challenge, phone: false },
+    { label: t.solution, text: project.solution, phone: true },
+    { label: t.result, text: project.result, phone: false },
+  ];
+  // Every second project has its image on the right, so the list alternates.
+  const flipped = index % 2 === 1;
 
   return (
     <li
       ref={ref}
-      className="reveal-group grid items-center gap-8 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-12 lg:gap-16"
+      className={`reveal-group grid items-center gap-8 md:gap-12 lg:gap-16 ${
+        flipped
+          ? "md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
+          : "md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]"
+      }`}
     >
       {/* The image repeats the button's link for pointer users only. */}
       <a
         href={href}
         tabIndex={-1}
         aria-hidden="true"
-        className="reveal-image group block overflow-hidden rounded-2xl border border-border bg-muted"
+        className={`reveal-image group block overflow-hidden rounded-2xl border border-border bg-muted ${
+          flipped ? "md:order-2" : ""
+        }`}
       >
         <ResponsiveImage
           src={project.cover}
@@ -44,8 +53,8 @@ function ProjectCard({ project, index }: { project: Work; index: number }) {
         <h3 className="mt-3 text-h2 font-medium text-foreground">{project.name}</h3>
         <p className="mt-1 text-lead text-accent">{project.kicker}</p>
         <dl className="mt-6 flex flex-col gap-4">
-          {lines.map(([label, text]) => (
-            <div key={label}>
+          {lines.map(({ label, text, phone }) => (
+            <div key={label} className={phone ? "" : "hidden md:block"}>
               <dt className="text-small font-medium text-foreground">{label}</dt>
               <dd className="mt-1 text-body text-muted-foreground">{text}</dd>
             </div>

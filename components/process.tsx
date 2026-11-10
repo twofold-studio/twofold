@@ -25,7 +25,7 @@ export function Process() {
   ];
 
   return (
-    <section id="process" aria-labelledby="process-heading" className="section">
+    <section id="process" aria-labelledby="process-heading" className="section band">
       <div className="container-site">
         <SectionHeading
           id="process-heading"
