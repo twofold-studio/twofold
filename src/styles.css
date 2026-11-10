@@ -66,6 +66,30 @@ html.dark {
   }
 }
 
+/* Smooth scrolling (components/smooth-scroll.tsx): the rules from Lenis's own
+   stylesheet, plus switching off the browser's smooth scrolling while Lenis
+   runs, so the two don't smooth on top of each other. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);

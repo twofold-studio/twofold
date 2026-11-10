@@ -11,6 +11,7 @@ import { CaseStudy } from "@/components/case-study";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
 import { SkipToContent } from "@/components/skip-to-content";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { en, bg } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
 import type { Page } from "@/lib/pages";
@@ -20,6 +21,7 @@ export function App({ locale, page }: { locale: Locale; page: Page }) {
   return (
     <I18nProvider locale={locale}>
       <Providers>
+        <SmoothScroll />
         <SkipToContent label={t.skip} />
         <Header home={page.kind === "home"} />
         <main id="main-content">

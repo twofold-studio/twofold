@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { HeaderMark } from "./header-mark";
 import { LanguageToggle } from "./language-toggle";
 import { ThemeSwitch } from "./theme-switch";
+import { pauseSmoothScroll } from "./smooth-scroll";
 
 type Dictionary = ReturnType<typeof useI18n>["t"];
 
@@ -97,11 +98,13 @@ export function Header({ home }: { home: boolean }) {
       menuButton.current?.focus();
     };
     root.style.overflow = "hidden";
+    pauseSmoothScroll(true);
     firstMenuLink.current?.focus();
     document.addEventListener("keydown", onKey);
     wide.addEventListener("change", close);
     return () => {
       root.style.overflow = "";
+      pauseSmoothScroll(false);
       document.removeEventListener("keydown", onKey);
       wide.removeEventListener("change", close);
     };
@@ -183,6 +186,7 @@ export function Header({ home }: { home: boolean }) {
       {menuOpen && (
         <nav
           id="mobile-menu"
+          data-lenis-prevent
           aria-label={t.mainNavigation}
           className="menu-enter fixed inset-x-0 bottom-0 top-16 overflow-y-auto bg-background lg:hidden"
         >
