@@ -52,6 +52,62 @@ export interface Work {
 
 export const work: Work[] = [
   {
+    slug: "chunkyard",
+    name: "Chunkyard",
+    kicker: "Minecraft server management",
+    kind: "Our own product",
+    seoTitle: "Chunkyard — self-hosted Minecraft server management",
+    own: true,
+    challenge: "Run several Minecraft Java servers without juggling terminals and config files.",
+    solution:
+      "Install server software, follow the console, and edit server settings from one web dashboard.",
+    result:
+      "Each server runs in its own Docker container, with readiness checks and local or S3-compatible backups.",
+    story: [
+      "Chunkyard manages Minecraft Java Edition servers on your own hardware. It supports Vanilla, Paper, Purpur, Fabric, Forge, NeoForge and supported CurseForge packs.",
+      "The dashboard shows when Minecraft is ready for players, streams console output and keeps a history of server.properties edits. Owner API keys also give scripts and MCP clients access to server controls.",
+    ],
+    features: ["Software installers", "Live console and resource charts", "Local and S3 backups"],
+    year: "2026",
+    link: {
+      label: "View Chunkyard on GitHub",
+      href: "https://github.com/twofold-studio/chunkyard",
+    },
+    cover: "/work/chunkyard/hero.webp",
+    images: [
+      {
+        src: "/work/chunkyard/hero.webp",
+        caption: "The server inventory and live resource readings for Vanilla Survival.",
+      },
+      {
+        src: "/work/chunkyard/console.webp",
+        caption: "Live startup output from a running Paper server.",
+      },
+    ],
+  },
+  {
+    slug: "oxevu",
+    name: "Oxevu",
+    kicker: "your own media library",
+    kind: "Our own product",
+    seoTitle: "Oxevu — a self-hosted media library and player",
+    own: true,
+    challenge: "Browse and play the movies and shows stored on your home server.",
+    solution:
+      "Oxevu scans existing media folders and gives them a searchable library and browser player.",
+    result:
+      "Pick up where you left off, play original files or transcode them, and watch together.",
+    story: [
+      "Oxevu is a self-hosted media library and player in active development. A Rust server scans your media folders without changing the files, and a Svelte web interface lets you browse the catalog and play what you find.",
+      "The web player saves progress and supports original-file playback, FFmpeg transcoding and watch parties.",
+    ],
+    features: ["Read-only library scans", "Resume playback", "Watch parties"],
+    year: "2026",
+    link: { label: "View Oxevu on GitHub", href: "https://github.com/twofold-studio/oxevu" },
+    cover: "/work/oxevu/logo.png",
+    images: [{ src: "/work/oxevu/logo.png", caption: "Oxevu’s loop and play mark." }],
+  },
+  {
     slug: "arkada",
     name: "Arkada",
     kicker: "new-build sales",
