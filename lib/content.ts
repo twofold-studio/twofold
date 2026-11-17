@@ -104,8 +104,22 @@ export const work: Work[] = [
     features: ["Read-only library scans", "Resume playback", "Watch parties"],
     year: "2026",
     link: { label: "View Oxevu on GitHub", href: "https://github.com/twofold-studio/oxevu" },
-    cover: "/work/oxevu/logo.png",
-    images: [{ src: "/work/oxevu/logo.png", caption: "Oxevu’s loop and play mark." }],
+    cover: "/work/oxevu/hero.webp",
+    images: [
+      {
+        src: "/work/oxevu/hero.webp",
+        caption: "The movie library with the Arcane series page in front.",
+      },
+      {
+        src: "/work/oxevu/discover.webp",
+        caption: "Discover with filters for year, genre, rating and language.",
+      },
+      { src: "/work/oxevu/seasons.webp", caption: "Arcane’s season artwork and episode counts." },
+      {
+        src: "/work/oxevu/mobile.webp",
+        caption: "Movies, series and Arcane details in the mobile web interface.",
+      },
+    ],
   },
   {
     slug: "arkada",
