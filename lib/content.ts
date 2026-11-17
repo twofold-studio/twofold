@@ -122,6 +122,46 @@ export const work: Work[] = [
     ],
   },
   {
+    slug: "bukinistika",
+    name: "Bukinistika",
+    kicker: "rare books",
+    kind: "Antiquarian bookshop · online store",
+    seoTitle: "Bukinistika — an online shop for rare books in three languages",
+    challenge:
+      "Over 4,000 rare and antiquarian books that needed to reach buyers in Bulgaria and abroad.",
+    solution:
+      "An online shop in Bulgarian, English and Russian, with a separate Rare Archive for antiquarian copies.",
+    result:
+      "The catalogue updates itself from the original listings, and the owner can find any copy by condition, language, publisher or category.",
+    story: [
+      "Bukinistika sells antique and rare books. The shop runs in Bulgarian, English and Russian, and antiquarian copies have their own darker section, the Rare Archive.",
+      "The catalogue of over 4,000 copies updates itself automatically from the listings it started from. Checkout begins by asking whether the books stay in Bulgaria or go abroad, and the owner can find any copy by condition, language, publisher or category.",
+    ],
+    features: ["Online shop", "Automatic catalogue updates", "Bulgarian / English / Russian"],
+    year: "2026",
+    link: { label: "Visit bukinistika.com", href: "https://bukinistika.com" },
+    cover: "/work/bukinistika/hero.webp",
+    images: [
+      {
+        src: "/work/bukinistika/hero.webp",
+        caption: "The catalogue in Bulgarian, with a 1947 Taso Primo first edition open in front.",
+      },
+      {
+        src: "/work/bukinistika/rare-archive.webp",
+        caption: "The Rare Archive: a separate, darker section for antiquarian copies.",
+      },
+      {
+        src: "/work/bukinistika/checkout.webp",
+        caption: "Checkout starts by asking whether the books stay in Bulgaria or go abroad.",
+      },
+      {
+        src: "/work/bukinistika/admin.webp",
+        caption:
+          "The owner's book list: over 4,000 copies, searchable by condition, language, publisher and category.",
+      },
+    ],
+  },
+  {
     slug: "arkada",
     name: "Arkada",
     kicker: "new-build sales",
@@ -200,46 +240,6 @@ export const work: Work[] = [
       {
         src: "/work/helios/phones.webp",
         caption: "The home, catalogue and kits pages on three phones.",
-      },
-    ],
-  },
-  {
-    slug: "bukinistika",
-    name: "Bukinistika",
-    kicker: "rare books",
-    kind: "Antiquarian bookshop · online store",
-    seoTitle: "Bukinistika — an online shop for rare books in three languages",
-    challenge:
-      "Over 4,000 rare and antiquarian books that needed to reach buyers in Bulgaria and abroad.",
-    solution:
-      "An online shop in Bulgarian, English and Russian, with a separate Rare Archive for antiquarian copies.",
-    result:
-      "The catalogue updates itself from the original listings, and the owner can find any copy by condition, language, publisher or category.",
-    story: [
-      "Bukinistika sells antique and rare books. The shop runs in Bulgarian, English and Russian, and antiquarian copies have their own darker section, the Rare Archive.",
-      "The catalogue of over 4,000 copies updates itself automatically from the listings it started from. Checkout begins by asking whether the books stay in Bulgaria or go abroad, and the owner can find any copy by condition, language, publisher or category.",
-    ],
-    features: ["Online shop", "Automatic catalogue updates", "Bulgarian / English / Russian"],
-    year: "2026",
-    link: { label: "Visit bukinistika.com", href: "https://bukinistika.com" },
-    cover: "/work/bukinistika/hero.webp",
-    images: [
-      {
-        src: "/work/bukinistika/hero.webp",
-        caption: "The catalogue in Bulgarian, with a 1947 Taso Primo first edition open in front.",
-      },
-      {
-        src: "/work/bukinistika/rare-archive.webp",
-        caption: "The Rare Archive: a separate, darker section for antiquarian copies.",
-      },
-      {
-        src: "/work/bukinistika/checkout.webp",
-        caption: "Checkout starts by asking whether the books stay in Bulgaria or go abroad.",
-      },
-      {
-        src: "/work/bukinistika/admin.webp",
-        caption:
-          "The owner's book list: over 4,000 copies, searchable by condition, language, publisher and category.",
       },
     ],
   },

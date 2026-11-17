@@ -18,10 +18,10 @@ const projects: Record<
   }
 > = {
   chunkyard: {
-    name: "Chunkyard",
+    name: "Чънкярд",
     kicker: "управление на Minecraft сървъри",
     kind: "Собствен продукт",
-    seoTitle: "Chunkyard — управление на Minecraft сървъри",
+    seoTitle: "Чънкярд — управление на Minecraft сървъри",
     challenge:
       "Управлявайте няколко Minecraft Java сървъра без отделни терминали и конфигурационни файлове.",
     solution:
@@ -40,10 +40,10 @@ const projects: Record<
     linkLabel: "Chunkyard в GitHub",
   },
   oxevu: {
-    name: "Oxevu",
+    name: "Оксеву",
     kicker: "вашата медийна библиотека",
     kind: "Собствен продукт",
-    seoTitle: "Oxevu — медийна библиотека и плеър на вашия сървър",
+    seoTitle: "Оксеву — медийна библиотека и плеър на вашия сървър",
     challenge: "Разглеждайте и гледайте филмите и сериалите от домашния си сървър.",
     solution: "Oxevu сканира съществуващите папки и ги превръща в каталог с търсене и уеб плеър.",
     result:
