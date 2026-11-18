@@ -443,6 +443,9 @@ a {
   .service-intro > li + li {
     border-top: 0;
   }
+  .service-intro > li:nth-child(n + 3) {
+    border-top: 1px solid var(--border);
+  }
   .hero-grid {
     padding-top: 7.5rem;
     padding-bottom: 3rem;
@@ -475,32 +478,133 @@ a {
   }
 }
 
-/* The entrance is plain CSS, so it runs before (and without) JavaScript:
-   each headline line rises out of its own mask, then the copy follows. */
-.hero-mask {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.1em;
-  margin-bottom: -0.1em;
-}
-
-.hero-line {
-  display: block;
-  animation: hero-line-enter 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.hero-rise {
-  animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
-}
-
-.hero-rise-late {
-  animation-delay: 0.5s;
-}
-
-@keyframes hero-line-enter {
-  from {
-    transform: translateY(105%);
+@media (min-width: 1024px) {
+  .service-intro > li:nth-child(n + 3) {
+    border-top: 0;
   }
+}
+
+/* Masked word entrances keep the headline stable while revealing its rhythm. */
+.hero-copy-line {
+  display: block;
+}
+.hero-word-mask {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.hero-word {
+  display: block;
+  animation: hero-word-enter 850ms cubic-bezier(0.22, 1, 0.36, 1) var(--word-delay, 0ms) both;
+  transform-origin: 0 100%;
+}
+.hero-rise {
+  animation: hero-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms both;
+}
+@keyframes hero-word-enter {
+  from {
+    transform: translateY(115%) rotate(3deg);
+  }
+  to {
+    transform: translateY(0) rotate(0);
+  }
+}
+
+/* Every service occupies the same grid cell, reserving the widest word's space. */
+.hero-rotating-words {
+  display: inline-grid;
+  max-width: 100%;
+  overflow: clip;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  vertical-align: top;
+}
+.hero-rotating-word {
+  grid-area: 1 / 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+.hero-rotating-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(115%);
+  transform-origin: 50% 100%;
+  transition:
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease;
+}
+.hero-rotating-word[data-active] .hero-rotating-letter {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(150ms + var(--letter-index) * 25ms);
+}
+.hero-rotating-word[data-previous] .hero-rotating-letter {
+  transform: translateY(-115%);
+  transition-duration: 400ms, 200ms;
+  transition-delay: calc(var(--letter-index) * 18ms);
+}
+
+/* A rolling label adds movement without changing a link's size or accessible name. */
+.motion-label {
+  display: inline-grid;
+  overflow: clip;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.motion-label > span {
+  grid-area: 1 / 1;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.motion-label > span[aria-hidden] {
+  transform: translateY(120%);
+}
+.motion-link:focus-visible .motion-label > span:first-child {
+  transform: translateY(-120%);
+}
+.motion-link:focus-visible .motion-label > span[aria-hidden] {
+  transform: translateY(0);
+}
+
+.project-card .project-image img {
+  transition:
+    scale 850ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-card:focus-within .project-image img {
+  transform: scale(1.035);
+}
+.project-card:focus-within .reveal-item {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+@media (min-width: 640px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project-card:hover .project-image img {
+    transform: scale(1.035);
+  }
+  .motion-link:hover .motion-label > span:first-child {
+    transform: translateY(-120%);
+  }
+  .motion-link:hover .motion-label > span[aria-hidden] {
+    transform: translateY(0);
+  }
+}
+@media (min-width: 900px) {
+  .project-card:nth-child(3n + 2) {
+    --reveal-delay: 80ms;
+  }
+  .project-card:nth-child(3n) {
+    --reveal-delay: 160ms;
+  }
+}
+[data-reveal] .reveal-image {
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal] .reveal-item {
+  transition-delay: calc(var(--reveal-delay, 0ms) + 100ms);
 }
 
 @keyframes hero-rise {
@@ -665,6 +769,43 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-rotating-words .hero-rotating-letter {
+    opacity: 0;
+    transform: none;
+  }
+  .hero-rotating-words .hero-rotating-word:first-child .hero-rotating-letter {
+    opacity: 1;
+  }
+  .hero-rotating-word[data-active]:not(:first-child) .hero-rotating-letter {
+    opacity: 0;
+  }
+  .hero-word {
+    animation: none;
+    transform: none;
+  }
+  .motion-label > span {
+    transform: none !important;
+  }
+  .motion-label > span[aria-hidden] {
+    display: none;
+  }
+  .project-card:focus-within .project-image img {
+    transform: none;
+  }
+  [data-reveal="pending"],
+  [data-reveal="pending"] .reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal="pending"] .reveal-line {
+    transform: none;
+  }
+  [data-reveal="pending"] .reveal-image {
+    clip-path: none;
+  }
+  [data-reveal="pending"] .reveal-image img {
+    scale: 1.06;
+  }
   *,
   *::before,
   *::after {

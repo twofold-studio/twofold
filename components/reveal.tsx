@@ -11,7 +11,9 @@ export function useReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null);
   useEffect(() => {
     const element = ref.current;
-    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!element) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduced.matches) return;
     if (element.getBoundingClientRect().top < window.innerHeight) return;
     element.dataset.reveal = "pending";
     const observer = new IntersectionObserver(
@@ -22,8 +24,22 @@ export function useReveal<T extends HTMLElement>() {
       },
       { rootMargin: "0px 0px -8% 0px" },
     );
+    const show = () => {
+      element.dataset.reveal = "shown";
+      observer.disconnect();
+    };
+    const onMotionChange = () => {
+      if (reduced.matches) show();
+    };
+    // A keyboard user should never have to wait for focused content to appear.
+    element.addEventListener("focusin", show);
+    reduced.addEventListener("change", onMotionChange);
     observer.observe(element);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      element.removeEventListener("focusin", show);
+      reduced.removeEventListener("change", onMotionChange);
+    };
   }, []);
   return ref;
 }

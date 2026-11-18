@@ -3,7 +3,8 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { featuredWork, type Work } from "@/lib/content";
 import { pagePath } from "@/lib/pages";
 import { useI18n } from "./i18n-provider";
-import { ResponsiveImage } from "./responsive-image";
+import { ProjectPreview } from "./project-preview";
+import { MotionLabel } from "./motion-label";
 import { useReveal } from "./reveal";
 
 function ProjectCard({ project }: { project: Work }) {
@@ -11,20 +12,8 @@ function ProjectCard({ project }: { project: Work }) {
   const ref = useReveal<HTMLLIElement>();
   const href = pagePath(locale, { kind: "work", slug: project.slug });
   return (
-    <li ref={ref} className="reveal-group min-w-0">
-      <a
-        href={href}
-        tabIndex={-1}
-        aria-hidden="true"
-        className="project-image reveal-image group block overflow-hidden rounded-xl border border-foreground/15 bg-muted"
-      >
-        <ResponsiveImage
-          src={project.cover}
-          alt=""
-          sizes="(min-width: 1216px) 360px, (min-width: 900px) 30vw, (min-width: 600px) 45vw, 92vw"
-          className="aspect-16/11 w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-        />
-      </a>
+    <li ref={ref} className="project-card reveal-group min-w-0">
+      <ProjectPreview href={href} src={project.cover} />
       <div className="reveal-item pt-4">
         <p className="text-small text-muted-foreground">{project.kind}</p>
         <h3 className="mt-2 text-h3 font-medium">
@@ -72,9 +61,9 @@ export function Projects() {
           </h2>
           <a
             href={pagePath(locale, { kind: "work-index" })}
-            className="link focus-ring inline-flex min-h-11 items-center gap-2 text-small"
+            className="motion-link link focus-ring inline-flex min-h-11 items-center gap-2 text-small"
           >
-            {t.allProjects}
+            <MotionLabel>{t.allProjects}</MotionLabel>
             <ArrowRight size={16} aria-hidden="true" />
           </a>
         </div>

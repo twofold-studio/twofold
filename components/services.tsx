@@ -16,6 +16,7 @@ export function Services() {
       copy: t.appsIntegrationsCopy,
       href: pagePath(locale, { kind: "work", slug: "chunkyard" }),
     },
+    { title: t.mobileDesktopApps, copy: t.mobileDesktopAppsCopy, href: "#contact" },
     { title: t.upkeep, copy: t.supportShort, href: "#process" },
   ];
   return (
@@ -23,7 +24,7 @@ export function Services() {
       <h2 id="services-heading" className="sr-only">
         {t.servicesHeading}
       </h2>
-      <ul className="service-intro grid gap-x-8 sm:grid-cols-3">
+      <ul className="service-intro grid gap-x-8 border-b border-border sm:grid-cols-2 lg:grid-cols-4">
         {services.map((service) => (
           <li key={service.title} className="min-w-0 py-4 sm:py-5">
             <h3>
@@ -43,12 +44,6 @@ export function Services() {
           </li>
         ))}
       </ul>
-      <details className="service-more border-b border-border pb-3 text-small text-muted-foreground">
-        <summary className="focus-ring w-fit cursor-pointer py-2">
-          {t.backgroundCapabilities}
-        </summary>
-        <p className="max-w-2xl pb-2 pt-2">{t.otherCapabilities}</p>
-      </details>
     </section>
   );
 }
