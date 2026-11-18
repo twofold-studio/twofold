@@ -343,11 +343,11 @@ export const founders: Founder[] = [
     name: "Plamen Ermenkov",
     role: "Co-founder · Web apps and security",
     photo: "/team/plamen.webp",
-    bio: "Front-end developer with a degree in cybersecurity. Builds web applications, with experience in secure sign-in and card payments.",
+    bio: "Web developer at an online gaming company since 2024, with a cybersecurity degree from the Technical University of Sofia. Builds everything your customers see and click on, and makes it fast on any device. Takes extra care with sign-in and customer accounts, since that’s where a security background pays off.",
     facts: [
-      "Thesis · secure sign-in",
-      "Payments · secure card checkout",
-      "TypeScript · React · Next.js · PostgreSQL",
+      "Degree in cybersecurity · Technical University of Sofia, 2026",
+      "Built a hospital patient portal single-handedly, from the database to its own sign-in and security",
+      "Built Bukinistika, Helios and Arkada with Vilian",
     ],
     links: [
       { label: "plamen.codes", href: "https://www.plamen.codes" },

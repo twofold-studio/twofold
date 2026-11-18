@@ -39,7 +39,7 @@ describe("translation completeness", () => {
     for (const locale of ["bg", "en"] as const) {
       const founders = getContent(locale).founders;
       expect(founders[0]!.bio).toContain("50");
-      expect(founders[1]!.bio).toContain("Front-end");
+      expect(founders[1]!.bio).toContain("2024");
       expect(founders[1]!.bio).toMatch(/cybersecurity|киберсигурност/);
     }
   });

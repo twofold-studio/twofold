@@ -74,7 +74,7 @@ export const en = {
   aboutCopy:
     "You speak with the people writing the code, from the first call to launch. Clear decisions, direct feedback, no handoffs between departments.",
   portrait: "Portrait of",
-  background: "Background & recognition",
+  background: "Credentials and awards",
 
   // Process
   processBefore: "You see it working",
@@ -156,7 +156,7 @@ export const bg: Dictionary = {
   heroDashboard: "табла за управление.",
   heroAccessible:
     "Изработваме сайтове, онлайн магазини, клиентски портали, мобилни приложения и табла за управление.",
-  heroCopy: "Поемаме целия проект — от идеята до поддръжката след пускането.",
+  heroCopy: "Поемаме целия проект, от идеята до поддръжката след пускането.",
   heroPrimary: "Разкажете ни за проекта си",
   heroSecondary: "Вижте проектите ни",
 
@@ -177,7 +177,7 @@ export const bg: Dictionary = {
   workHeading: "Избрани проекти",
   readCase: "Разгледайте проекта",
   allProjects: "Всички проекти",
-  workIndexHeading: "Шест проекта, половината от тях — наши собствени",
+  workIndexHeading: "Шест проекта, три от които са наши собствени",
   workIndexCopy:
     "Онлайн антикварна книжарница, каталог на аптека и демо сайт за продажба на нови жилища, както и три продукта, които разработваме сами.",
   backHome: "Към началната страница",
@@ -194,9 +194,9 @@ export const bg: Dictionary = {
   aboutBefore: "Основателите.",
   aboutEmphasis: "Лично по вашия проект.",
   aboutCopy:
-    "Разговаряте с хората, които пишат кода — от първия разговор до пускането. Ясни решения и пряка обратна връзка на всеки етап.",
+    "Разговаряте с хората, които пишат кода, от първия разговор до пускането. Ясни решения и пряка обратна връзка на всеки етап.",
   portrait: "Портрет на",
-  background: "Опит и отличия",
+  background: "Образование и награди",
 
   // Process
   processBefore: "Виждате проекта в действие",
