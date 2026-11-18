@@ -88,7 +88,7 @@ export const en = {
     "We learn how your business works, who will use the product and what it has to do.",
   processTryTitle: "Written proposal",
   processTryCopy:
-    "You get the scope, price and timeline in writing, agreed before any development starts.",
+    "One document with the price, the deadline and everything that’s included. We start once you say yes.",
   processRefineTitle: "Development and review",
   processRefineCopy:
     "You try working versions as we go, not one big reveal at the end.",
@@ -215,7 +215,7 @@ export const bg: Dictionary = {
     "Разбираме как работи бизнесът ви, кой ще използва продукта и какво трябва да прави той.",
   processTryTitle: "Писмено предложение",
   processTryCopy:
-    "Получавате обхвата, цената и срока писмено и се договаряме, преди да започне разработката.",
+    "Един документ с цената, срока и всичко, което е включено. Започваме, когато кажете „да“.",
   processRefineTitle: "Разработка и преглед",
   processRefineCopy:
     "Пробвате работещи версии още по време на разработката, а не всичко наведнъж накрая.",
