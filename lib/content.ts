@@ -15,9 +15,9 @@ export const studio = {
   email: "vgfractal@gmail.com",
   url: "https://twofold.fractal-tess.xyz",
   description:
-    "Websites, online shops and custom software built around your business. Work directly with two engineers in Sofia.",
+    "Websites, online shops and custom software built around your business. Work directly with the founders, in Sofia.",
   /** Shorter line for link previews (Open Graph). */
-  shareDescription: "Websites and software built around your business. Two engineers in Sofia.",
+  shareDescription: "Websites and software built around your business. Founder-led, in Sofia.",
 } as const;
 
 export interface WorkImage {
@@ -313,7 +313,7 @@ export interface Founder {
 export const founders: Founder[] = [
   {
     name: "Vilian Gerdzhikov",
-    role: "Websites, apps and servers",
+    role: "Co-founder · Websites, apps and servers",
     photo: "/team/vilian.webp",
     bio: "Builds web and desktop applications, customer portals and backend systems. Has built more than 50 websites and services.",
     facts: [
@@ -328,7 +328,7 @@ export const founders: Founder[] = [
   },
   {
     name: "Plamen Ermenkov",
-    role: "Web apps and security",
+    role: "Co-founder · Web apps and security",
     photo: "/team/plamen.webp",
     bio: "Front-end developer with a degree in cybersecurity. Builds web applications, with experience in secure sign-in and card payments.",
     facts: [

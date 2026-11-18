@@ -25,7 +25,7 @@ export const en = {
   heroDashboard: "team dashboard.",
   heroAccessible:
     "We build your next website, online shop, customer portal, phone app or team dashboard.",
-  heroCopy: "Two engineers, with you from idea to launch.",
+  heroCopy: "We handle the whole project, from the first idea to support after launch.",
   contactUs: "Contact us",
   workHeading: "Selected work",
   readCase: "View case study",
@@ -37,8 +37,8 @@ export const en = {
   includes: "What's included",
   year: "Year",
   servicesHeading: "What we build",
-  aboutBefore: "Two engineers.",
-  aboutEmphasis: "Direct collaboration.",
+  aboutBefore: "The founders.",
+  aboutEmphasis: "Directly on your project.",
   portrait: "Portrait of",
   faqBefore: "Common",
   faqEmphasis: "questions",
@@ -88,7 +88,7 @@ export const en = {
   onlineShops: "Online shops",
   onlineShopsNote: "Product catalogues, checkout and content in the languages your customers use.",
   serviceExample: "Example",
-  heroPrimary: "Tell us what you need",
+  heroPrimary: "Tell us about your project",
   heroSecondary: "See our work",
   workIndexHeading: "Websites, demos and our own products",
   workIndexCopy:
@@ -143,7 +143,7 @@ export const bg: Dictionary = {
   heroDashboard: "табла за управление.",
   heroAccessible:
     "Изработваме сайтове, онлайн магазини, клиентски портали, мобилни приложения и табла за управление.",
-  heroCopy: "Двама инженери с Вас — от идеята до пускането.",
+  heroCopy: "Поемаме целия проект — от идеята до поддръжката след пускането.",
   contactUs: "Свържете се с нас",
   workHeading: "Избрани проекти",
   readCase: "Разгледайте проекта",
@@ -155,8 +155,8 @@ export const bg: Dictionary = {
   includes: "Какво включва",
   year: "Година",
   servicesHeading: "Какво правим",
-  aboutBefore: "Двама инженери.",
-  aboutEmphasis: "Работим пряко с Вас.",
+  aboutBefore: "Основателите.",
+  aboutEmphasis: "Лично по Вашия проект.",
   portrait: "Портрет на",
   faqBefore: "Често задавани",
   faqEmphasis: "въпроси",
@@ -207,7 +207,7 @@ export const bg: Dictionary = {
   onlineShopsNote:
     "Продуктови каталози, поръчки и съдържание на езиците, които използват клиентите Ви.",
   serviceExample: "Пример",
-  heroPrimary: "Разкажете ни",
+  heroPrimary: "Разкажете ни за проекта си",
   heroSecondary: "Вижте проектите ни",
   workIndexHeading: "Сайтове, демо проекти и собствени продукти",
   workIndexCopy:
