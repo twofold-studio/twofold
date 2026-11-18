@@ -35,21 +35,25 @@ export const en = {
   heroDashboard: "team dashboard.",
   heroAccessible:
     "We build your next website, online shop, customer portal, phone app or team dashboard.",
-  heroCopy: "We handle the whole project, from the first idea to support after launch.",
+  heroCopy:
+    "We handle the whole project, from the first idea to support after launch.",
   heroPrimary: "Tell us about your project",
   heroSecondary: "See our work",
 
   // Services
   servicesHeading: "What we build",
   websitesShops: "Websites & online shops",
-  websitesShopsCopy: "Sites and shops your own staff can update, in every language you sell in.",
+  websitesShopsCopy:
+    "Sites and shops your own staff can update, in every language you sell in.",
   appsIntegrations: "Web apps & integrations",
   appsIntegrationsCopy:
-    "Portals, dashboards and links between your systems, so the same data isn’t typed in twice.",
+    "Tools for your team and customers, so nobody types the same data twice.",
   mobileDesktopApps: "Mobile & desktop apps",
-  mobileDesktopAppsCopy: "Apps for phones and computers, for when a browser isn’t enough.",
+  mobileDesktopAppsCopy:
+    "Apps for phones and computers, for when a browser isn’t enough.",
   upkeep: "Hosting & maintenance",
-  supportShort: "We host and look after what we build, or hand it over to your team.",
+  supportShort:
+    "We host and look after what we build, or hand it over to your team.",
 
   // Work: home page list, Work index and case studies
   workHeading: "Selected work",
@@ -86,12 +90,14 @@ export const en = {
   processTryCopy:
     "You get the scope, price and timeline in writing, agreed before any development starts.",
   processRefineTitle: "Development and review",
-  processRefineCopy: "You try working versions as we go, not one big reveal at the end.",
+  processRefineCopy:
+    "You try working versions as we go, not one big reveal at the end.",
   processLaunchTitle: "Testing and launch",
   processLaunchCopy:
     "We check the main tasks, loading speed and layouts on phones and desktops before going live.",
   processHandoverTitle: "Maintenance or handover",
-  processHandoverCopy: "We keep it running, or hand the code and all access to your team.",
+  processHandoverCopy:
+    "We keep it running, or hand the code and all access to your team.",
 
   // FAQ
   faqBefore: "Common",
@@ -112,7 +118,8 @@ export const en = {
   formSubmit: "Send enquiry",
   formSending: "Sending…",
   formSent: "Thank you, we’ve received your enquiry. We’ll reply by email.",
-  formInvalid: "Please add your name, a valid email address and a short message.",
+  formInvalid:
+    "Please add your name, a valid email address and a short message.",
   formFallback:
     "We’ve tried to open your email app with the message filled in. If it didn’t open, copy your message and send it to",
   formError: "We couldn’t send your enquiry. Please email us at",
@@ -147,7 +154,7 @@ export const bg: Dictionary = {
   contactUs: "Пишете ни",
 
   // Hero
-  heroStudio: "Софтуерно студио · София",
+  heroStudio: "Софтуерно студио · София, България",
   heroOne: "Изработваме",
   heroWebsite: "сайтове.",
   heroShop: "онлайн магазини.",
@@ -167,11 +174,13 @@ export const bg: Dictionary = {
     "Сайтове и магазини, които екипът ви обновява сам, на езиците на клиентите ви.",
   appsIntegrations: "Уеб приложения и интеграции",
   appsIntegrationsCopy:
-    "Портали, табла и връзки между системите ви, за да не въвеждате едни и същи данни два пъти.",
+    "Инструменти за екипа и клиентите ви, за да не въвежда никой едни и същи данни два пъти.",
   mobileDesktopApps: "Мобилни и настолни приложения",
-  mobileDesktopAppsCopy: "Приложения за телефон и компютър, когато браузърът не е достатъчен.",
+  mobileDesktopAppsCopy:
+    "Приложения за телефон и компютър, когато браузърът не е достатъчен.",
   upkeep: "Хостинг и поддръжка",
-  supportShort: "Поемаме хостинга и поддръжката или предаваме проекта на екипа ви.",
+  supportShort:
+    "Поддържаме проекта онлайн и актуален или го предаваме на екипа ви.",
 
   // Work: home page list, Work index and case studies
   workHeading: "Избрани проекти",
@@ -214,7 +223,8 @@ export const bg: Dictionary = {
   processLaunchCopy:
     "Преди пускането проверяваме основните действия, скоростта и изгледа на телефон и компютър.",
   processHandoverTitle: "Поддръжка или предаване",
-  processHandoverCopy: "Поддържаме проекта или предаваме кода и всички достъпи на екипа ви.",
+  processHandoverCopy:
+    "Поддържаме проекта или предаваме кода и всички достъпи на екипа ви.",
 
   // FAQ
   faqBefore: "Често задавани",
@@ -239,7 +249,8 @@ export const bg: Dictionary = {
   formFallback:
     "Опитахме да отворим имейл програмата ви с попълнено съобщение. Ако не се е отворила, копирайте текста и го изпратете на",
   formError: "Не успяхме да изпратим запитването. Моля, пишете ни на",
-  formPrivacy: "Използваме данните ви само за да ви отговорим. Ако искате да ги изтрием, пишете на",
+  formPrivacy:
+    "Използваме данните ви само за да ви отговорим. Ако искате да ги изтрием, пишете на",
 
   // Footer
   navigation: "Навигация",
