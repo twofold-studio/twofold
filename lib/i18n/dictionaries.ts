@@ -73,8 +73,8 @@ export const en = {
   nextProject: "Next project",
 
   // Team
-  aboutBefore: "The founders.",
-  aboutEmphasis: "Directly on your project.",
+  aboutBefore: "Two founders.",
+  aboutEmphasis: "No one in between.",
   aboutCopy:
     "You speak with the people writing the code, from the first call to launch. Clear decisions, direct feedback, no handoffs between departments.",
   portrait: "Portrait of",
@@ -200,8 +200,8 @@ export const bg: Dictionary = {
   nextProject: "Следващ проект",
 
   // Team
-  aboutBefore: "Основателите.",
-  aboutEmphasis: "Лично по вашия проект.",
+  aboutBefore: "Двама основатели.",
+  aboutEmphasis: "Без посредници.",
   aboutCopy:
     "Разговаряте с хората, които пишат кода, от първия разговор до пускането. Ясни решения и пряка обратна връзка на всеки етап.",
   portrait: "Портрет на",
