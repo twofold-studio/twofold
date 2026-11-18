@@ -1,22 +1,32 @@
+/**
+ * Interface text, grouped by where it appears. English is British English;
+ * Bulgarian addresses the reader with the polite plural in lower case.
+ */
 export const en = {
-  webApps: "Web applications",
-  webAppsNote: "Customer portals, dashboards and tools built around your team’s daily work.",
-  integrations: "Integrations",
-  integrationsNote:
-    "Connect payments, catalogues and existing tools so the same data doesn’t need to be entered twice.",
-  upkeep: "Ongoing support",
-  upkeepNote: "Updates, fixes and hosting support after launch, or a handover to your team.",
+  // Page titles and descriptions
   metaTitle: "Software studio in Sofia, Bulgaria",
+  workIndexTitle: "Our work",
+  workIndexDescription:
+    "Six projects by Twofold: an online bookshop in three languages, a pharmacy catalogue, a property sales demo and three products of our own.",
+
+  // Header, menu and other controls
+  skip: "Skip to main content",
+  mainNavigation: "Main navigation",
   openMenu: "Open menu",
   closeMenu: "Close menu",
   language: "Language",
-  switchLanguage: "Switch language to",
-  work: "Work",
+  lightTheme: "Switch to light theme",
+  darkTheme: "Switch to dark theme",
   services: "Services",
+  work: "Work",
   team: "Team",
   results: "How we work",
   questions: "Questions",
   contact: "Contact",
+  contactUs: "Contact us",
+
+  // Hero
+  heroStudio: "Software studio · Sofia, Bulgaria",
   heroOne: "We build your next",
   heroWebsite: "website.",
   heroShop: "online shop.",
@@ -26,115 +36,118 @@ export const en = {
   heroAccessible:
     "We build your next website, online shop, customer portal, phone app or team dashboard.",
   heroCopy: "We handle the whole project, from the first idea to support after launch.",
-  contactUs: "Contact us",
+  heroPrimary: "Tell us about your project",
+  heroSecondary: "See our work",
+
+  // Services
+  servicesHeading: "What we build",
+  websitesShops: "Websites & online shops",
+  websitesShopsCopy: "Sites and shops your own staff can update, in every language you sell in.",
+  appsIntegrations: "Web apps & integrations",
+  appsIntegrationsCopy:
+    "Portals, dashboards and links between your systems, so the same data isn’t typed in twice.",
+  mobileDesktopApps: "Mobile & desktop apps",
+  mobileDesktopAppsCopy: "Apps for phones and computers, for when a browser isn’t enough.",
+  upkeep: "Hosting & maintenance",
+  supportShort: "We host and look after what we build, or hand it over to your team.",
+
+  // Work: home page list, Work index and case studies
   workHeading: "Selected work",
   readCase: "View case study",
-  allProjects: "View all work",
-  nextProject: "Next project",
-  challenge: "Problem",
-  solution: "What we built",
-  result: "What this enables",
-  includes: "What's included",
+  allProjects: "All work",
+  workIndexHeading: "Six projects, three of them our own",
+  workIndexCopy:
+    "An online bookshop, a pharmacy catalogue and a sales demo for property developers, plus three products we develop ourselves.",
+  backHome: "Back to home",
+  projectSummary: "Project summary",
+  includes: "Features",
   year: "Year",
-  servicesHeading: "What we build",
+  challenge: "Starting point",
+  solution: "What we built",
+  result: "The hard part",
+  projectScreenshots: "Screenshots",
+  nextProject: "Next project",
+
+  // Team
   aboutBefore: "The founders.",
   aboutEmphasis: "Directly on your project.",
+  aboutCopy:
+    "You speak with the people writing the code, from the first call to launch. Clear decisions, direct feedback, no handoffs between departments.",
   portrait: "Portrait of",
+  background: "Background & recognition",
+
+  // Process
+  processBefore: "You see it working",
+  processEmphasis: "long before launch.",
+  processIdeaTitle: "First conversation",
+  processIdeaCopy:
+    "We learn how your business works, who will use the product and what it has to do.",
+  processTryTitle: "Written proposal",
+  processTryCopy:
+    "You get the scope, price and timeline in writing, agreed before any development starts.",
+  processRefineTitle: "Development and review",
+  processRefineCopy: "You try working versions as we go, not one big reveal at the end.",
+  processLaunchTitle: "Testing and launch",
+  processLaunchCopy:
+    "We check the main tasks, loading speed and layouts on phones and desktops before going live.",
+  processHandoverTitle: "Maintenance or handover",
+  processHandoverCopy: "We keep it running, or hand the code and all access to your team.",
+
+  // FAQ
   faqBefore: "Common",
   faqEmphasis: "questions",
-  faqMore: "Didn't find your answer?",
-  faqAsk: "Send us your question",
-  processBefore: "A clear path",
-  processEmphasis: "to launch.",
-  processIdeaTitle: "Initial conversation",
-  processIdeaCopy: "Your business, your customers and what the product needs to do.",
-  processTryTitle: "Scope, price & timeline",
-  processTryCopy: "A proposal with scope, price and timeline, agreed before development.",
-  processRefineTitle: "Building & feedback",
-  processRefineCopy: "Working versions to review and refine together.",
-  processLaunchTitle: "Testing & launch",
-  processLaunchCopy: "Key journeys, speed and screen sizes checked before going live.",
+
+  // Contact
   footerIntro: "Tell us about your project",
-  emailSubject: "Project enquiry for Twofold",
-  footerLocation: "Sofia, Bulgaria · Bulgarian & English",
+  footerLocation:
+    "Based in Sofia, working in English and Bulgarian. Your message goes straight to the founders.",
   preferEmail: "Or email us",
+  emailSubject: "Project enquiry",
   formName: "Name",
   formEmail: "Email",
   formCompany: "Company (optional)",
-  formMessage: "Tell us about the project",
+  formMessage: "About the project",
+  formMessageHint:
+    "What it should do, who will use it, and anything you already have: a website, a spreadsheet, a deadline.",
   formSubmit: "Send enquiry",
   formSending: "Sending…",
-  formSent: "Thank you. Your enquiry has been sent. We’ll reply by email.",
-  formInvalid: "Please add your name, a valid email and a short message.",
+  formSent: "Thank you, we’ve received your enquiry. We’ll reply by email.",
+  formInvalid: "Please add your name, a valid email address and a short message.",
   formFallback:
-    "We've tried to open your email app with the message filled in. If it didn't open, copy your message and write to us at",
-  formError: "We couldn't send your enquiry. Please email us at",
-  formPrivacy: "Vilian and Plamen use your details to reply. For deletion, email",
-  footerTagline: "We design, build and maintain software.",
+    "We’ve tried to open your email app with the message filled in. If it didn’t open, copy your message and send it to",
+  formError: "We couldn’t send your enquiry. Please email us at",
+  formPrivacy: "We use your details only to reply. To have them deleted, email",
+
+  // Footer
   navigation: "Navigation",
-  mainNavigation: "Main navigation",
-  elsewhere: "Elsewhere",
-  vilianGithub: "Vilian on GitHub",
-  plamenGithub: "Plamen on GitHub",
-  vilian: "Vilian Gerdzhikov",
-  plamen: "Plamen Ermenkov",
   footerCredit: "Designed and built by Twofold.",
-  skip: "Skip to main content",
-  lightTheme: "Switch to light theme",
-  darkTheme: "Switch to dark theme",
-  websites: "Websites",
-  websitesNote:
-    "Clear, easy-to-manage sites that help customers understand your business and get in touch.",
-  onlineShops: "Online shops",
-  onlineShopsNote: "Product catalogues, checkout and content in the languages your customers use.",
-  serviceExample: "Example",
-  heroPrimary: "Tell us about your project",
-  heroSecondary: "See our work",
-  workIndexHeading: "Websites, demos and our own products",
-  workIndexCopy:
-    "Explore all six projects. Each one explains what we built and the kind of work it represents.",
-  workIndexTitle: "Our work",
-  workIndexDescription:
-    "Explore Twofold’s websites, online shops, web applications, sales demos and own products.",
-  backHome: "Back to home",
-  projectSummary: "Project summary",
-  projectScreenshots: "Screenshots",
-  aboutCopy:
-    "You speak with the people writing the code, from the first call to launch. Clear decisions, direct feedback, no handoffs between departments.",
-  processHandoverTitle: "Maintenance or handover",
-  processHandoverCopy: "Ongoing support or the code and access handed to your team.",
-  heroStudio: "Independent software studio · Sofia",
-  background: "Background & recognition",
-  websitesShops: "Websites & online shops",
-  websitesShopsCopy: "Help customers find you, browse and buy.",
-  appsIntegrations: "Web apps & integrations",
-  appsIntegrationsCopy: "Connect your tools. Reduce the manual work.",
-  mobileDesktopApps: "Mobile & desktop apps",
-  mobileDesktopAppsCopy: "Purpose-built apps for your team, on phones and computers.",
-  supportShort: "Keep it running, or hand it to your team.",
 };
 export type Dictionary = { [K in keyof typeof en]: string };
 export const bg: Dictionary = {
-  webApps: "Уеб приложения",
-  webAppsNote:
-    "Клиентски портали, табла и инструменти, съобразени с ежедневната работа на екипа Ви.",
-  integrations: "Интеграции",
-  integrationsNote:
-    "Свързваме плащания, каталози и съществуващи инструменти, за да не въвеждате едни и същи данни два пъти.",
-  upkeep: "Текуща поддръжка",
-  upkeepNote:
-    "Обновления, поправки и помощ с хостинга след пускане или предаване на проекта на Вашия екип.",
+  // Page titles and descriptions
   metaTitle: "софтуерно студио в София",
+  workIndexTitle: "Проекти",
+  workIndexDescription:
+    "Шест проекта на Twofold: онлайн книжарница на три езика, каталог на аптека, демо сайт за продажба на жилища и три собствени продукта.",
+
+  // Header, menu and other controls
+  skip: "Към основното съдържание",
+  mainNavigation: "Основна навигация",
   openMenu: "Отворете менюто",
   closeMenu: "Затворете менюто",
   language: "Език",
-  switchLanguage: "Сменете езика на",
-  work: "Проекти",
+  lightTheme: "Превключете към светла тема",
+  darkTheme: "Превключете към тъмна тема",
   services: "Услуги",
+  work: "Проекти",
   team: "Екип",
   results: "Как работим",
   questions: "Въпроси",
-  contact: "Контакт",
+  contact: "Контакти",
+  contactUs: "Пишете ни",
+
+  // Hero
+  heroStudio: "Софтуерно студио · София",
   heroOne: "Изработваме",
   heroWebsite: "сайтове.",
   heroShop: "онлайн магазини.",
@@ -144,91 +157,91 @@ export const bg: Dictionary = {
   heroAccessible:
     "Изработваме сайтове, онлайн магазини, клиентски портали, мобилни приложения и табла за управление.",
   heroCopy: "Поемаме целия проект — от идеята до поддръжката след пускането.",
-  contactUs: "Свържете се с нас",
+  heroPrimary: "Разкажете ни за проекта си",
+  heroSecondary: "Вижте проектите ни",
+
+  // Services
+  servicesHeading: "Какво правим",
+  websitesShops: "Сайтове и онлайн магазини",
+  websitesShopsCopy:
+    "Сайтове и магазини, които екипът ви обновява сам, на езиците на клиентите ви.",
+  appsIntegrations: "Уеб приложения и интеграции",
+  appsIntegrationsCopy:
+    "Портали, табла и връзки между системите ви, за да не въвеждате едни и същи данни два пъти.",
+  mobileDesktopApps: "Мобилни и настолни приложения",
+  mobileDesktopAppsCopy: "Приложения за телефон и компютър, когато браузърът не е достатъчен.",
+  upkeep: "Хостинг и поддръжка",
+  supportShort: "Поемаме хостинга и поддръжката или предаваме проекта на екипа ви.",
+
+  // Work: home page list, Work index and case studies
   workHeading: "Избрани проекти",
   readCase: "Разгледайте проекта",
   allProjects: "Всички проекти",
-  nextProject: "Следващ проект",
-  challenge: "Проблем",
-  solution: "Какво създадохме",
-  result: "Какво позволява решението",
-  includes: "Какво включва",
-  year: "Година",
-  servicesHeading: "Какво правим",
-  aboutBefore: "Основателите.",
-  aboutEmphasis: "Лично по Вашия проект.",
-  portrait: "Портрет на",
-  faqBefore: "Често задавани",
-  faqEmphasis: "въпроси",
-  faqMore: "Не намерихте отговор?",
-  faqAsk: "Изпратете ни въпроса си",
-  processBefore: "Ясни стъпки",
-  processEmphasis: "до пускането.",
-  processIdeaTitle: "Първи разговор",
-  processIdeaCopy: "За бизнеса Ви, клиентите и какво трябва да прави продуктът.",
-  processTryTitle: "Обхват, цена и срок",
-  processTryCopy: "Предложение с обхват, цена и срок, уточнени преди разработката.",
-  processRefineTitle: "Разработка и обратна връзка",
-  processRefineCopy: "Работещи версии, които разглеждаме и доработваме заедно.",
-  processLaunchTitle: "Тестване и пускане",
-  processLaunchCopy: "Проверка на основните действия, скоростта и изгледа на различни екрани.",
-  footerIntro: "Разкажете ни за проекта си",
-  emailSubject: "Запитване за проект към Twofold",
-  footerLocation: "София, България · Български и английски",
-  preferEmail: "Или ни пишете на",
-  formName: "Име",
-  formEmail: "Имейл",
-  formCompany: "Компания (по желание)",
-  formMessage: "Разкажете ни за проекта",
-  formSubmit: "Изпратете запитване",
-  formSending: "Изпращане…",
-  formSent: "Благодарим Ви. Запитването е изпратено. Ще Ви отговорим по имейл.",
-  formInvalid: "Моля, попълнете име, валиден имейл и кратко съобщение.",
-  formFallback:
-    "Опитахме да отворим имейл програмата Ви с попълнено съобщение. Ако не се е отворила, копирайте съобщението и ни пишете на",
-  formError: "Не успяхме да изпратим запитването. Моля, пишете ни на",
-  formPrivacy: "Вилиан и Пламен използват данните Ви, за да отговорят. За изтриване пишете на",
-  footerTagline: "Проектираме, разработваме и поддържаме софтуер.",
-  navigation: "Навигация",
-  mainNavigation: "Основна навигация",
-  elsewhere: "Профили",
-  vilianGithub: "Вилиан в GitHub",
-  plamenGithub: "Пламен в GitHub",
-  vilian: "Вилиан Герджиков",
-  plamen: "Пламен Ерменков",
-  footerCredit: "Дизайн и разработка: Twofold.",
-  skip: "Към основното съдържание",
-  lightTheme: "Превключете към светла тема",
-  darkTheme: "Превключете към тъмна тема",
-  websites: "Сайтове",
-  websitesNote:
-    "Ясни и лесни за управление сайтове, които представят бизнеса Ви и помагат на клиентите да се свържат с Вас.",
-  onlineShops: "Онлайн магазини",
-  onlineShopsNote:
-    "Продуктови каталози, поръчки и съдържание на езиците, които използват клиентите Ви.",
-  serviceExample: "Пример",
-  heroPrimary: "Разкажете ни за проекта си",
-  heroSecondary: "Вижте проектите ни",
-  workIndexHeading: "Сайтове, демо проекти и собствени продукти",
+  workIndexHeading: "Шест проекта, половината от тях — наши собствени",
   workIndexCopy:
-    "Разгледайте и шестте проекта. За всеки описваме какво сме създали и какъв тип работа представя.",
-  workIndexTitle: "Нашите проекти",
-  workIndexDescription:
-    "Разгледайте сайтовете, онлайн магазините, уеб приложенията, демонстрационните проекти и собствените продукти на Twofold.",
+    "Онлайн антикварна книжарница, каталог на аптека и демо сайт за продажба на нови жилища, както и три продукта, които разработваме сами.",
   backHome: "Към началната страница",
   projectSummary: "За проекта",
+  includes: "Функции",
+  year: "Година",
+  challenge: "Отправна точка",
+  solution: "Какво направихме",
+  result: "Трудната част",
   projectScreenshots: "Екранни снимки",
+  nextProject: "Следващ проект",
+
+  // Team
+  aboutBefore: "Основателите.",
+  aboutEmphasis: "Лично по вашия проект.",
   aboutCopy:
     "Разговаряте с хората, които пишат кода — от първия разговор до пускането. Ясни решения и пряка обратна връзка на всеки етап.",
-  processHandoverTitle: "Поддръжка или предаване",
-  processHandoverCopy: "Текуща поддръжка или предаване на кода и достъпите на екипа Ви.",
-  heroStudio: "Независимо софтуерно студио · София",
+  portrait: "Портрет на",
   background: "Опит и отличия",
-  websitesShops: "Сайтове и онлайн магазини",
-  websitesShopsCopy: "Клиентите Ви намират, разглеждат и поръчват.",
-  appsIntegrations: "Уеб приложения и интеграции",
-  appsIntegrationsCopy: "Свързани инструменти. По-малко ръчна работа.",
-  mobileDesktopApps: "Мобилни и настолни приложения",
-  mobileDesktopAppsCopy: "Приложения за екипа Ви — на телефон и компютър.",
-  supportShort: "Поддържаме проекта или го предаваме на екипа Ви.",
+
+  // Process
+  processBefore: "Виждате проекта в действие",
+  processEmphasis: "много преди пускането.",
+  processIdeaTitle: "Първи разговор",
+  processIdeaCopy:
+    "Разбираме как работи бизнесът ви, кой ще използва продукта и какво трябва да прави той.",
+  processTryTitle: "Писмено предложение",
+  processTryCopy:
+    "Получавате обхвата, цената и срока писмено и се договаряме, преди да започне разработката.",
+  processRefineTitle: "Разработка и преглед",
+  processRefineCopy:
+    "Пробвате работещи версии още по време на разработката, а не всичко наведнъж накрая.",
+  processLaunchTitle: "Тестване и пускане",
+  processLaunchCopy:
+    "Преди пускането проверяваме основните действия, скоростта и изгледа на телефон и компютър.",
+  processHandoverTitle: "Поддръжка или предаване",
+  processHandoverCopy: "Поддържаме проекта или предаваме кода и всички достъпи на екипа ви.",
+
+  // FAQ
+  faqBefore: "Често задавани",
+  faqEmphasis: "въпроси",
+
+  // Contact
+  footerIntro: "Разкажете ни за проекта си",
+  footerLocation:
+    "В София сме и работим на български и английски. Съобщението ви стига директно до основателите.",
+  preferEmail: "Или ни пишете на",
+  emailSubject: "Запитване за проект",
+  formName: "Име",
+  formEmail: "Имейл",
+  formCompany: "Фирма (по желание)",
+  formMessage: "За проекта",
+  formMessageHint:
+    "Какво трябва да прави, кой ще го използва и какво вече имате: сайт, таблица, краен срок.",
+  formSubmit: "Изпратете запитване",
+  formSending: "Изпращане…",
+  formSent: "Благодарим! Получихме запитването и ще ви отговорим по имейл.",
+  formInvalid: "Моля, попълнете име, валиден имейл и кратко съобщение.",
+  formFallback:
+    "Опитахме да отворим имейл програмата ви с попълнено съобщение. Ако не се е отворила, копирайте текста и го изпратете на",
+  formError: "Не успяхме да изпратим запитването. Моля, пишете ни на",
+  formPrivacy: "Използваме данните ви само за да ви отговорим. Ако искате да ги изтрием, пишете на",
+
+  // Footer
+  navigation: "Навигация",
+  footerCredit: "Дизайн и разработка: Twofold.",
 };

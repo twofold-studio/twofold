@@ -55,11 +55,12 @@ export function CaseStudy({ slug }: { slug: string }) {
             {project.name}
           </h1>
           <p className="mt-3 text-h3 text-accent">{project.kicker}</p>
+          {/* The kicker already introduces the summary; the heading is for screen readers. */}
           <section aria-labelledby="summary-heading" className="mt-6 max-w-3xl">
-            <h2 id="summary-heading" className="text-small font-medium">
+            <h2 id="summary-heading" className="sr-only">
               {t.projectSummary}
             </h2>
-            <p className="mt-2 text-lead text-muted-foreground">{project.summary}</p>
+            <p className="text-lead text-muted-foreground">{project.summary}</p>
           </section>
           <div className="mt-6 flex flex-wrap gap-3">
             {project.link && (

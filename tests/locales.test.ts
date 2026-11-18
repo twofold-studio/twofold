@@ -45,9 +45,16 @@ describe("translation completeness", () => {
   });
   it("uses the founder spelling explicitly corrected in commit 2d6a749", () => {
     expect(getContent("bg").founders[0]!.name).toBe("Вилиан Герджиков");
-    expect(bg.vilian).toBe(getContent("bg").founders[0]!.name);
-    expect(bg.vilianGithub).toBe("Вилиан в GitHub");
-    expect(JSON.stringify(bg)).not.toContain("Вилиян");
+    expect(JSON.stringify([bg, getContent("bg")])).not.toContain("Вилиян");
+  });
+  it("keeps one spelling and one form of address in each language", () => {
+    const english = JSON.stringify([en, getContent("en")]);
+    expect(english).not.toMatch(/\bcatalog\b|\bcolor\b/);
+    const bulgarian = JSON.stringify([bg, getContent("bg")]);
+    // The polite plural is lower case for a public text: "ви", "вашия", not "Ви", "Вашия".
+    expect(bulgarian).not.toMatch(/[а-я,] (Вие|Ви|Вас|Ваш[а-я]*)[\s,.!?]/);
+    // One spelling of "player".
+    expect(bulgarian).not.toMatch(/плеър/i);
   });
   it("keeps current employers out of the founder bios", () => {
     for (const locale of ["bg", "en"] as const) {

@@ -96,10 +96,21 @@ export function EnquiryForm() {
         {t.formCompany}
         <input name="company" maxLength={160} autoComplete="organization" className="field" />
       </label>
-      <label className={label}>
-        {t.formMessage}
-        <textarea name="message" required rows={5} maxLength={5000} className="field resize-y" />
-      </label>
+      <div className={label}>
+        <label htmlFor="enquiry-message">{t.formMessage}</label>
+        <p id="enquiry-message-hint" className="-mt-1 font-normal text-muted-foreground">
+          {t.formMessageHint}
+        </p>
+        <textarea
+          id="enquiry-message"
+          name="message"
+          required
+          rows={5}
+          maxLength={5000}
+          aria-describedby="enquiry-message-hint"
+          className="field resize-y"
+        />
+      </div>
       {/* Left empty by people; bots that fill it are ignored. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label>

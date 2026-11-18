@@ -144,8 +144,8 @@ a {
     padding-block: clamp(3rem, 6vw, 4.5rem);
   }
 
-  /* A full-width band in the muted tone, like the footer, so the long page
-     reads as chapters (Services and Process). */
+  /* A full-width band in the muted tone, so the long page reads as chapters
+     (the Team section). */
   .band {
     background: var(--muted);
   }
@@ -328,13 +328,14 @@ a {
   transform: translateY(105%);
 }
 
+/* Same radius as the card (rounded-xl), so the finished clip never trims its border. */
 [data-reveal] .reveal-image {
-  clip-path: inset(0 round 1rem);
+  clip-path: inset(0 round 0.75rem);
   transition: clip-path 1.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-reveal="pending"] .reveal-image {
-  clip-path: inset(9% 7% round 1rem);
+  clip-path: inset(9% 7% round 0.75rem);
 }
 
 [data-reveal] .reveal-image img {
@@ -343,40 +344,6 @@ a {
 
 [data-reveal="pending"] .reveal-image img {
   scale: 1.14;
-}
-
-/* FAQ (components/faq.tsx). An open card gets a soft fill and a firmer edge,
-   and its plus turns (in 0.3 s, as on the earlier site) into a gold cross.
-   With a mouse, the icon brightens on hover. */
-.faq-item {
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.faq-item[data-open] {
-  background: color-mix(in srgb, var(--muted) 70%, transparent);
-  border-color: color-mix(in srgb, var(--foreground) 22%, transparent);
-}
-
-.faq-icon {
-  transition:
-    rotate 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-@media (hover: hover) {
-  .faq-item:hover .faq-icon {
-    color: var(--foreground);
-    border-color: color-mix(in srgb, var(--foreground) 35%, transparent);
-  }
-}
-
-.faq-item[data-open] .faq-icon {
-  rotate: 45deg;
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
 /* Contain the folds through their entrance, pointer tilt and full scroll spread.

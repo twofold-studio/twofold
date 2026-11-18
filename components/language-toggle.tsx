@@ -20,7 +20,7 @@ export function LanguageToggle({ className = "" }: { className?: string }) {
             type="button"
             lang={language}
             aria-pressed={language === locale}
-            title={`${t.switchLanguage} ${LOCALE_INFO[language].name}`}
+            title={LOCALE_INFO[language].name}
             onClick={() => {
               if (language !== locale) switchLocale(language);
             }}
