@@ -12,8 +12,8 @@ type Dictionary = ReturnType<typeof useI18n>["t"];
 
 /** The sections visitors look for most, in page order. */
 const primaryLinks = (t: Dictionary) => [
-  { id: "projects", label: t.work },
   { id: "services", label: t.services },
+  { id: "projects", label: t.work },
   { id: "about", label: t.team },
   { id: "process", label: t.results },
 ];
@@ -26,7 +26,7 @@ function useActiveSection(enabled: boolean): string | null {
   const [active, setActive] = useState<string | null>(null);
   useEffect(() => {
     if (!enabled) return;
-    const ids = ["projects", "services", "about", "process", "faq", "contact"];
+    const ids = ["services", "projects", "about", "process", "faq", "contact"];
     const update = () => {
       const line = window.scrollY + window.innerHeight / 3;
       const current = ids
@@ -78,6 +78,7 @@ export function Header({ home }: { home: boolean }) {
     content: { studio },
   } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
+  const header = useRef<HTMLElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const firstMenuLink = useRef<HTMLAnchorElement>(null);
   const active = useActiveSection(home);
@@ -92,17 +93,41 @@ export function Header({ home }: { home: boolean }) {
     const root = document.documentElement;
     const wide = window.matchMedia("(min-width: 1024px)");
     const close = () => setMenuOpen(false);
+    const background = [...document.querySelectorAll<HTMLElement>("main, footer")].map(
+      (element) => ({ element, inert: element.inert }),
+    );
     const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      close();
-      menuButton.current?.focus();
+      if (event.key === "Escape") {
+        close();
+        menuButton.current?.focus();
+      }
+      if (event.key === "Tab") {
+        const controls = [
+          ...(header.current?.querySelectorAll<HTMLElement>("a[href], button") ?? []),
+        ].filter((element) => element.getClientRects().length > 0);
+        const first = controls[0];
+        const last = controls.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
     };
+    background.forEach(({ element }) => {
+      element.inert = true;
+    });
     root.style.overflow = "hidden";
     pauseSmoothScroll(true);
     firstMenuLink.current?.focus();
     document.addEventListener("keydown", onKey);
     wide.addEventListener("change", close);
     return () => {
+      background.forEach(({ element, inert }) => {
+        element.inert = inert;
+      });
       root.style.overflow = "";
       pauseSmoothScroll(false);
       document.removeEventListener("keydown", onKey);
@@ -119,6 +144,7 @@ export function Header({ home }: { home: boolean }) {
 
   return (
     <header
+      ref={header}
       className={`fixed inset-x-0 top-0 z-50 border-b transition duration-300 ${surface} ${
         hidden && !menuOpen ? "-translate-y-full focus-within:translate-y-0" : ""
       }`}

@@ -15,9 +15,9 @@ export const studio = {
   email: "vgfractal@gmail.com",
   url: "https://twofold.fractal-tess.xyz",
   description:
-    "We design, build and maintain websites, web, mobile and desktop apps, backend services and integrations. A software studio in Sofia, Bulgaria.",
+    "Websites, online shops and custom software built around your business. Work directly with two engineers in Sofia.",
   /** Shorter line for link previews (Open Graph). */
-  shareDescription: "Websites, apps, backend services and integrations, built with care.",
+  shareDescription: "Websites and software built around your business. Two engineers in Sofia.",
 } as const;
 
 export interface WorkImage {
@@ -30,17 +30,19 @@ export interface Work {
   name: string;
   /** Short line under the project name, in the accent colour. */
   kicker: string;
-  /** What kind of client or job it was. */
+  /** A compact problem-and-benefit summary, also shown on phones. */
+  summary: string;
+  /** Documented project type and status; do not imply a client relationship. */
   kind: string;
   /** Page title for the case study in search results and link previews. */
   seoTitle: string;
-  /** Our own product: the first card line reads "Idea" instead of "Challenge". */
+  /** A product we own, rather than work for another business. */
   own?: boolean;
-  /** The three card lines: the starting point, what we built, what it gives the client. */
+  /** Case study: the starting point, the build and what it enables. */
   challenge: string;
   solution: string;
   result: string;
-  /** Paragraphs for the detail view. */
+  /** Source narrative retained for context when updating the concise case study. */
   story: string[];
   /** What the project includes, in plain words. */
   features: string[];
@@ -55,6 +57,8 @@ export const work: Work[] = [
     slug: "chunkyard",
     name: "Chunkyard",
     kicker: "Minecraft server management",
+    summary:
+      "Manage several Minecraft servers from one dashboard, with a live console and backups instead of separate terminals.",
     kind: "Our own product",
     seoTitle: "Chunkyard — self-hosted Minecraft server management",
     own: true,
@@ -73,7 +77,7 @@ export const work: Work[] = [
       label: "View Chunkyard on GitHub",
       href: "https://github.com/twofold-studio/chunkyard",
     },
-    cover: "/work/chunkyard/hero.webp",
+    cover: "/work/chunkyard/console.webp",
     images: [
       {
         src: "/work/chunkyard/hero.webp",
@@ -88,8 +92,10 @@ export const work: Work[] = [
   {
     slug: "oxevu",
     name: "Oxevu",
-    kicker: "your own media library",
-    kind: "Our own product",
+    kicker: "Media library & web player",
+    summary:
+      "Turn existing media folders into a searchable library, with a browser player that remembers where you left off.",
+    kind: "Our own product · in development",
     seoTitle: "Oxevu — a self-hosted media library and player",
     own: true,
     challenge: "Browse and play the movies and shows stored on your home server.",
@@ -104,7 +110,7 @@ export const work: Work[] = [
     features: ["Read-only library scans", "Resume playback", "Watch parties"],
     year: "2026",
     link: { label: "View Oxevu on GitHub", href: "https://github.com/twofold-studio/oxevu" },
-    cover: "/work/oxevu/hero.webp",
+    cover: "/work/oxevu/discover.webp",
     images: [
       {
         src: "/work/oxevu/hero.webp",
@@ -124,7 +130,9 @@ export const work: Work[] = [
   {
     slug: "bukinistika",
     name: "Bukinistika",
-    kicker: "rare books",
+    kicker: "Multilingual online shop",
+    summary:
+      "A shop in three languages brings over 4,000 books online, with less manual catalogue work.",
     kind: "Antiquarian bookshop · online store",
     seoTitle: "Bukinistika — an online shop for rare books in three languages",
     challenge:
@@ -164,7 +172,8 @@ export const work: Work[] = [
   {
     slug: "arkada",
     name: "Arkada",
-    kicker: "new-build sales",
+    kicker: "Interactive property website",
+    summary: "From PDF price lists to apartment search, 3D views and direct enquiries.",
     kind: "For residential developers · sales demo",
     seoTitle: "Arkada — a 3D sales site for new-build apartments",
     challenge: "New-build buyers usually get a PDF price list and a phone number.",
@@ -204,7 +213,9 @@ export const work: Work[] = [
   {
     slug: "helios",
     name: "Helios",
-    kicker: "homeopathy",
+    kicker: "Website & searchable catalogue",
+    summary:
+      "A searchable catalogue replaces spreadsheet downloads. Customers find products and send a single request.",
     kind: "Pharmacy in Sofia · website rebuild",
     seoTitle: "Helios — a searchable catalogue for a homeopathic pharmacy",
     challenge:
@@ -246,11 +257,13 @@ export const work: Work[] = [
   {
     slug: "vaiced",
     name: "vAIced",
-    kicker: "stories, spoken",
-    kind: "Our own product",
+    kicker: "AI audio & story player",
+    summary:
+      "Turn web-novel chapters into audio with a different voice for each character and a player that follows the text.",
+    kind: "Our own product · beta",
     seoTitle: "vAIced — web novels turned into audiobooks",
     own: true,
-    challenge: "Turns web novels into audiobooks, with a distinct voice for every character.",
+    challenge: "Let readers listen to web novels with a distinct voice for every character.",
     solution: "It works out who speaks each line and gives every character their own AI voice.",
     result:
       "The first finished chapter of Mother of Learning: 461 lines across 9 scenes, with seven characters and a narrator. Now in beta, with an early-access list at vaiced.com.",
@@ -261,7 +274,7 @@ export const work: Work[] = [
     features: ["A voice for every character", "Story player", "Website and early-access list"],
     year: "2026",
     link: { label: "Visit vaiced.com", href: "https://vaiced.com" },
-    cover: "/work/vaiced/hero.webp",
+    cover: "/work/vaiced/website.webp",
     images: [
       {
         src: "/work/vaiced/hero.webp",
@@ -280,6 +293,13 @@ export const work: Work[] = [
     ],
   },
 ];
+
+/** The homepage selection; all six detail URLs remain available from the Work index. */
+export const featuredSlugs = ["bukinistika", "helios", "arkada"] as const;
+
+export function featuredWork(items: Work[]): Work[] {
+  return featuredSlugs.map((slug) => items.find((item) => item.slug === slug)!);
+}
 
 export interface Founder {
   name: string;
@@ -352,6 +372,6 @@ export const faqs = [
   {
     question: "How do we start?",
     answer:
-      "Send us a short description of the project and anything you already have: a website, a spreadsheet, a PDF. We'll reply within a few working days to arrange a short call. After it, you receive a written proposal with the scope, timeline and price.",
+      "Send us a short description of the project and anything you already have: a website, a spreadsheet, a PDF. We start with a short conversation. After it, you receive a written proposal with the scope, timeline and price.",
   },
 ] as const;

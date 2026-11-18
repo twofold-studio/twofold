@@ -16,6 +16,7 @@ const escape = (text: string) =>
 /** Every page the build writes: each locale's home page and its case studies. */
 export const pages: Page[] = [
   { kind: "home" },
+  { kind: "work-index" },
   ...work.map((project): Page => ({ kind: "work", slug: project.slug })),
 ];
 
@@ -44,10 +45,26 @@ export function render(locale: Locale, page: Page = { kind: "home" }) {
   if (page.kind === "work" && !project) return null;
 
   const title = escape(
-    project ? `${project.seoTitle} · ${studio.name}` : `${studio.name} — ${t.metaTitle}`,
+    project
+      ? `${project.seoTitle} · ${studio.name}`
+      : page.kind === "work-index"
+        ? `${t.workIndexTitle} · ${studio.name}`
+        : `${studio.name} — ${t.metaTitle}`,
   );
-  const description = escape(project ? project.solution : content.studio.description);
-  const share = escape(project ? project.solution : content.studio.shareDescription);
+  const description = escape(
+    project
+      ? project.summary
+      : page.kind === "work-index"
+        ? t.workIndexDescription
+        : content.studio.description,
+  );
+  const share = escape(
+    project
+      ? project.summary
+      : page.kind === "work-index"
+        ? t.workIndexDescription
+        : content.studio.shareDescription,
+  );
   const image = `${studio.url}/og/${project?.slug ?? `twofold-${locale}`}.jpg`;
   const imageAlt = escape(project ? project.seoTitle : `${studio.name} — ${t.metaTitle}`);
   const url = `${studio.url}${pagePath(locale, page)}`;

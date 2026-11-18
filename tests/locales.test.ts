@@ -43,6 +43,12 @@ describe("translation completeness", () => {
       expect(founders[1]!.bio).toMatch(/cybersecurity|киберсигурност/);
     }
   });
+  it("uses the founder spelling explicitly corrected in commit 2d6a749", () => {
+    expect(getContent("bg").founders[0]!.name).toBe("Вилиан Герджиков");
+    expect(bg.vilian).toBe(getContent("bg").founders[0]!.name);
+    expect(bg.vilianGithub).toBe("Вилиан в GitHub");
+    expect(JSON.stringify(bg)).not.toContain("Вилиян");
+  });
   it("keeps current employers out of the founder bios", () => {
     for (const locale of ["bg", "en"] as const) {
       for (const founder of getContent(locale).founders) {
@@ -61,6 +67,9 @@ describe("case study pages", () => {
   it("map project paths in both directions", () => {
     expect(pageFromPath("/bg/work/helios")).toEqual({ kind: "work", slug: "helios" });
     expect(pageFromPath("/en/work/vaiced/")).toEqual({ kind: "work", slug: "vaiced" });
+    expect(pageFromPath("/bg/work/")).toEqual({ kind: "work-index" });
+    expect(pageFromPath("/en/work")).toEqual({ kind: "work-index" });
+    expect(pagePath("bg", { kind: "work-index" })).toBe("/bg/work");
     expect(pageFromPath("/bg")).toEqual({ kind: "home" });
     expect(pagePath("en", { kind: "work", slug: "arkada" })).toBe("/en/work/arkada");
   });

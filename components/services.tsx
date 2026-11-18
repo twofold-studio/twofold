@@ -1,51 +1,54 @@
 "use client";
+import { ArrowUpRight } from "lucide-react";
+import { pagePath } from "@/lib/pages";
 import { useI18n } from "./i18n-provider";
 
-import { useRef } from "react";
-import { SectionHeading } from "./section-heading";
-import { useScrubIn } from "./scrub-in";
-
-/** Each row rises into place with the scroll, like the FAQ cards. */
-function ServiceRow({ title, note }: { title: string; note: string }) {
-  const ref = useRef<HTMLLIElement>(null);
-  useScrubIn(ref, ref, { y: 40, duration: 0.6, start: "top 92%", end: "top 72%" });
-  return (
-    <li
-      ref={ref}
-      className="grid gap-2 border-b border-border py-7 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-10 md:py-8"
-    >
-      <h3 className="text-h3 font-medium text-foreground">{title}</h3>
-      <p className="text-body text-muted-foreground md:pt-0.5">{note}</p>
-    </li>
-  );
-}
-
 export function Services() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const services = [
-    { title: t.webApps, note: t.webAppsNote },
-    { title: t.mobileApps, note: t.mobileAppsNote },
-    { title: t.desktopApps, note: t.desktopAppsNote },
-    { title: t.backendServices, note: t.backendServicesNote },
-    { title: t.integrations, note: t.integrationsNote },
-    { title: t.upkeep, note: t.upkeepNote },
+    {
+      title: t.websitesShops,
+      copy: t.websitesShopsCopy,
+      href: pagePath(locale, { kind: "work", slug: "bukinistika" }),
+    },
+    {
+      title: t.appsIntegrations,
+      copy: t.appsIntegrationsCopy,
+      href: pagePath(locale, { kind: "work", slug: "chunkyard" }),
+    },
+    { title: t.upkeep, copy: t.supportShort, href: "#process" },
   ];
-
   return (
-    <section id="services" aria-labelledby="services-heading" className="section band">
-      <div className="container-site">
-        <SectionHeading id="services-heading" label={t.services}>
-          {t.servicesHeading}
-        </SectionHeading>
-        <ul className="border-t border-border">
-          {services.map((service) => (
-            <ServiceRow key={service.title} title={service.title} note={service.note} />
-          ))}
-        </ul>
-        <a href="#contact" className="btn btn-secondary mt-10">
-          {t.startProject}
-        </a>
-      </div>
+    <section id="services" aria-labelledby="services-heading" className="container-site">
+      <h2 id="services-heading" className="sr-only">
+        {t.servicesHeading}
+      </h2>
+      <ul className="service-intro grid gap-x-8 sm:grid-cols-3">
+        {services.map((service) => (
+          <li key={service.title} className="min-w-0 py-4 sm:py-5">
+            <h3>
+              <a
+                href={service.href}
+                className="focus-ring group inline-flex min-h-11 items-center gap-2 text-body font-medium"
+              >
+                {service.title}
+                <ArrowUpRight
+                  size={15}
+                  aria-hidden="true"
+                  className="text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </a>
+            </h3>
+            <p className="max-w-xs text-small text-muted-foreground">{service.copy}</p>
+          </li>
+        ))}
+      </ul>
+      <details className="service-more border-b border-border pb-3 text-small text-muted-foreground">
+        <summary className="focus-ring w-fit cursor-pointer py-2">
+          {t.backgroundCapabilities}
+        </summary>
+        <p className="max-w-2xl pb-2 pt-2">{t.otherCapabilities}</p>
+      </details>
     </section>
   );
 }

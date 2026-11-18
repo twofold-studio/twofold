@@ -1,15 +1,17 @@
 import type { Locale } from "./i18n/config";
 
-/** The two kinds of page: the studio home page and one case study per project. */
-export type Page = { kind: "home" } | { kind: "work"; slug: string };
+/** Localized home, complete Work index and existing project detail routes. */
+export type Page = { kind: "home" } | { kind: "work-index" } | { kind: "work"; slug: string };
 
 const WORK_PATH = /^\/(?:en|bg)\/work\/([a-z0-9-]+)\/?$/;
 
 export function pageFromPath(pathname: string): Page {
+  if (/^\/(?:en|bg)\/work\/?$/.test(pathname)) return { kind: "work-index" };
   const slug = WORK_PATH.exec(pathname)?.[1];
   return slug ? { kind: "work", slug } : { kind: "home" };
 }
 
 export function pagePath(locale: Locale, page: Page): string {
-  return page.kind === "work" ? `/${locale}/work/${page.slug}` : `/${locale}`;
+  if (page.kind === "work") return `/${locale}/work/${page.slug}`;
+  return page.kind === "work-index" ? `/${locale}/work` : `/${locale}`;
 }

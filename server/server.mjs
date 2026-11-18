@@ -21,7 +21,7 @@ const types = {
   ".txt": "text/plain; charset=utf-8",
 };
 /** A localized home page or case study; unknown case studies have no file and get a 404. */
-const PAGE_PATH = /^\/(en|bg)(\/work\/[a-z0-9-]+)?\/?$/;
+const PAGE_PATH = /^\/(en|bg)(\/work(?:\/[a-z0-9-]+)?)?\/?$/;
 
 export function createAppServer(root = resolve("dist")) {
   return createServer(async (req, res) => {

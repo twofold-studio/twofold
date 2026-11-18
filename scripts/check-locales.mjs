@@ -17,8 +17,8 @@ await expectRedirect({ "Accept-Language": "bg-BG", Cookie: "lang=en" }, "/en");
 await expectRedirect({ "Accept-Language": "en-US", Cookie: "lang=bg" }, "/bg");
 await expectRedirect({ "Accept-Language": "bg-BG", Cookie: "lang=invalid" }, "/bg");
 for (const [locale, heading, caseTitle] of [
-  ["bg", "Двама инженери.", "Букинистика"],
-  ["en", "Two engineers.", "Bukinistika"],
+  ["bg", "Сайтове и софтуер,", "Букинистика"],
+  ["en", "Websites and software", "Bukinistika"],
 ]) {
   const response = await fetch(`${base}/${locale}`, {
     headers: { "Accept-Language": locale === "bg" ? "en-US" : "bg-BG" },
@@ -32,6 +32,23 @@ for (const [locale, heading, caseTitle] of [
   assert.ok(html.includes(`rel="canonical" href="https://twofold.fractal-tess.xyz/${locale}"`));
   assert.ok(html.includes('hrefLang="bg"') || html.includes('hreflang="bg"'));
   assert.ok(html.includes('hrefLang="en"') || html.includes('hreflang="en"'));
+}
+for (const locale of ["bg", "en"]) {
+  const response = await fetch(`${base}/${locale}/work`);
+  assert.equal(response.status, 200, "Localized Work index");
+  const html = await response.text();
+  for (const slug of ["bukinistika", "helios", "arkada", "chunkyard", "oxevu", "vaiced"]) {
+    assert.ok(html.includes(`href="/${locale}/work/${slug}"`));
+    assert.equal((await fetch(`${base}/${locale}/work/${slug}`)).status, 200);
+  }
+  assert.ok(
+    html.includes(`rel="canonical" href="https://twofold.fractal-tess.xyz/${locale}/work"`),
+  );
+  assert.ok(
+    html.includes(
+      `hreflang="${locale === "en" ? "bg" : "en"}" href="https://twofold.fractal-tess.xyz/${locale === "en" ? "bg" : "en"}/work"`,
+    ),
+  );
 }
 for (const [locale, title] of [
   ["bg", "Хелиос — каталог с търсене"],

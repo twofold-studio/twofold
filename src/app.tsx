@@ -7,6 +7,7 @@ import { Services } from "@/components/services";
 import { About } from "@/components/about";
 import { Process } from "@/components/process";
 import { Faq } from "@/components/faq";
+import { WorkIndex } from "@/components/work-index";
 import { CaseStudy } from "@/components/case-study";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
@@ -28,12 +29,14 @@ export function App({ locale, page }: { locale: Locale; page: Page }) {
           {page.kind === "home" ? (
             <>
               <Hero />
-              <Projects />
               <Services />
+              <Projects />
               <About />
               <Process />
               <Faq />
             </>
+          ) : page.kind === "work-index" ? (
+            <WorkIndex />
           ) : (
             <CaseStudy slug={page.slug} />
           )}

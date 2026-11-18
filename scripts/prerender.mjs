@@ -6,7 +6,11 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 const origin = "https://twofold.fractal-tess.xyz";
 const locales = ["en", "bg"];
 const pathFor = (locale, page) =>
-  page.kind === "work" ? `/${locale}/work/${page.slug}` : `/${locale}`;
+  page.kind === "work"
+    ? `/${locale}/work/${page.slug}`
+    : page.kind === "work-index"
+      ? `/${locale}/work`
+      : `/${locale}`;
 
 export async function prerender() {
   await build({

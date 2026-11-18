@@ -49,7 +49,7 @@ export default defineConfig({
             res.end();
             return;
           }
-          if (!/^\/(en|bg)(\/work\/[a-z0-9-]+)?\/?$/.test(url.pathname)) {
+          if (!/^\/(en|bg)(\/work(?:\/[a-z0-9-]+)?)?\/?$/.test(url.pathname)) {
             next();
             return;
           }
