@@ -17,7 +17,8 @@ export const studio = {
   description:
     "Websites, online shops and custom software built around your business. Work directly with the founders, in Sofia.",
   /** Shorter line for link previews (Open Graph). */
-  shareDescription: "Websites and software built around your business. Founder-led, in Sofia.",
+  shareDescription:
+    "Websites and software built around your business. Founder-led, in Sofia.",
 } as const;
 
 export interface WorkImage {
@@ -75,7 +76,11 @@ export const work: Work[] = [
       "Chunkyard manages Minecraft Java Edition servers on your own hardware. It supports Vanilla, Paper, Purpur, Fabric, Forge, NeoForge and supported CurseForge packs.",
       "The dashboard shows when Minecraft is ready for players, streams console output and keeps a history of server.properties edits. Owner API keys also give scripts and MCP clients access to server controls.",
     ],
-    features: ["Live console and charts", "Local and S3 backups", "API keys for scripts and MCP"],
+    features: [
+      "Live console and charts",
+      "Local and S3 backups",
+      "API keys for scripts and MCP",
+    ],
     year: "2026",
     link: {
       label: "View Chunkyard on GitHub",
@@ -85,7 +90,8 @@ export const work: Work[] = [
     images: [
       {
         src: "/work/chunkyard/hero.webp",
-        caption: "The server inventory and live resource readings for Vanilla Survival.",
+        caption:
+          "The server inventory and live resource readings for Vanilla Survival.",
       },
       {
         src: "/work/chunkyard/console.webp",
@@ -114,7 +120,10 @@ export const work: Work[] = [
     ],
     features: ["Read-only library scans", "Resume playback", "Watch parties"],
     year: "2026",
-    link: { label: "View Oxevu on GitHub", href: "https://github.com/twofold-studio/oxevu" },
+    link: {
+      label: "View Oxevu on GitHub",
+      href: "https://github.com/twofold-studio/oxevu",
+    },
     cover: "/work/oxevu/discover.webp",
     images: [
       {
@@ -125,10 +134,14 @@ export const work: Work[] = [
         src: "/work/oxevu/discover.webp",
         caption: "Discover with filters for year, genre, rating and language.",
       },
-      { src: "/work/oxevu/seasons.webp", caption: "Arcane’s season artwork and episode counts." },
+      {
+        src: "/work/oxevu/seasons.webp",
+        caption: "Arcane’s season artwork and episode counts.",
+      },
       {
         src: "/work/oxevu/mobile.webp",
-        caption: "Movies, series and Arcane details in the mobile web interface.",
+        caption:
+          "Movies, series and Arcane details in the mobile web interface.",
       },
     ],
   },
@@ -161,15 +174,18 @@ export const work: Work[] = [
     images: [
       {
         src: "/work/bukinistika/hero.webp",
-        caption: "The catalogue in Bulgarian, with a 1947 Taso Primo first edition open in front.",
+        caption:
+          "The catalogue in Bulgarian, with a 1947 Taso Primo first edition open in front.",
       },
       {
         src: "/work/bukinistika/rare-archive.webp",
-        caption: "The Rare Archive: a separate, darker section for antiquarian copies.",
+        caption:
+          "The Rare Archive: a separate, darker section for antiquarian copies.",
       },
       {
         src: "/work/bukinistika/checkout.webp",
-        caption: "The first of four checkout steps: delivery in Bulgaria or abroad.",
+        caption:
+          "The first of four checkout steps: delivery in Bulgaria or abroad.",
       },
       {
         src: "/work/bukinistika/admin.webp",
@@ -196,7 +212,11 @@ export const work: Work[] = [
       "Buyers of new-build apartments in Sofia usually get a PDF price list and a phone number. Arkada shows the same offer as a site: pick a building from its facade, a floor from the plan or a 3D model, and an apartment with its price and room areas, then compare and send an enquiry.",
       "Because it is a sales demo, it comes in nine different designs with the same content behind them. A “Versions” button on every page shows that page in another design, so a developer can choose a look by clicking through real pages instead of mockups. The sales team can update apartments, prices and availability themselves at any time.",
     ],
-    features: ["3D building model", "Nine switchable designs", "Bulgarian and English"],
+    features: [
+      "3D building model",
+      "Nine switchable designs",
+      "Bulgarian and English",
+    ],
     year: "2026",
     link: { label: "Open the demo", href: "https://arkadia.fractal-tess.xyz" },
     cover: "/work/arkada/hero.webp",
@@ -213,11 +233,13 @@ export const work: Work[] = [
       },
       {
         src: "/work/arkada/project.webp",
-        caption: "Lipa Park: homes available, the price range and the floor chooser.",
+        caption:
+          "Lipa Park: homes available, the price range and the floor chooser.",
       },
       {
         src: "/work/arkada/phones.webp",
-        caption: "The home page, the 3D building model and a project page on three phones.",
+        caption:
+          "The home page, the 3D building model and a project page on three phones.",
       },
     ],
   },
@@ -241,7 +263,10 @@ export const work: Work[] = [
     ],
     features: ["Searchable catalogue", "Multi-item requests", "Staff editing"],
     year: "2026",
-    link: { label: "View the new site", href: "https://helios.fractal-tess.xyz" },
+    link: {
+      label: "View the new site",
+      href: "https://helios.fractal-tess.xyz",
+    },
     cover: "/work/helios/hero.webp",
     images: [
       {
@@ -284,7 +309,11 @@ export const work: Work[] = [
       "vAIced is Twofold’s own product. It reads a chapter of a web novel, works out who says each line, gives every character their own AI voice and turns the chapter into an audiobook you can play in the browser.",
       "The first finished chapter, from Mother of Learning, has 461 lines across 9 scenes, with seven characters and a narrator. The player highlights each line as it is read, colours it by speaker and shows a picture for every scene. The public site, with an early-access list, is live at vaiced.com.",
     ],
-    features: ["A voice per character", "Line-by-line player", "Early-access website"],
+    features: [
+      "A voice per character",
+      "Line-by-line player",
+      "Early-access website",
+    ],
     year: "2026",
     link: { label: "Visit vaiced.com", href: "https://vaiced.com" },
     cover: "/work/vaiced/website.webp",
@@ -360,31 +389,31 @@ export const faqs = [
   {
     question: "Who will we be working with?",
     answer:
-      "The founders, who also write the code. There’s no account manager in between, so the people on the call are the people building your product. When a project needs it, we bring in specialists for design or testing.",
+      "Us, the founders. We write the code ourselves, so you always talk to the people building your project. When a project needs design or testing, we have trusted people for that, and we stay your main contact.",
   },
   {
     question: "Can our team update the content ourselves?",
     answer:
-      "Usually, yes. You get a straightforward editor for text, photos, products and prices, so everyday changes don’t have to wait for us. On the new Helios site, for example, the staff can manage more than 3,600 remedies, their prices and the opening hours.",
+      "Yes, if you’d like that. We build an easy-to-use editor around your content, so you can change text, photos, products and prices yourself, without waiting for us.",
   },
   {
     question: "Can you build in Bulgarian and other languages?",
     answer:
-      "Yes. Helios is in Bulgarian, Arkada in Bulgarian and English, and Bukinistika in Bulgarian, English and Russian. Languages are edited side by side, so adding one later means translating, not rebuilding.",
+      "Yes. We’ve already built a shop that sells in Bulgarian, English and Russian. Adding a new language later is just a matter of translating the text.",
   },
   {
     question: "What about the content we already have?",
     answer:
-      "We move it across for you. On Helios, the old pages and the remedy spreadsheets were carried into the new site, and Bukinistika’s catalogue updates itself from its original listings.",
+      "We move it for you, including old pages and the products from your spreadsheets, so you won’t have to type anything in again.",
   },
   {
     question: "What happens after launch?",
     answer:
-      "You choose. We host and maintain it on a server that suits the project and its budget, or we hand everything over to your team. Either way, it’s entirely yours.",
+      "That’s up to you. We can host the site on a server that fits your budget and look after it, or hand the code and every login to your team. Either way, it belongs to you.",
   },
   {
     question: "How do we start, and what does it cost?",
     answer:
-      "Send us a few lines about the project and anything you already have: a website, a spreadsheet, a PDF. After a short call, we send a written proposal with the scope, timeline and price. The price depends on the scope, and work starts only once you’ve agreed to it.",
+      "Write us a few lines about the project and send anything you already have, like an old site, a spreadsheet or a PDF. After a short call, you get a written proposal with the price, the deadline and everything that’s included. The price depends on how much there is to build, and we start once you say yes.",
   },
 ] as const;
