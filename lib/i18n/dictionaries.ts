@@ -106,7 +106,7 @@ export const en = {
   // Contact
   footerIntro: "Tell us about your project",
   footerLocation:
-    "Based in Sofia, working in English and Bulgarian. Your message goes straight to the founders.",
+    "Based in Sofia, working in English and Bulgarian. Your message goes straight to the founders, and we usually get back to you within one working day to arrange a short call.",
   preferEmail: "Or email us",
   emailSubject: "Project enquiry",
   formName: "Name",
@@ -114,10 +114,10 @@ export const en = {
   formCompany: "Company (optional)",
   formMessage: "About the project",
   formMessageHint:
-    "What it should do, who will use it, and anything you already have: a website, a spreadsheet, a deadline.",
+    "Tell us what it should do and who it’s for. If you already have a website, a spreadsheet or a deadline, mention that too.",
   formSubmit: "Send enquiry",
   formSending: "Sending…",
-  formSent: "Thank you, we’ve received your enquiry. We’ll reply by email.",
+  formSent: "Thank you, we’ve received your enquiry. We usually get back to you within one working day to arrange a short call.",
   formInvalid:
     "Please add your name, a valid email address and a short message.",
   formFallback:
@@ -233,7 +233,7 @@ export const bg: Dictionary = {
   // Contact
   footerIntro: "Разкажете ни за проекта си",
   footerLocation:
-    "В София сме и работим на български и английски. Съобщението ви стига директно до основателите.",
+    "В София сме и работим на български и английски. Съобщението ви стига директно до основателите и обикновено ви отговаряме до един работен ден, за да уговорим кратък разговор.",
   preferEmail: "Или ни пишете на",
   emailSubject: "Запитване за проект",
   formName: "Име",
@@ -241,10 +241,10 @@ export const bg: Dictionary = {
   formCompany: "Фирма (по желание)",
   formMessage: "За проекта",
   formMessageHint:
-    "Какво трябва да прави, кой ще го използва и какво вече имате: сайт, таблица, краен срок.",
+    "Разкажете накратко какво ви е нужно и кой ще го използва. Ако вече имате сайт, таблица или краен срок, споменете и тях.",
   formSubmit: "Изпратете запитване",
   formSending: "Изпращане…",
-  formSent: "Благодарим! Получихме запитването и ще ви отговорим по имейл.",
+  formSent: "Благодарим! Получихме запитването и обикновено ви отговаряме до един работен ден, за да уговорим кратък разговор.",
   formInvalid: "Моля, попълнете име, валиден имейл и кратко съобщение.",
   formFallback:
     "Опитахме да отворим имейл програмата ви с попълнено съобщение. Ако не се е отворила, копирайте текста и го изпратете на",
