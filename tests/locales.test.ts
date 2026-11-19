@@ -66,7 +66,7 @@ describe("translation completeness", () => {
   it("uses the same rounded catalogue figures everywhere", () => {
     for (const locale of ["bg", "en"] as const) {
       const text = JSON.stringify(getContent(locale));
-      expect(text).not.toMatch(/3[ ,]?646|около 3600|about 3,600|5[ ,]?000/);
+      expect(text).not.toMatch(/3[ ,]?646|около 3600|about 3,600|4[ ,]?000/);
     }
   });
 });

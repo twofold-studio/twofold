@@ -60,26 +60,26 @@ export const work: Work[] = [
   {
     slug: "chunkyard",
     name: "Chunkyard",
-    kicker: "Minecraft server management",
+    kicker: "All your Minecraft servers in one place",
     summary:
-      "Several Minecraft servers on your own hardware, each in its own Docker container, run from one dashboard with a live console and backups.",
-    kind: "Our own product",
+      "A web panel for people who host Minecraft servers on their own computer. It sets up each server, shows its console live and keeps backups.",
+    kind: "Our own product · in development",
     seoTitle: "Chunkyard — self-hosted Minecraft server management",
     own: true,
     challenge:
-      "Several Minecraft Java servers on one machine usually means a terminal for each, config files edited by hand, and backups made whenever someone remembers.",
+      "Running several Minecraft servers on one computer usually means a separate window for each, settings files edited by hand, and backups made whenever someone remembers.",
     solution:
-      "A web dashboard that installs Vanilla, Paper, Purpur, Fabric, Forge, NeoForge and CurseForge packs, streams each console live, charts resource use and keeps a history of server.properties edits.",
+      "You pick a server type or a CurseForge modpack, and Chunkyard downloads it and chooses the right version of Java. From then on, each server has its own page with a live console, resource charts and a history of every settings change.",
     result:
-      "Knowing when a server is really ready. A started Docker container doesn’t mean players can join, so Chunkyard shows a server as ready only once Minecraft answers a Server List Ping, the same check the game itself uses.",
+      "Knowing when a server is really ready. A server that has started isn’t always one players can join, so Chunkyard marks it as ready only when Minecraft answers the same check the game uses for its server list.",
     story: [
       "Chunkyard manages Minecraft Java Edition servers on your own hardware. It supports Vanilla, Paper, Purpur, Fabric, Forge, NeoForge and supported CurseForge packs.",
       "The dashboard shows when Minecraft is ready for players, streams console output and keeps a history of server.properties edits. Owner API keys also give scripts and MCP clients access to server controls.",
     ],
     features: [
       "Live console and charts",
-      "Local and S3 backups",
-      "API keys for scripts and MCP",
+      "Backups on your machine or in the cloud",
+      "Control from scripts and AI tools",
     ],
     year: "2026",
     link: {
@@ -91,34 +91,38 @@ export const work: Work[] = [
       {
         src: "/work/chunkyard/hero.webp",
         caption:
-          "The server inventory and live resource readings for Vanilla Survival.",
+          "The list of servers, with live resource readings for Vanilla Survival.",
       },
       {
         src: "/work/chunkyard/console.webp",
-        caption: "Live startup output from a running Paper server.",
+        caption: "A Paper server’s console as it starts up.",
       },
     ],
   },
   {
     slug: "oxevu",
     name: "Oxevu",
-    kicker: "Media library and web player",
+    kicker: "A home for your films and series",
     summary:
-      "Turns the film and series folders on a home server into a searchable library, with a browser player that remembers where you stopped.",
+      "Turns the film and series folders on a home server into a library you can search. The player runs in the browser and remembers where you stopped.",
     kind: "Our own product · in development",
     seoTitle: "Oxevu — a self-hosted media library and player",
     own: true,
     challenge:
-      "Films and series on a home server are just folders of files: no artwork, no search and no record of what you’ve watched.",
+      "Films and series on a home server are just folders of files. There’s no artwork, no search and no way to tell what you’ve already watched.",
     solution:
-      "A Rust server scans the folders, and a Svelte web app turns them into a library you can browse and play, with saved progress and watch parties.",
+      "Point Oxevu at your folders and it builds a library with artwork, search and filters. You press play in the browser, with subtitles and saved progress, or start a watch party with friends.",
     result:
-      "Leaving your files alone. Scans are read-only, so nothing in your folders is renamed or moved, and the player streams the original file or transcodes it with FFmpeg.",
+      "Leaving your files alone. Oxevu only reads your folders, so nothing is renamed or moved. When a device can’t play a file, the player converts it on the fly instead of changing the original.",
     story: [
       "Oxevu is a self-hosted media library and player in active development. A Rust server scans your media folders without changing the files, and a Svelte web interface lets you browse the catalogue and play what you find.",
       "The web player saves progress and supports original-file playback, FFmpeg transcoding and watch parties.",
     ],
-    features: ["Read-only library scans", "Resume playback", "Watch parties"],
+    features: [
+      "Never changes your files",
+      "Picks up where you stopped",
+      "Watch parties",
+    ],
     year: "2026",
     link: {
       label: "View Oxevu on GitHub",
@@ -128,11 +132,11 @@ export const work: Work[] = [
     images: [
       {
         src: "/work/oxevu/hero.webp",
-        caption: "The movie library with the Arcane series page in front.",
+        caption: "The film library, with the page for Arcane open in front.",
       },
       {
         src: "/work/oxevu/discover.webp",
-        caption: "Discover with filters for year, genre, rating and language.",
+        caption: "The Discover page, with filters for year, genre, rating and language.",
       },
       {
         src: "/work/oxevu/seasons.webp",
@@ -141,32 +145,32 @@ export const work: Work[] = [
       {
         src: "/work/oxevu/mobile.webp",
         caption:
-          "Movies, series and Arcane details in the mobile web interface.",
+          "Films, series and the Arcane page on a phone.",
       },
     ],
   },
   {
     slug: "bukinistika",
     name: "Bukinistika",
-    kicker: "Rare books in three languages",
+    kicker: "Old books, and every copy is different",
     summary:
-      "More than 4,000 antiquarian and rare books for sale in Bulgarian, English and Russian, with a catalogue that keeps itself up to date.",
-    kind: "Antiquarian bookshop · online shop",
+      "An online shop for more than 5,000 rare and second-hand books. It runs in Bulgarian, English and Russian and ships to buyers in Bulgaria and abroad.",
+    kind: "Antiquarian bookseller · online shop",
     seoTitle: "Bukinistika — an online shop for rare books in three languages",
     challenge:
-      "More than 4,000 antiquarian books, each copy with its own condition and price, and buyers both in Bulgaria and abroad.",
+      "Thousands of old books, and every one is a single copy with its own condition, photos and price. Some buyers are in Bulgaria, others abroad.",
     solution:
-      "An online shop in Bulgarian, English and Russian. Antiquarian copies have their own darker section, the Rare Archive, and checkout starts by asking whether the books stay in Bulgaria or go abroad.",
+      "A shop where buyers narrow the books down by condition, language, publisher or year, or head straight to the Rare Archive, a darker section for the rarest ones. Once they’ve found a book, a simple checkout walks them through each step.",
     result:
-      "Keeping thousands of single copies accurate without retyping them. The catalogue updates itself from the original listings, and the owner can find any book by condition, language, publisher or category.",
+      "Putting more than 5,000 books online without typing a single one by hand. We gathered every book, with its photos, condition and price, into simple files and loaded them all at once. Since then, the owner adds and edits books right in the shop.",
     story: [
       "Bukinistika sells antique and rare books. The shop runs in Bulgarian, English and Russian, and antiquarian copies have their own darker section, the Rare Archive.",
-      "The catalogue of over 4,000 copies updates itself automatically from the listings it started from. Checkout begins by asking whether the books stay in Bulgaria or go abroad, and the owner can find any copy by condition, language, publisher or category.",
+      "The catalogue of over 5,000 copies was loaded in one go from simple files, with each book’s photos, condition and price. Checkout begins by asking whether the books stay in Bulgaria or go abroad, and the owner can find any copy by condition, language, publisher or category.",
     ],
     features: [
       "Bulgarian, English and Russian",
-      "Self-updating catalogue",
-      "Checkout for Bulgaria or abroad",
+      "No books typed in by hand",
+      "Econt, Speedy and cash on delivery",
     ],
     year: "2026",
     link: { label: "Visit bukinistika.com", href: "https://bukinistika.com" },
@@ -180,41 +184,41 @@ export const work: Work[] = [
       {
         src: "/work/bukinistika/rare-archive.webp",
         caption:
-          "The Rare Archive: a separate, darker section for antiquarian copies.",
+          "The Rare Archive, a darker section just for antiquarian copies.",
       },
       {
         src: "/work/bukinistika/checkout.webp",
         caption:
-          "The first of four checkout steps: delivery in Bulgaria or abroad.",
+          "Checkout starts by asking where the books are going.",
       },
       {
         src: "/work/bukinistika/admin.webp",
         caption:
-          "The owner’s book list, with filters, a rare-books-only switch and the stock of every copy.",
+          "The owner’s view of the catalogue, with filters and a switch that shows only rare editions.",
       },
     ],
   },
   {
     slug: "arkada",
     name: "Arkada",
-    kicker: "Apartments chosen from a 3D building",
+    kicker: "Choose a home straight from the building",
     summary:
-      "Buyers pick a building, floor and apartment from a 3D model and see its price, plan and room areas, instead of reading a PDF price list.",
-    kind: "For residential developers · sales demo",
+      "A sales website for companies building new apartment blocks. Buyers click through the building to the exact apartment and see its price, plan and the size of every room.",
+    kind: "New-build apartment sales · demo",
     seoTitle: "Arkada — a 3D sales site for new-build apartments",
     challenge:
       "Buyers of new-build apartments in Sofia usually get a PDF price list and a phone number.",
     solution:
-      "A sales site where buyers go from a building’s facade to a floor and an apartment, on a plan or in a 3D model, then compare and send an enquiry. The sales team can change prices and availability at any time.",
+      "Buyers start at the front of the building, pick a floor and see which apartments are still free, on a plan or in 3D. They compare a few, then send a question or ask for a viewing. The sales team updates prices and availability themselves.",
     result:
-      "Nine designs, one set of data. The demo comes in nine visual versions, and a Versions button shows the same page in another design, so a developer chooses a look by clicking through real pages rather than mockups.",
+      "Making nine completely different website designs share one set of apartments and prices. A Versions button switches any page to another design, so a developer compares real pages before choosing. The apartments are entered once and work in every design.",
     story: [
       "Buyers of new-build apartments in Sofia usually get a PDF price list and a phone number. Arkada shows the same offer as a site: pick a building from its facade, a floor from the plan or a 3D model, and an apartment with its price and room areas, then compare and send an enquiry.",
       "Because it is a sales demo, it comes in nine different designs with the same content behind them. A “Versions” button on every page shows that page in another design, so a developer can choose a look by clicking through real pages instead of mockups. The sales team can update apartments, prices and availability themselves at any time.",
     ],
     features: [
       "3D building model",
-      "Nine switchable designs",
+      "Nine complete website designs",
       "Bulgarian and English",
     ],
     year: "2026",
@@ -224,7 +228,7 @@ export const work: Work[] = [
       {
         src: "/work/arkada/hero.webp",
         caption:
-          "The Green version’s home page, with the 3D version’s Lipa Park page in front: the building model and what is left on each floor.",
+          "Two of the nine designs, with the 3D version of Lipa Park in front showing the apartments left on each floor.",
       },
       {
         src: "/work/arkada/apartment.webp",
@@ -248,20 +252,20 @@ export const work: Work[] = [
     name: "Helios",
     kicker: "From spreadsheet to searchable catalogue",
     summary:
-      "More than 3,600 remedies, previously a spreadsheet download, in a catalogue customers can search by name, potency or first letter.",
-    kind: "Pharmacy in Sofia · website rebuild",
+      "More than 3,600 homeopathic remedies in one place online. Customers and homeopaths find what they need and send the pharmacy a single request.",
+    kind: "Pharmacy in Sofia · new website",
     seoTitle: "Helios — a searchable catalogue for a homeopathic pharmacy",
     challenge:
-      "A website from 2012, and a catalogue of more than 3,600 remedies that customers could only get as a spreadsheet download.",
+      "The pharmacy’s website was from 2012. To find a remedy, customers had to download a spreadsheet and look through it themselves.",
     solution:
-      "A new site, fully in Bulgarian, where every remedy shows its forms and prices. Customers put remedies, kits and books into one request, and the staff can update products, prices and opening hours themselves.",
+      "A new site where customers search the catalogue, open a remedy and see its forms and prices. They add remedies, kits and books to one list and send it to the pharmacy by email. The staff update products, prices and opening hours themselves.",
     result:
-      "Making 3,600 remedies, each in several potencies and forms, easy to search. Customers look them up by name, abbreviation, potency or first letter, and everything from the old site and the spreadsheets came across.",
+      "Making 3,600 remedies, each in several potencies and forms, easy to find. The names are long and in Latin, so customers can also search by abbreviation, potency or just the first letter.",
     story: [
       "Helios Homeopharm is a homeopathic pharmacy in Sofia whose website dated from 2012. Its catalogue of over 3,600 remedies was only available as a spreadsheet you downloaded.",
       "The new site is fast and fully in Bulgarian. The whole catalogue can be searched by name, abbreviation, potency or first letter, and each remedy shows its forms with their prices. Customers put remedies, kits and books into one request and send it to the pharmacy. The staff can update products, prices and opening hours themselves, whenever they need to, and everything from the old site and the spreadsheets has been carried over.",
     ],
-    features: ["Searchable catalogue", "Multi-item requests", "Staff editing"],
+    features: ["Search by name or first letter", "Request several items at once", "Staff update it themselves"],
     year: "2026",
     link: {
       label: "View the new site",
@@ -272,17 +276,17 @@ export const work: Work[] = [
       {
         src: "/work/helios/hero.webp",
         caption:
-          "The home page with its catalogue search and potency ruler, and the catalogue in front with Arnica montana open at 30CH.",
+          "The home page and, in front of it, the catalogue with Arnica montana open to show its forms and prices.",
       },
       {
         src: "/work/helios/bento.webp",
         caption:
-          "The product groups: a catalogue of over 3,600 remedies, forms with their price ranges, kits and Bach drops.",
+          "The home page sections: the catalogue, forms and prices, kits and Bach drops.",
       },
       {
         src: "/work/helios/request.webp",
         caption:
-          "A request: the chosen items with quantities and an estimated total, next to the contact form.",
+          "A request with the chosen items, their quantities and an estimated total, next to the contact form.",
       },
       {
         src: "/work/helios/phones.webp",
@@ -295,14 +299,14 @@ export const work: Work[] = [
     name: "vAIced",
     kicker: "Audiobooks with a voice for every character",
     summary:
-      "Web-novel chapters turned into audio, with a different AI voice for each character and a player that follows the text line by line.",
+      "Turns chapters of web novels into audiobooks for readers who’d rather listen. The player follows the text line by line, so you can read along.",
     kind: "Our own product · beta",
     seoTitle: "vAIced — web novels turned into audiobooks",
     own: true,
     challenge:
-      "Letting readers listen to web novels with every character voiced differently, rather than one narrator reading everything.",
+      "Web novels rarely get audiobooks, and ordinary read-aloud apps give every character the same voice.",
     solution:
-      "vAIced reads a chapter, works out who says each line and gives every character an AI voice. The browser player highlights each line as it is read, colours it by speaker and shows a picture for every scene.",
+      "vAIced reads the chapter, works out who says each line and gives every character their own AI voice. As you listen, the player highlights the current line in the speaker’s colour and shows a picture for each scene.",
     result:
       "Working out who is speaking. Prose often doesn’t name the speaker, and every line needs one before it can be voiced. The first finished chapter, from Mother of Learning, has 461 lines across 9 scenes, seven characters and a narrator.",
     story: [
