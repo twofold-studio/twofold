@@ -76,7 +76,19 @@ translated line by line.
 - **Spell out what a reader could misread.** "Nine designs" sounded like colour themes;
   it became "nine completely different website designs". "Developer" on a software
   studio's site reads as programmer; write "property developer".
+- **Vary how pages start.** Two summaries both opened with "Turns…", which read like a
+  template. Give each summary its own subject or shape ("Oxevu turns…", "Chapters of
+  web novels, read aloud…"). Check the other five projects before settling on a line.
+- **One word per thing.** "Machine" and "computer" on the same page is synonym cycling;
+  pick one. The same goes for "films" and "movies" (the site uses "films").
+- **Idiomatic English (British).** A website "dated from 2012", it did not "was from
+  2012". Write "can compare", not a bare "compares", when describing what someone is
+  able to do.
 - **Do not overpolish.** If the user prefers the old wording, restore it without arguing.
+  If text was changed back between sessions (for example "Us, the founders." in the
+  first FAQ answer), treat that as the founders' choice and leave it.
+- **A founder's bio is theirs.** Suggest changes to Vilian's or Plamen's bio, but apply
+  them only when that person agrees.
 
 ## Unslop rules that came up most
 
@@ -126,6 +138,22 @@ translated line by line.
   two "или" close together.
 - Prefer everyday words: "отново" over "наново", "таблиците ви" over "таблици".
 - Headings should sound native. "Отправна точка" was replaced with "Проблемът".
+- Use verbs, not chains of nouns. "…означават отделен прозорец, ръчно редактирани файлове
+  и резервни копия" became "…всеки е в отделен прозорец, настройките се променят на ръка,
+  а резервни копия се правят само когато някой се сети".
+- Avoid calques from English: "в движение" (on the fly), "всички достъпи" (all access),
+  "изгледа" (the layout), "запазен прогрес" (saved progress). Say what happens instead:
+  "докато го пуска", "всички пароли за достъп", "как изглежда сайтът", "продължавате
+  оттам, докъдето сте стигнали".
+- Open "Трудната част" with "Как…" ("Как да разберем кой говори"), not with a stiff
+  "Да се определи…".
+- A new sentence needs its own subject. If the subject was inside the previous clause,
+  add a linking word ("После добавя…").
+- Do not repeat the same verb in one sentence ("Избирате… избира" became "Избирате…
+  подбира").
+- After a number, masculine nouns for people take the plural, not the count form:
+  "седем герои", "трима основатели". The count form is only for things: "девет дизайна",
+  "два прозореца". Checked in November 2026; vAIced's "седем герои" is correct.
 
 ## Case study pages
 
@@ -204,15 +232,15 @@ about most.
 >
 > **The hard part:** Making nine completely different website designs share one set of
 > apartments and prices. A Versions button switches any page to another design, so a
-> developer compares real pages before choosing. The apartments are entered once and
-> work in every design.
+> developer can compare real pages before choosing one. The apartments are entered once
+> and work in every design.
 
 Bulgarian:
 
 > **kind:** Продажба на нови жилища · демо сайт
 >
-> **Трудната част:** Девет изцяло различни дизайна на сайта върху едни и същи апартаменти
-> и цени. Бутонът „Версии“ превключва всяка страница към друг дизайн, така че
+> **Трудната част:** Девет изцяло различни дизайна на сайта, които използват едни и същи
+> апартаменти и цени. Бутонът „Версии“ превключва всяка страница към друг дизайн, така че
 > инвеститорът сравнява истински страници, преди да избере. Апартаментите се въвеждат
 > веднъж и работят във всеки дизайн.
 
@@ -238,5 +266,8 @@ instead of the new one).
   ("10K+ stories", "500+ users") unless the founders confirm them.
 - Confirm that all three marketplace seller pages used for Bukinistika belong to the
   owner.
+- Vilian's bio repeats "build" and uses "backend systems". Suggested, waiting for his
+  OK: "Builds web and desktop apps, customer portals and the servers behind them. More
+  than 50 websites and services so far." Keep "50": a test checks it.
 - The contact email is a gmail address and the site runs on a personal subdomain. The
   founders know; it needs their decision, not a copy change.

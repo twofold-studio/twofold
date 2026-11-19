@@ -78,7 +78,7 @@ export const work: Work[] = [
     ],
     features: [
       "Live console and charts",
-      "Backups on your machine or in the cloud",
+      "Backups on your computer or in the cloud",
       "Control from scripts and AI tools",
     ],
     year: "2026",
@@ -104,7 +104,7 @@ export const work: Work[] = [
     name: "Oxevu",
     kicker: "A home for your films and series",
     summary:
-      "Turns the film and series folders on a home server into a library you can search. The player runs in the browser and remembers where you stopped.",
+      "Oxevu turns the film and series folders on a home server into a library you can search. The player runs in the browser and remembers where you stopped.",
     kind: "Our own product · in development",
     seoTitle: "Oxevu — a self-hosted media library and player",
     own: true,
@@ -211,7 +211,7 @@ export const work: Work[] = [
     solution:
       "Buyers start at the front of the building, pick a floor and see which apartments are still free, on a plan or in 3D. They compare a few, then send a question or ask for a viewing. The sales team updates prices and availability themselves.",
     result:
-      "Making nine completely different website designs share one set of apartments and prices. A Versions button switches any page to another design, so a developer compares real pages before choosing. The apartments are entered once and work in every design.",
+      "Making nine completely different website designs share one set of apartments and prices. A Versions button switches any page to another design, so a developer can compare real pages before choosing one. The apartments are entered once and work in every design.",
     story: [
       "Buyers of new-build apartments in Sofia usually get a PDF price list and a phone number. Arkada shows the same offer as a site: pick a building from its facade, a floor from the plan or a 3D model, and an apartment with its price and room areas, then compare and send an enquiry.",
       "Because it is a sales demo, it comes in nine different designs with the same content behind them. A “Versions” button on every page shows that page in another design, so a developer can choose a look by clicking through real pages instead of mockups. The sales team can update apartments, prices and availability themselves at any time.",
@@ -238,7 +238,7 @@ export const work: Work[] = [
       {
         src: "/work/arkada/project.webp",
         caption:
-          "Lipa Park: homes available, the price range and the floor chooser.",
+          "Lipa Park, with the homes still available, the price range and the floor chooser.",
       },
       {
         src: "/work/arkada/phones.webp",
@@ -256,7 +256,7 @@ export const work: Work[] = [
     kind: "Pharmacy in Sofia · new website",
     seoTitle: "Helios — a searchable catalogue for a homeopathic pharmacy",
     challenge:
-      "The pharmacy’s website was from 2012. To find a remedy, customers had to download a spreadsheet and look through it themselves.",
+      "The pharmacy’s website dated from 2012. To find a remedy, customers had to download a spreadsheet and look through it themselves.",
     solution:
       "A new site where customers search the catalogue, open a remedy and see its forms and prices. They add remedies, kits and books to one list and send it to the pharmacy by email. The staff update products, prices and opening hours themselves.",
     result:
@@ -299,7 +299,7 @@ export const work: Work[] = [
     name: "vAIced",
     kicker: "Audiobooks with a voice for every character",
     summary:
-      "Turns chapters of web novels into audiobooks for readers who’d rather listen. The player follows the text line by line, so you can read along.",
+      "Chapters of web novels, read aloud for people who’d rather listen. The player follows the text line by line, so you can read along.",
     kind: "Our own product · beta",
     seoTitle: "vAIced — web novels turned into audiobooks",
     own: true,
